@@ -1,0 +1,62 @@
+---
+title: Flutter Web Showcase
+date: '2022-11-06'
+tags: ['dart', 'flutter', 'web']
+draft: false
+summary: 'Showcase Flutter Web with Responsive View in Flutter 3 and short explanation'
+---
+
+
+
+## Background
+
+Since Flutter 3 release, Flutter team said they some web-related improvements. They showed some performance test that presumably increases Flutter's performance on the web by using the latest standards regarding image decoding. And some clients also want to use single programming language that cover Mobile and Web Application.
+
+## When you should use Flutter Web
+
+So far Flutter Web still not SEO friendly, so if you want to make a Website with CEO friendly I would recommend to you to using [Next.js](https://nextjs.org/) or [Nuxt.js](nuxtjs.or) instead using Flutter Web. But if you want to create a web just for internal use like Web Dashboard, Personal Web or if you already create Mobile Application and want to make it [PWA](https://web.dev/progressive-web-apps/).
+
+## Impression
+
+From my background as a Mobile Developer, that should be more interesting if you want to try to convert your Mobile Application or Create a new Web Application especially to handle responsive, because you need to handle 3 different layouts _(Desktop, Tablet, Mobile)_ and make your code cleaner. Flutter's have some library to handle it, like: [responsive_ui](https://pub.dev/packages/responsive_ui), [responsive_framework](https://pub.dev/packages/responsive_framework), [responsive_builder](https://pub.dev/packages/responsive_builder), and more.
+
+In my personal web, I handle the responsive layout with create some UI in different layout for Mobile, Tablet and Desktop. And also create a function to handle size in the different screen size.
+
+```dart
+double responsiveSize(
+	BuildContext context,
+	double mobile,
+	double desktop, {
+	double? tablet,
+}) {
+ if (Responsive.isDesktop(context)) {
+	 return desktop;
+ } else if (Responsive.isTablet(context)) {
+	 return tablet ?? mobile;
+ } else {
+	return mobile;
+ }
+}
+```
+
+I also create Dockerfile and Docker Compose to deploy my app in my VPS. Maybe in my next article I will explain more about what I do and some Widget and Animation I use in my personal web.
+
+## Conclusion
+
+So far, Flutter Web still not fit for Web which you need SEO and still have some performance issues. Here I create pros and cons, I hope that will help you to make decision before create Web using Flutter.
+
+### Pros
+
+- Using one code base for multiple application ecosystem
+- Fast development if you're already create application using Flutter
+- PWA ready
+
+### Cons
+
+- Not SEO optimized
+- Hard to debug using browser inspect element
+- Take a long time on first load
+- Still tricky to handle responsive in different screen size
+
+If you have any question or want to discuss, you can write your comment.
+Thanks!
