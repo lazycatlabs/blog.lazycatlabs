@@ -14,12 +14,11 @@ import LeftNavigation from '@/components/LeftNavigation'
 const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
-  const { slug, fileName, date, title, images, tags } = frontMatter
+  const { slug, date, title, tags } = frontMatter
 
   const [ids, setIds] = React.useState([])
   React.useEffect(() => {
     const titles = document.querySelectorAll('h2')
-    console.log(titles)
     const idArrays = Array.prototype.slice
       .call(titles)
       .map((title) => ({ id: title.id, title: title.innerText }))

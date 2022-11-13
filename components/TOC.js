@@ -12,7 +12,7 @@ const OFFSET = 100
 const Table_of_Contents = ({ ids }) => {
   const [currentActiveIndex] = useScrollSpy(
     ids.map((item) =>
-      document.querySelector(`#${item.id.toString()}`)?.parentElement.closest('section')
+      document.querySelector(`#${item.id.toString()}`).parentElement.closest('section')
     ),
     { offset: OFFSET }
   )
@@ -26,8 +26,8 @@ const Table_of_Contents = ({ ids }) => {
                 <a
                   className={
                     currentActiveIndex === index
-                      ? 'toc-a font-medium text-primary-600 underline dark:text-primary-400'
-                      : 'toc-a hover:italic'
+                      ? 'font-medium text-primary-600 underline dark:text-primary-400'
+                      : 'hover:italic'
                   }
                 >
                   <li key={item.id} className="py-4">

@@ -19,7 +19,7 @@ const LeftNavigation = ({ ids }) => {
         setIsSticky(false)
       }
     }
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: false })
     return () => window.removeEventListener('scroll', onScroll)
   }, [isSticky])
 

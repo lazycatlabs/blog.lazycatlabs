@@ -13,7 +13,7 @@ export const MDXComponents = {
   a: CustomLink,
   pre: Pre,
   BlogNewsletterForm: BlogNewsletterForm,
-  wrapper: ({ components, layout, ...rest }) => {
+  wrapper: ({ layout, ...rest }) => {
     const Layout = require(`../layouts/${layout}`).default
     return <Layout {...rest} />
   },
