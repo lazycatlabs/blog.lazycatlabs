@@ -45,7 +45,6 @@
     "unist-util-visit": "^4.0.0"
   },
   "devDependencies": {
-    "@mdx-js/react": "^2.1.5",
     "@svgr/webpack": "^6.1.2",
     "cross-env": "^7.0.3",
     "dedent": "^0.7.0",
