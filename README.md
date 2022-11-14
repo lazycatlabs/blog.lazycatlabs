@@ -2,13 +2,19 @@
 
 Forked from the excellent [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog)
 
-## Installation
+## TODO ✅
+- [ ] Merge blog menu to home
+- [ ] Rename `Blog to Home`
+- [ ] Remove path /blog on detail blog
+- [ ] Add image on list blog, using seo image
+
+## Installation ⚙️
 
 ```bash
 npm install
 ```
 
-## Development
+## Development 🤌
 
 First, run the development server:
 
@@ -26,7 +32,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## Extend / Customize
+## Extend / Customize 📝
 
 `data/siteMetadata.js` - contains most of the site related information which should be modified for a user's need.
 
@@ -56,7 +62,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 `next.config.js` - configuration related to Next.js. You need to adapt the Content Security Policy if you want to load scripts, images etc. from other domains.
 
-## Post
+## Post 📋
 
 ### Frontmatter
 
