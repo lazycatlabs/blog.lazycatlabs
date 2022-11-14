@@ -13,6 +13,7 @@ const ContentSecurityPolicy = `
   connect-src *;
   font-src 'self';
   frame-src giscus.app
+  frame-src youtube.com www.youtube.com
 `
 
 const securityHeaders = [
