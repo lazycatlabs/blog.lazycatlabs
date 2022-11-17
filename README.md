@@ -4,9 +4,9 @@ Forked from the excellent [Tailwind Nextjs Starter Blog](https://github.com/timl
 
 ## TODO ✅
 
-- [ ] Merge blog menu to home
-- [ ] Rename `Blog to Home`
-- [ ] Remove path /blog on detail blog
+- [x] Move blog to post
+- [x] Rename `Blog to Posts`
+- [x] Rename path /blog to /posts
 - [ ] Add image on list blog, using seo image
 
 ## Installation ⚙️
