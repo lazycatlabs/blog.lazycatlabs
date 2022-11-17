@@ -11,7 +11,7 @@ import { useState } from 'react'
 const MAX_DISPLAY = 5
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
+  const posts = await getAllFilesFrontMatter('posts')
 
   return { props: { posts } }
 }
@@ -76,7 +76,7 @@ export default function Home({ posts }) {
                     <div>
                       <h3 className="mb-2 text-2xl font-bold leading-8 tracking-tight">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/posts/${slug}`}
                           className="text-gray-900 hover:text-primary-600  dark:text-gray-100 dark:hover:text-primary-400 "
                         >
                           {title}
@@ -94,7 +94,7 @@ export default function Home({ posts }) {
                     <div className="text-base font-medium leading-6">
                       <button className="group inline-flex h-9 items-center whitespace-nowrap text-sm font-semibold">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/posts/${slug}`}
                           className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 "
                           aria-label={`Read "${title}"`}
                         >
@@ -113,7 +113,7 @@ export default function Home({ posts }) {
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end py-8 text-base font-medium leading-6">
           <Link
-            href="/blog"
+            href="/posts"
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >

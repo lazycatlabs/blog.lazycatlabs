@@ -1,5 +1,5 @@
 const headerNavLinks = [
-  { href: '/blog', title: 'Blog' },
+  { href: '/posts', title: 'Posts' },
   { href: '/tags', title: 'Tags' },
   { href: 'https://lazycatlabs.com/', title: 'About' },
 ]

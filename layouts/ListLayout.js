@@ -63,7 +63,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     <div>
                       <h3 className="mb-2 text-2xl font-bold leading-8 tracking-tight">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/posts/${slug}`}
                           className="text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 "
                         >
                           {title}
@@ -81,7 +81,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                     <div className="text-base font-medium leading-6">
                       <button className="group inline-flex h-9 items-center whitespace-nowrap text-sm font-semibold">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/posts/${slug}`}
                           className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 "
                           aria-label={`Read "${title}"`}
                         >

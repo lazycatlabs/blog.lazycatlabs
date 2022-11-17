@@ -28,7 +28,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
   return (
     <SectionContainer>
       <BlogSEO
-        url={`${siteMetadata.siteUrl}/blog/${slug}`}
+        url={`${siteMetadata.siteUrl}/posts/${slug}`}
         authorDetails={authorDetails}
         {...frontMatter}
       />
@@ -119,7 +119,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                           Previous Article
                         </h3>
                         <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 ">
-                          <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                          <Link href={`/posts/${prev.slug}`}>{prev.title}</Link>
                         </div>
                       </div>
                     )}
@@ -129,7 +129,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                           Next Article
                         </h3>
                         <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 ">
-                          <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                          <Link href={`/posts/${next.slug}`}>{next.title}</Link>
                         </div>
                       </div>
                     )}
@@ -138,10 +138,10 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               </div>
               <div className="sticky top-[50px] mb-2 pt-4 xl:pt-8">
                 <Link
-                  href="/blog"
+                  href="/posts"
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 "
                 >
-                  &larr; Back to the blog
+                  &larr; Back to the posts
                 </Link>
                 <div className="hidden xl:block">
                   <LeftNavigation ids={ids} />

@@ -3,6 +3,7 @@
 Forked from the excellent [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog)
 
 ## TODO ✅
+
 - [ ] Merge blog menu to home
 - [ ] Rename `Blog to Home`
 - [ ] Remove path /blog on detail blog
@@ -44,7 +45,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 `data/logo.svg` - replace with your own logo.
 
-`data/blog` - replace with your own blog posts.
+`data/posts` - replace with your own blog posts.
 
 `public/static` - store assets such as images and favicons.
 
@@ -96,6 +97,6 @@ summary: 'Looking for a performant, out of the box template, with all the best i
 images: ['/static/images/canada/mountains.jpg', '/static/images/canada/toronto.jpg']
 authors: ['default', 'sparrowhawk']
 layout: PostLayout
-canonicalUrl: https://tailwind-nextjs-starter-blog.vercel.app/blog/introducing-tailwind-nextjs-starter-blog
+canonicalUrl: https://tailwind-nextjs-starter-blog.vercel.app/posts/introducing-tailwind-nextjs-starter-blog
 ---
 ```
