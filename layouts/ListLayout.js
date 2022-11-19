@@ -53,15 +53,15 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
             return (
               <li key={slug} className="py-4">
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                  <div className="flex justify-end md:justify-start">
+                    <div className="sr-only">Published on</div>
+                    <div className="mono-type w-[11rem] rounded-md bg-black/5 py-1 px-2 text-center font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-100">
                       <time dateTime={date}>{formatDate(date)}</time>
-                    </dd>
-                  </dl>
+                    </div>
+                  </div>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
-                      <h3 className="mb-2 text-2xl font-bold leading-8 tracking-tight">
+                      <h3 className="mono-type mb-2 text-2xl font-extrabold leading-8 tracking-tight">
                         <Link
                           href={`/posts/${slug}`}
                           className="text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 "
