@@ -13,7 +13,7 @@ const siteMetadata = {
   github: 'https://github.com/lazycatlabs',
   instagram: 'https://www.instagram.com/lazycatlabs/',
   facebook: 'https://www.facebook.com/lazycatlabs/',
-  youtube: 'https://www.youtube.com/channel/UCzXKJlJHPIsQKhvuzHQ7ImA',
+  youtube: 'https://www.youtube.com/@LazycatLabs',
   linkedin: 'https://www.linkedin.com/in/mudassir-321462139/',
   upwork: 'https://www.upwork.com/freelancers/~01913209d41be922f1',
   githubSponsor: 'https://github.com/sponsors/Lzyct',
