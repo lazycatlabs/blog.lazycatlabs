@@ -6,7 +6,7 @@ export default function Support() {
     <footer>
       <div className="my-4 flex flex-col items-center">
         <div className="mb-3">
-          <h3 className="font-medium">Support Me</h3>
+          <h3 className="font-medium">Support Me ❤️</h3>
         </div>
         <div className="mb-2 flex flex-wrap content-center gap-x-2 gap-y-3 space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <Link

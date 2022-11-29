@@ -1,0 +1,116 @@
+---
+title: 'Flutter Library: Media Scanner'
+date: '2022-11-29'
+tags: ['flutter', 'library']
+images: ['/static/images/flutter/flutter_media_scanner.png']
+draft: false
+summary: 'This library will help you to refresh Gallery after you save Media like Photo and Video on Android.'
+---
+
+## Background
+
+By default, in Android when you create a new Image/Video, you need to run MediaScannerConnection to show Image/Video on your Gallery. And that should be an issue when you create new Image/Video on Flutter using [image_picker](https://pub.dev/packages/image_picker) because that library not reload the Media and make your Image/Video not showing on your Gallery.
+
+## Bridge code from Flutter to Android
+
+When you're working on Flutter project and need to do something in Android Native side, you can use [Platform Channel](https://docs.flutter.dev/development/platform-integration/platform-channels). And you need to register it in your pubspec.yaml, for more detail you can [check here](https://docs.flutter.dev/development/packages-and-plugins/developing-packages). Or maybe I will create a specific post about How to create a library on Flutter.
+
+After you read the instruction about how to create plugin on Flutter, we can start to create plugin on Flutter but in this case we will only work on Android Platform since this issue only happen on Android.
+
+Flutter communicate with Android native from this method
+
+```kotlin
+override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "media_scanner")
+    channel.setMethodCallHandler(this)
+    context = flutterPluginBinding.applicationContext
+}
+
+override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    if (call.method == "refreshGallery") {
+        val path: String? = call.argument("path")
+        result.success(refreshMedia(path))
+    } else {
+        result.notImplemented()
+    }
+}
+```
+
+[View on GitHub](https://github.com/Lzyct/media_scanner/blob/08e16463b5e144326bd6e4715bf5b4b02977059b/android/src/main/kotlin/com/lazycatlabs/media_scanner/MediaScannerPlugin.kt?plain=1#L27-L40)
+
+`media_scanner` is Method channel name. We define specific name for method channel to communicate from Dart to Kotlin. And we're using method name (`refreshGallery`) to run a specific function when that method name triggered.
+We also can pass some arguments, because we need full path for Image/Video we pass that value.
+
+## Re-Scan all media on Android Device
+
+On Android, with **API below 28**, we can use `context.sendBroadcast` with `Intent.ACTION_MEDIA_SCANNER_SCAN_FILE` to refresh media files. But **after API 28** that method is [deprecated](https://stackoverflow.com/questions/60203353/action-media-scanner-scan-filestring-is-deprecated) we need to update the code and start using [MediaScannerConnection](https://developer.android.com/reference/kotlin/android/media/MediaScannerConnection).
+
+```kotlin
+     result.success(refreshMedia(path))
+```
+
+on result.success we call `refreshMedia` method, that's method will execute a function to refresh media library
+
+```kotlin
+private fun refreshMedia(path: String?): String {
+    return try {
+        /// Throw NPE if path is empty/null
+        if (path == null)
+            throw NullPointerException()
+        val file = File(path)
+        /// Check if still using sendBroadcast or MediaScannerConnection
+        if (android.os.Build.VERSION.SDK_INT < 29) {
+            context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)))
+        } else {
+            MediaScannerConnection.scanFile(context, arrayOf(file.toString()),
+                    arrayOf(file.name), null)
+        }
+        Log.d("Media Scanner", "Success show image $path in Gallery")
+        "Success show image $path in Gallery"  } catch (e: Exception) {
+        Log.e("Media Scanner", e.toString())
+        e.toString()
+    }
+
+}
+```
+
+[View on GitHub](https://github.com/Lzyct/media_scanner/blob/08e16463b5e144326bd6e4715bf5b4b02977059b/android/src/main/kotlin/com/lazycatlabs/media_scanner/MediaScannerPlugin.kt?plain=1#L43-L61)
+
+And from Dart we create class to access Kotlin code
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+
+class MediaScanner {
+  /// Define Method Channel
+  static const MethodChannel _channel = const MethodChannel('media_scanner');
+
+  /// Path : Path of Image/Video
+  static Future<String?> loadMedia({String? path}) async =>
+      await _channel.invokeMethod('refreshGallery', {"path": path});
+}
+```
+
+[View on GitHub](https://github.com/Lzyct/media_scanner/blob/08e16463b5e144326bd6e4715bf5b4b02977059b/lib/media_scanner.dart#L1-L12)
+
+## Use Library from pub.dev
+
+You can save your time and just use my library [media_scanner](https://pub.dev/packages/media_scanner)
+
+add my library to your `pubspec.yaml`
+
+```
+media_scanner: ^2.1.0 // use latest version
+```
+
+and you can use it just simple like this
+
+```dart
+import 'package:media_scanner/media_scanner.dart';
+
+...
+MediaScanner.loadMedia(path: filePath);
+...
+```
