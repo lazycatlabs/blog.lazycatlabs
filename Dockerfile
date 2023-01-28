@@ -7,6 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 # RUN yarn install --frozen-lockfile
 RUN npm install -g npm@9.4.0
+RUN npm i core-js-pure
 RUN npm i
 
 # Rebuild the source code only when needed
