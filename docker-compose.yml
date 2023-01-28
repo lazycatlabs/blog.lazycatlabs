@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   lazycatlabs-web-blog:
-    container_name: "blog.lazycatlabs"
-    image: blog.lazycatlabs:latest
+    container_name: "blog-lazycatlabs"
+    image: blog-lazycatlabs:latest
     ports:
       - "6970:3030"
