@@ -1,0 +1,181 @@
+---
+title: 'Flutter Project Structure: Layer First or Features First 🤔?'
+date: '2023-01-31'
+tags: ['flutter', 'app development']
+images: ['/static/images/flutter/flutter_layer_features_first.png']
+draft: false
+summary: 'When and why we use Layer First and Features First, which is better? '
+---
+
+## Background
+
+The main thing before we start working on Flutter App Development is to decide the _`Project Structure`_. There are things to keep in mind to ensure a _`scalable and manageable project`_. In the **`Architecture Partitioning`**, we can separate between Technical Partitioning _`(Layer First)`_ structure and Domain Partitioning _`(Features First)`_ structure. So we can choose which one fit with our team and requirements.
+
+## Layer First (features inside layers) 🤌
+
+In the Technical Partitioning _`(Layer First)`_, we separate the application components by technical. For example, the common thing we will find is Layered [(N-Tier) Architecture](https://www.guru99.com/n-tier-architecture-system-concepts-tips.html). Which is grouped by technical, for example:
+
+```directory
+ lib
+	└─  data
+	|   └─ datasources
+	|   |  └─ local
+	|   |  └─ remote
+	|   └─ models
+	|   └─ repositories
+	└─  domain
+	|   └─ entities
+	|   └─ repositories
+	|   └─ usecases
+	└─  pages
+	     └─ feature
+		    └─ cubit
+```
+
+_Explanation:_
+
+- **data:** The data layer consists of a Repository implementation (the contract comes from the domain layer) and data sources - one is usually for getting remote (API) data and the other for caching that data. The repository is where you decide if you return fresh or cached data, when to cache it and so on.
+  - **datasources:** Based on the structure, we can see mostly just have 2 data resources, from local or remote.
+    - **local:** Local data source /database, for example, Hive or SharedPreferences.
+    - **remote:** Remote data sources like Firebase Realtime Database or Rest API.
+      - model: This model is from Response API.
+      - services: Configuration for network clients, like dio or Firestore.
+  - **models:** The place for models response from API.
+  - **repositories:** Here we implement contracts repositories from the **domain**.
+- **domain:** is the inner layer that shouldn't be susceptible to the whims of changing data sources or porting our app to Angular Dart. It will contain only the core business logic (use cases) and business objects (entities). It should be independent of every other layer.
+  - **entities:** This data should be visible to the user, so we do transform raw JSON from API to the entity.
+  - **repositories:** The place where we define all contracts will then be implemented on the **data layer**.
+  - **usecases:** Implement usecase from the **core**, here we define business logic from the Application.
+- **pages:** This is the stuff you're used to from "unclean" Flutter architecture. You need widgets to display something on the screen. These widgets then dispatch events to the Bloc and listen for states (or an equivalent if you don't use Bloc for state management).
+  - screen name, ex: **login:** All related to UI and User Interaction on the User screen.
+    - **cubit:** Here we handle state management and let UI know when the state is changed from **onLoading**, **onSuccess**, and **onError**.
+
+## Features First (layer inside features) 🫱🏻‍🫲🏼
+
+Different with Technical Partitioning _`(Layer First)`_, Domain Partition _`(Features First)`_ separate the application components based on Feature / Domain in business, which is all technical partitioning grouped by Feature/ Domain.
+
+And how we handle for the shared code like `main` or `home screen`?
+In these case, we can create new feature called `common`, `shared` or `general`. But what if you have more than 20 features, and some code needs to be shared by only two of them, should we put that on `shared` folder? In this scenario, I will import the feature to which one feature need it. For example, I have `Feature A` but in the `Feature C` I need to use models or repository from `Feature A`, so I will just import the `Feature A` to the `Feature C`. But there is no right or wrong answer, and you have to use your best judgement on a case-by-case basis or you can discuss with your team.
+
+Here example your project structure with features first:
+
+```directory
+ lib
+	└─ features
+		  └─ auth
+		  |  └─ data
+		  |  └─ domain
+		  |	 └─ pages
+		  └─ user
+		  └─ transaction
+		  └─ payment
+```
+
+## When I should use it
+
+Based on my experience, _`Layer First`_ and _`Features First`_ have **pros** and **cons**.
+If your _`application is simple`_ and _`the member of your team less than 5`_, _`layer first`_ is fit for your team because it is easy to maintain, you just need to define the layer and is easier to discuss with your team.
+
+But when your _`application is complex, have a lot of feature, and a lot of developers`_, _`features first`_ will be the best option. Because every developer will be responsible based on what feature they're working on. Fewer dependencies and reduce conflict on your project repository because they're only working on their features. And we can also just delete the features, instead need to check features on every layer if we're still using layer first project architecture and remove it one by one.
+
+## Bonus 🫰🏻
+
+Here my common project structure I use for now.
+
+<details>
+<summary> Project structure </summary>
+
+```` 
+lib/
+├── core
+│   ├── api
+│   ├── error
+│   ├── localization
+│   │   └── generated
+│   ├── resources
+│   ├── usecase
+│   └── widgets
+├── features
+│   ├── auth
+│   │   ├── data
+│   │   │   ├── datasources
+│   │   │   ├── models
+│   │   │   └── repositories
+│   │   ├── domain
+│   │   │   ├── entities
+│   │   │   ├── repositories
+│   │   │   └── usecases
+│   │   └── pages
+│   │       ├── login
+│   │       │   └── cubit
+│   │       └── register
+│   │           └── cubit
+│   ├── general
+│   │   └── pages
+│   │       ├── main
+│   │       ├── settings
+│   │       │   └── cubit
+│   │       └── splashscreen
+│   └── users
+│       ├── data
+│       │   ├── datasources
+│       │   ├── models
+│       │   └── repositories
+│       ├── domain
+│       │   ├── entities
+│       │   ├── repositories
+│       │   └── usecases
+│       └── pages
+│           └── dashboard
+│               └── cubit
+└── utils
+    ├── ext
+    ├── helper
+    └── services
+
+````
+</details>
+---
+<details>
+<summary> Test Folder </summary>
+
+````
+test/
+├── features
+│   ├── auth
+│   │   ├── data
+│   │   │   ├── datasources
+│   │   │   │   ├── models
+│   │   │   │   └── repositories
+│   │   │   └── repositories
+│   │   ├── domain
+│   │   │   └── usecases
+│   │   └── presentation
+│   │   ├── login
+│   │   │   └── cubit
+│   │   └── register
+│   │   └── cubit
+│   ├── general
+│   │   └── presentation
+│   │   └── settings
+│   │   └── cubit
+│   └── users
+│   ├── data
+│   │   ├── datasources
+│   │   │   ├── models
+│   │   │   └── repositories
+│   │   └── repositories
+│   ├── domain
+│   │   └── usecases
+│   └── presentation
+│   └── dashboard
+│   └── cubit
+└── helpers
+└── data_dummy
+````
+</details>
+
+
+
+also you can check it on my [GitHub](https://github.com/lazycatlabs/flutter_auth_app)
+
