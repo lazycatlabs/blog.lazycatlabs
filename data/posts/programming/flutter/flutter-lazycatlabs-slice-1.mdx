@@ -1,0 +1,203 @@
+---
+title: 'Flutter UI Slice: Lazycatlabs Part 1'
+date: '2023-02-18'
+tags: ['flutter', 'ui slice']
+images: ['/static/images/flutter/flutter_lazycatlabs_slice_1.png']
+draft: false
+summary: 'In this part, we are trying to create Animated Mouse scroll from LazycatLabs.com'
+---
+
+## Background
+
+I have created a web using Flutter Web, you can see on [lazycatlabs.com](https://lazycatlabs.com/) also for Video Showcase you can see [here](https://www.youtube.com/watch?v=y07lDPzfVgk). So I want to try to slice the UI component from what I use on my Flutter web.
+
+## Component
+
+The first component I want to share is the simple one.
+The mouse scroll animation. 🖱️
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/mouse_animated.gif" />
+</div>
+
+Actually, you can easily to create GIF file and use that as asset, or using [Lottie](https://pub.dev/packages/lottie) to load animation. But in this case, I'm trying to create that widget manually because at the same time I want to learn something new like create animation on Flutter.
+
+## Create the component
+
+In the Flutter, we have a playground to do simple code in here [dartpad.dev](https://dartpad.dev/)
+
+- Click `New Pad`
+- Choose `Flutter`
+- And click `Run` button to check the result should be like this.
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/IMAGE%202023-02-18%2015%3A03%3A39.jpg" />
+</div>
+
+So the first one, we need to create a new class `Animated Mouse`
+
+```dart
+class AnimatedMouse extends StatefulWidget {
+  const AnimatedMouse({super.key});
+
+  @override
+  State<AnimatedMouse> createState() => _AnimatedMouseState();
+}
+
+class _AnimatedMouseState extends State<AnimatedMouse>
+    with SingleTickerProviderStateMixin {
+  ...
+}
+```
+
+When we are starting to create animation, we need `TickerProvider` class and that's why we add `with SingleTickerProviderStateMixin` to make our component support animation.
+
+After that, we should create a controller to manage the animation
+
+```dart
+late final AnimationController _animationController = AnimationController(
+  duration: const Duration(seconds:1)
+  vsync: this,
+)..repeat(reverse:true);
+```
+
+For animation duration, we set it into `1 second` and we do `repeat` the animation with `reverse:true` to make our animation looping, and also for the `vsync: this`, `this` is reference to `TickerProvider` from `SingleTickerProviderStateMixin`. And why I'm using `late` when create the variable, because when using late I don't need to initialize the data manually on `initState` method.
+
+And the next is to create `Alignment Animation`, as you can see the mouse scroll is moving from `topCenter` to `Center`.
+
+```dart
+late final Animation<Alignment> _animatedAlign =
+    Tween(begin: Alignment.topCenter, end: const Alignment(0, 0.45))
+        .animate(_animationController);
+```
+
+So, we create `Animation` variable will return `Alignment` with start animation is `Aligment.topCenter` and the end of animation to `Alignment(0,0.45)` which is `Alignment.bottomCenter` is equal `Alignment(0.0,1.0)` and animate using `_animationController`.
+
+After that, we need to build the component using `AnimatedBuilder`.
+
+```dart
+
+@override
+Widget build(BuildContext context) {
+  /// We wrap the widget with `AnimatedBuilder`
+  /// and using controller from `_animationController`
+  return AnimatedBuilder(
+    animation: _animationController,
+    builder: (context, _) {
+       /// And then we using `AnimatedContainer`
+       /// to move scrollbar based on `_animatedAlign.value`
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: 30,
+        height: 70,
+        alignment: _animatedAlign.value,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(
+            color: Colors.white,
+            width: 3,
+          ),
+        ),
+        /// We also using `AnimatedOpacity`
+        /// to show/hide the mouse scrollbar based on AnimationStatus
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 300),
+          opacity:
+              _animationController.status == AnimationStatus.forward ? 1 : 0,
+          child: Container(
+            width: 4,
+            height: 12,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+```
+
+Here for the result:
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/mouse_animated_result.gif" />
+</div>
+
+## Full Code
+
+Here for the full code
+
+```dart
+import 'package:flutter/material.dart';
+
+class AnimatedMouse extends StatefulWidget {
+  const AnimatedMouse({super.key});
+
+  @override
+  State<AnimatedMouse> createState() => _AnimatedMouseState();
+}
+
+class _AnimatedMouseState extends State<AnimatedMouse>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController = AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  )..repeat(reverse: true);
+
+  late final Animation<Alignment> _animatedAlign =
+      Tween(begin: Alignment.topCenter, end: const Alignment(0, 0.45))
+          .animate(_animationController);
+
+  @override
+  void dispose() {
+    /// Dispose animationController
+	  _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+ Widget build(BuildContext context) {
+  /// We wrap the widget with `AnimatedBuilder`
+  /// and using controller from `_animationController`
+	  return AnimatedBuilder(
+	    animation: _animationController,
+	    builder: (context, _) {
+	       /// And then we using `AnimatedContainer`
+	       /// to move scrollbar based on `_animatedAlign.value`
+	      return AnimatedContainer(
+	        duration: const Duration(milliseconds: 300),
+	        width: 30,
+	        height: 50,
+	        alignment: _animatedAlign.value,
+	        decoration: BoxDecoration(
+	          borderRadius: BorderRadius.circular(30),
+	          border: Border.all(
+	            color: Colors.white,
+	            width: 3,
+	          ),
+	        ),
+	        /// We also using `AnimatedOpacity`
+	        /// to show/hide the mouse scrollbar based on AnimationStatus
+	        child: AnimatedOpacity(
+	          duration: const Duration(milliseconds: 300),
+	          opacity:
+	              _animationController.status == AnimationStatus.forward ? 1 : 0,
+	          child: Container(
+	            width: 4,
+	            height: 12,
+	            decoration: BoxDecoration(
+	              color: Colors.white,
+	              borderRadius: BorderRadius.circular(8),
+	            ),
+	          ),
+	        ),
+	      );
+	    },
+	  );
+  }
+}
+```
+
+If you have any questions, feel free to write your comment and don't forget to add reactions if you like this article.
