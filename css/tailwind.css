@@ -13,7 +13,7 @@
 }
 
 .footnotes {
-  @apply pt-8 mt-12 border-t border-gray-200 dark:border-gray-700;
+  @apply mt-12 border-t border-gray-200 pt-8 dark:border-gray-700;
 }
 
 .csl-entry {
@@ -80,9 +80,14 @@ header.isSticky .title {
 }
 
 a {
-  @apply hover:line-through dark:hover:line-through duration-500;
+  @apply duration-500 hover:line-through dark:hover:line-through;
 }
 
 button {
-  @apply hover:line-through dark:hover:line-through duration-500;
+  @apply duration-500 hover:line-through dark:hover:line-through;
+}
+
+.giscus,
+.giscus-frame {
+  width: 100%;
 }
