@@ -1,0 +1,96 @@
+---
+title: 'Flutter Go Router: Async Await and Return Data from Previous Screen'
+date: '2023-03-05'
+tags: ['flutter', 'library', 'go router']
+images: ['/static/images/flutter/flutter_go_router_async_await.png']
+draft: false
+summary: 'Solution for async await and return data from previous page in go_router library'
+---
+
+## Background
+
+In the Navigator, we can use `async await`. We can wait until the previous page is popped and do something with value from that screen. For example, we will refresh the list page after we edit the data in edit page.
+
+```dart
+class Page1 extends Stateless{
+
+  ....
+  TextButton(
+  onPressed:() async {
+      /// Will get return boolean data
+	    final result = await Navigator.pushNamed("page2") as bool;
+			if (result){
+			...
+			}
+	  }
+  )
+}
+
+---
+
+class Page2 extends Stateless{
+
+  ....
+  TextButton(
+  onPressed:() async {
+      /// return true to Page1
+	    Navigator.pop(context,true);
+	  }
+  )
+}
+
+```
+
+But, In the `go_router` for `context.goNamed` or `context.pushNamed` is return void
+![image](https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/2023-03-05%2021.26.00.jpg)
+
+It's different with `Navigator.pushNamed` it's using `Future` and `T` object, so we can return `await` and `T` object data when you call `Navigator.pop(context,T)`
+
+![image](https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/2023-03-05%2021.20.58.jpg)
+
+## Popping and return value in Go Router
+
+In the `go_router` you can do this:
+
+```dart
+class Page1 extends Stateless{
+
+  ....
+  TextButton(
+  onPressed:() async {
+      /// Will get return boolean data
+	    context.pushNamed(
+		    "page2",
+		    /// this will be triggerd when `result.call(true);` is called
+		    /// on the Page2
+		    extra:(result){
+			    if (result){
+					...
+					}
+		    }
+	    );
+	  }
+  )
+}
+
+---
+
+class Page2 extends Stateless{
+  const Page2({super.key, required this.result});
+
+  // create callback and will return bool
+  final Function(bool) result;
+
+  ....
+  TextButton(
+  onPressed:() async {
+	    context.pop();
+	    /// trigger extra on Page1
+	    result.call(true);
+	  }
+  )
+}
+
+```
+
+For the `bool` you can replace it with what data you need, for Example `String, Object, etc.`
