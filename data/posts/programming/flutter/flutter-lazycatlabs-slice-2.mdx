@@ -84,7 +84,8 @@ late final AnimationController _animationController = AnimationController(
 
 For animation duration, we set it into `1 second`, for the `vsync: this`, `this` is reference to `TickerProvider` from `SingleTickerProviderStateMixin`. And why I'm using `late` when create the variable, because when using late I don't need to initialize the data on `initState` method.
 
-And the next, we need to create `Offset Animation`, because we need to move the offset background when normal and on hover.
+And the next, we need to create `Offset Animation`, because we need to move the button when cursor `onHover` to make animation smoother when background circle changed.
+
 
 ```dart
 late final Animation<Offset> _offsetAnimation =
@@ -94,7 +95,10 @@ late final Animation<Offset> _offsetAnimation =
         });
 ```
 
-So, we create `Animation` variable will return `Offset` with start offset is `Offset.zero` and the end of animation to `Offset(0.1,0)` and we will use `CurvedAnimation` with parent from `_animationController` and use `curve: Curves.easeIn`, and also we need to refresh the page if animation is changed.
+
+So, we create `Animation` variable will return `Offset` with start offset is `Offset.zero` and the end of animation to `Offset(0.1,0)` it's mean the button will be moving 0.1 by Horizontal, and we will use `CurvedAnimation` with parent from `_animationController` and use `curve: Curves.easeIn`, and also we need to refresh the page if animation is changed.
+You can try to change the value and see the different.
+
 
 After that, we need to build the component using `MouseRegion` because we need to detect if the widget is hovering or not and use `SlideTransition`
 
@@ -107,8 +111,10 @@ void setOnHover({bool isHover = false}) {
   setState(() {
       _isHovering = isHover;
     if (isHover) {
+    /// Starts running this animation forwards (towards the end).
       controller.forward();
     } else {
+    /// Starts running this animation in reverse (towards the beginning).
       controller.reverse();
     }
   });
