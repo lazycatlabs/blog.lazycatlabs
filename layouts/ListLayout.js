@@ -18,7 +18,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
   return (
     <>
       <div className="divide-y">
-        <div className="space-y-2 pt-4 pb-8 md:space-y-5 md:pt-24">
+        <div className="space-y-2 pb-8 pt-4 md:space-y-5 md:pt-24">
           <h1 className="mono-type text-4xl  font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
@@ -55,7 +55,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <div className="flex justify-end md:justify-start">
                     <div className="sr-only">Published on</div>
-                    <div className="mono-type w-[11rem] rounded-md bg-black/5 py-1 px-2 text-center font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-100">
+                    <div className="mono-type w-[11rem] rounded-md bg-black/5 px-2 py-1 text-center font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-100">
                       <time dateTime={date}>{formatDate(date)}</time>
                     </div>
                   </div>

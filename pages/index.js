@@ -30,7 +30,7 @@ export default function Home({ posts }) {
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y">
-        <div className="space-y-2 pt-4 pb-8 md:space-y-5 md:pt-24">
+        <div className="space-y-2 pb-8 pt-4 md:space-y-5 md:pt-24">
           <h1 className="mono-type text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Latest
           </h1>
