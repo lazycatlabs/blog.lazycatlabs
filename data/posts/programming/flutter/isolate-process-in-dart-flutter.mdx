@@ -1,0 +1,264 @@
+---
+title: 'Isolates process in Dart'
+date: '2023-05-02'
+tags: ['flutter', 'dart', 'isolate']
+images: ['/static/images/flutter/isolates_process_dart.png']
+draft: false
+summary: 'Parse large JSON Data in Dart/Flutter with Isolates'
+---
+
+Not only you have been isolated when pandemic from 2020 until 2022, Dart code also have experience with [isolated](https://api.flutter.dev/flutter/dart-isolate/Isolate-class.html) _(because by default dart run in the main isolates 🗿)_.
+
+## Background
+
+Dart is single-threaded language. Dart programs run in the main isolate by default. It's the thread where a program starts to run and execute. So, all code inside `main()` will be run in main isolate. More detail, you can read a good explanation about that from [codemagic.io](https://blog.codemagic.io/understanding-flutter-isolates/)
+
+## When I should use isolate
+
+As what I mention above, about dart is single-threaded language. But you can also make it multithreading if you have very heavy computation or process. All UI you see on your application is running in the `main thread` because all code on your Flutter App run inside main() function.
+
+```dart
+void main() {
+  runApp(MyApp());
+}
+```
+
+You can create a new thread/isolate the process for heavy computation like render an image or do looping for 1 million times _(I'm not sure what are you doing with doing loop for 1 million times)_ or parse large JSON data to object like this:
+
+![](https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/large_json.jpg)
+
+If you run that task in the `Main Thread`, you can block another process in the main thread, and maybe you can get this message on your application, and then make your application force close.
+
+![](https://i.ytimg.com/vi/CxCO09U0okE/maxresdefault.jpg)
+
+## Parse _(large)_ JSON data to the Object
+
+Parsing JSON data from API to the object is a very common task in the application. If you have small payload data, it's still safe to run the parsing code in the `main isolate`. But if you have large JSON data to load in `main isolate` that will make your App laggy (frame drop) while run the process. That's why we need to do that in the new isolate. You can see the example from [codewithandrea.com](https://codewithandrea.com/articles/parse-large-json-dart-isolates/). But from that example we need to do it for every response.
+
+## Do it with Lazy way
+
+this example, I will use some library. For the network, I'm using [Dio](https://pub.dev/packages/dio), and using [Freezed](https://pub.dev/packages/freezed) to create the models.
+
+#### Sample JSON response
+
+```json
+{
+
+	"meta": {
+
+			"status": "200",
+
+			"memoryusage": "2009952",
+
+			"elapstime": 0.1006479263305664,
+
+			"timestamp": 1683030115,
+
+			"description": "Success"
+
+	},
+
+	"data": [
+
+		{
+
+			"id": "16124475-fbc6-4a3b-a4c9-xxXxxx",
+
+			"name": "John Doe",
+
+			"address": "Antartica",
+
+			"status": 1
+
+		},
+...
+
+	]
+
+}
+```
+
+#### Create Isolate Parser
+
+```dart
+import ...
+
+/// Pass T object, so we can use any kind of Object class
+class IsolateParser<T> {
+	final Map<String, dynamic> json;
+
+	ResponseConverter<T> converter;
+
+	IsolateParser(this.json, this.converter);
+
+	Future<T> parseInBackground() async {
+		final port = ReceivePort();
+		/// Create the isolate
+		await Isolate.spawn(_parseListOfJson, port.sendPort);
+
+		final result = await port.first;
+		return result as T;
+	}
+
+	Future<void> _parseListOfJson(SendPort sendPort) async {
+	  /// Parse Json to the object
+		final result = converter(json);
+		/// Use Isolate.exit for fast concurrency
+		Isolate.exit(sendPort, result);
+	}
+}
+```
+
+#### Create Dio Helper
+
+```dart
+import ...
+
+/// Create typedef to convert Json Object
+typedef ResponseConverter<T> = T Function(dynamic response);
+
+class DioClient {
+	late Dio _dio;
+
+	DioClient(){
+	 _dio = _createDio();
+	}
+
+	Dio get dio => _dio;
+
+  /// Initialize Dio
+	Dio _createDio() => Dio(
+				BaseOptions(
+				baseUrl: environment.baseUrl,
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+				},
+				receiveTimeout: const Duration(minutes: 1),
+				connectTimeout: const Duration(minutes: 1),
+				validateStatus: (int? status) {
+				return status! <= 500 && status != 401;
+					},
+				),
+			);
+
+	Future<T> getRequest<T>(
+		String url,{
+		Map<String,dynamic>? queryParameters,
+		required ResponseConverter<T> converter,
+		/// Create optional, incase you wan't to put
+		/// it into new isolates
+		bool isIsolate = true,
+	}) async {
+		try {
+			final response = await dio.get(url, queryParameters: queryParameters);
+			if ((response.statusCode ?? 0) < 200 ||
+					(response.statusCode ?? 0) > 201) {
+					throw DioError(
+						requestOptions: response.requestOptions,
+						response: response,
+					);
+			}
+
+			if (!isIsolate) {
+				/// Parse Json to the object in the main isolate
+				return converter(response.data);
+			}
+
+			final isolateParse = IsolateParser<T>(
+				response.data as Map<String, dynamic>,
+				converter,
+			);
+			final result = await isolateParse.parseInBackground();
+			return result;
+
+		} on DioError catch(e){
+			/// handle the error here
+		}
+	}
+}
+```
+
+#### Create Model class
+
+```dart
+
+import ...
+
+part 'users_response.freezed.dart';
+part 'users_response.g.dart';
+
+
+@freezed
+class UsersResponse with _$UsersResponse {
+    const factory UsersResponse({
+        Meta? meta,
+        List<User>? data,
+    }) = _UsersResponse;
+
+    factory UsersResponse.fromJson(Map<String, dynamic> json) => _$UsersResponseFromJson(json);
+}
+
+@freezed
+class User with _$User {
+    const factory User({
+        String? id,
+        String? name,
+        String? address,
+        int? status,
+    }) = _User;
+
+    factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+}
+
+@freezed
+class Meta with _$Meta {
+    const factory Meta({
+        String? status,
+        String? memoryusage,
+        double? elapstime,
+        int? timestamp,
+        String? description,
+    }) = _Meta;
+
+    factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
+}
+
+```
+
+#### Use isolate when fetch data from API
+
+```dart
+...
+
+final DioClient _clinet = DioClient();
+
+Future<UsersResponse> fetchUser() async {
+   /// So here, you just need to fetch data as usal
+   /// We just do change in DioHelper with put IsolateParser
+   /// inside method when calling getRequest
+   final response = await _clinet.getRequest(
+	   "here the url to fetch user data",
+	   queryParameters: {
+	     "filter": "all"
+	   },
+	   converter:(response) =>
+	       UsersResponse.fromJson(response as Map<String,dynamic),
+	   /// Default is true, when you set it false
+	   /// the parse process will be run in the main isolate
+     isIsolate= false,
+   );
+
+	return response;
+}
+
+...
+
+
+```
+
+That's all the Lazy way if you want to apply all your request API to the new thread, we also have an optional parameter if you want to run it in the `main isolate`.
+
+If you follow my Repository [flutter_auth_app,](https://github.com/lazycatlabs/flutter_auth_app) you can see my latest [PR](https://github.com/lazycatlabs/flutter_auth_app/commit/6723682b98178bb633ff6241b7c0d3f942d5bbd0) how I implement create new isolate when parse JSON data to object.
+
+If you have any questions, feel free to write it in the comment.
