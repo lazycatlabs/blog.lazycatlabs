@@ -55,8 +55,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <div className="flex justify-end md:justify-start">
                     <div className="sr-only">Published on</div>
-                    <div className="mono-type w-[11rem] rounded-md bg-black/5 px-2 py-1 text-center font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-100">
-                      <time dateTime={date}>{formatDate(date)}</time>
+                    <div className="mono-type w-[9rem] rounded-md bg-black/5 py-1 pr-2 text-center font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-100">
+                      <time dateTime={date}>🗓️&nbsp; {formatDate(date)}</time>
                     </div>
                   </div>
                   <div className="space-y-3 xl:col-span-3">
