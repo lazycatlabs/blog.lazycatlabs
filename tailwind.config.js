@@ -41,41 +41,116 @@ module.exports = {
           900: '#c8581b',
         },
         gray: colors.neutral,
+        // Light
+        backgroud: {
+          DEFAULT: '#eff1f5',
+          dark: '#1e1e2e',
+        },
+        card: {
+          DEFAULT: '#ccd0da',
+          dark: '#313244',
+        },
+        text: {
+          DEFAULT: '#4c4f69',
+          dark: '#cdd6f4',
+        },
+
+        textSubtitle: {
+          DEFAULT: '#7f849c',
+          dark: '#8c8fa1',
+        },
+
+        red: {
+          DEFAULT: '#d20f39',
+          dark: '#f38ba8',
+        },
+        green: {
+          DEFAULT: '#40a02b',
+          dark: '#a6e3a1',
+        },
+        roseWater: {
+          DEFAULT: '#dc8a78',
+          dark: '#f5e0dc',
+        },
+        flamingo: {
+          DEFAULT: '#dd7878',
+          dark: '#f2cdcd',
+        },
+        pink: {
+          DEFAULT: '#ea76cb',
+          dark: '#f5c2e7',
+        },
+        mauve: {
+          DEFAULT: '#8839ef',
+          dark: '#cba6f7',
+        },
+        maroon: {
+          DEFAULT: '#e64553',
+          dark: '#eba0ac',
+        },
+        peach: {
+          DEFAULT: '#fe640b',
+          dark: '#fab387',
+        },
+        yellow: {
+          DEFAULT: '#df8e1d',
+          dark: '#f9e2af',
+        },
+        teal: {
+          DEFAULT: '#179299',
+          dark: '#94e2d5',
+        },
+        sapphire: {
+          DEFAULT: '#209fb5',
+          dark: '#89dceb',
+        },
+        sky: {
+          DEFAULT: '#04a5e5',
+          dark: '#89dceb',
+        },
+        blue: {
+          DEFAULT: '#1e66f5',
+          dark: '#89b4fa',
+        },
+        lavender: {
+          DEFAULT: '#7287fd',
+          dark: '#b4befe',
+        },
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
             color: theme('colors.gray.700'),
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.blue'),
               '&:hover': {
-                color: `${theme('colors.primary.600')} !important`,
+                color: `${theme('colors.blue')} !important`,
               },
-              code: { color: theme('colors.primary.400') },
+              code: { color: theme('colors.blue') },
             },
             h1: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.900'),
+              color: colors.text,
             },
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.900'),
+              color: colors.text,
             },
             h3: {
               fontWeight: '600',
-              color: theme('colors.gray.900'),
+              color: colors.text,
             },
             'h4,h5,h6': {
-              color: theme('colors.gray.900'),
+              color: colors.text,
             },
             pre: {
               backgroundColor: theme('colors.gray.800'),
             },
             code: {
               color: theme('colors.pink.500'),
-              backgroundColor: theme('colors.gray.100'),
+              backgroundColor: colors.card,
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',
@@ -89,7 +164,7 @@ module.exports = {
               content: 'none',
             },
             details: {
-              backgroundColor: theme('colors.gray.100'),
+              backgroundColor: colors.card,
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',
@@ -106,7 +181,7 @@ module.exports = {
             },
             strong: { color: theme('colors.gray.600') },
             blockquote: {
-              color: theme('colors.gray.900'),
+              color: colors.text,
               borderLeftColor: theme('colors.gray.200'),
             },
           },
@@ -115,39 +190,39 @@ module.exports = {
           css: {
             color: theme('colors.gray.300'),
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.blue.dark'),
               '&:hover': {
-                color: `${theme('colors.primary.400')} !important`,
+                color: `${theme('colors.blue.dark')} !important`,
               },
-              code: { color: theme('colors.primary.400') },
+              code: { color: theme('colors.blue.dark') },
             },
             h1: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.100'),
+              color: colors.text,
             },
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.100'),
+              color: colors.text,
             },
             h3: {
               fontWeight: '600',
-              color: theme('colors.gray.100'),
+              color: colors.text,
             },
             'h4,h5,h6': {
-              color: theme('colors.gray.100'),
+              color: colors.text,
             },
             pre: {
-              backgroundColor: theme('colors.gray.800'),
+              backgroundColor: theme('colorsBackground'),
             },
             code: {
-              backgroundColor: theme('colors.gray.800'),
+              backgroundColor: theme('colorsBackground'),
             },
             details: {
-              backgroundColor: theme('colors.gray.800'),
+              backgroundColor: theme('colorsBackground'),
             },
-            hr: { borderColor: theme('colors.gray.700') },
+            hr: { borderColor: theme('colorsBackground') },
             'ol li::marker': {
               fontWeight: '600',
               color: theme('colors.gray.400'),
@@ -155,10 +230,10 @@ module.exports = {
             'ul li::marker': {
               backgroundColor: theme('colors.gray.400'),
             },
-            strong: { color: theme('colors.gray.100') },
+            strong: { color: colors.text },
             thead: {
               th: {
-                color: theme('colors.gray.100'),
+                color: colors.text,
               },
             },
             tbody: {
@@ -167,7 +242,7 @@ module.exports = {
               },
             },
             blockquote: {
-              color: theme('colors.gray.100'),
+              color: colors.text,
               borderLeftColor: theme('colors.gray.700'),
             },
           },

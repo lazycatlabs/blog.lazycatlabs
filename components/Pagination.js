@@ -9,7 +9,7 @@ export default function Pagination({ totalPages, currentPage }) {
       <nav className="flex justify-between">
         {!prevPage && (
           <button
-            className="text-primary-500 hover:text-primary-600 disabled:opacity-50 dark:hover:text-primary-400"
+            className="text-sky hover:text-sky-dark disabled:opacity-50 dark:text-sky-dark dark:hover:text-sky"
             disabled={!prevPage}
           >
             Previous
@@ -17,17 +17,17 @@ export default function Pagination({ totalPages, currentPage }) {
         )}
         {prevPage && (
           <Link href={currentPage - 1 === 1 ? `/posts/` : `/posts/page/${currentPage - 1}`}>
-            <button className="font-medium text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 ">
+            <button className="font-medium  text-sky hover:text-sky-dark disabled:opacity-50 dark:text-sky-dark dark:hover:text-sky">
               &larr; Previous
             </button>
           </Link>
         )}
-        <span className=" text-gray-500 dark:text-gray-400">
+        <span className=" text-gray-500 dark:text-text-dark">
           {currentPage} of {totalPages}
         </span>
         {!nextPage && (
           <button
-            className="text-primary-500 hover:text-primary-600 disabled:opacity-50 dark:hover:text-primary-400"
+            className="text-sky hover:text-sky-dark disabled:opacity-50 dark:text-sky-dark dark:hover:text-sky"
             disabled={!nextPage}
           >
             Next
@@ -35,7 +35,7 @@ export default function Pagination({ totalPages, currentPage }) {
         )}
         {nextPage && (
           <Link href={`/posts/page/${currentPage + 1}`}>
-            <button className="font-medium text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 ">
+            <button className="font-medium text-sky hover:text-sky-dark disabled:opacity-50 dark:text-sky-dark dark:hover:text-sky">
               Next &rarr;
             </button>
           </Link>

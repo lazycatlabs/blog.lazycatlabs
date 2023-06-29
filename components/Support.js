@@ -8,7 +8,7 @@ export default function Support() {
         <div className="mb-3">
           <h3 className="font-medium">Support Me ❤️</h3>
         </div>
-        <div className="mb-2 flex flex-wrap content-center gap-x-2 gap-y-3 space-x-2 text-sm text-gray-500 dark:text-gray-400">
+        <div className="mb-2 flex flex-wrap content-center gap-x-2 gap-y-3 space-x-2 text-sm text-gray-500 dark:text-text-dark">
           <Link
             href={siteMetadata.kofi}
             className="hover:text-primary-600 dark:hover:text-primary-400"
