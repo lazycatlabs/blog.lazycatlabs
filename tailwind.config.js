@@ -46,9 +46,17 @@ module.exports = {
           DEFAULT: '#eff1f5',
           dark: '#1e1e2e',
         },
+        backgroundSecondary: {
+          DEFAULT: '#e6e9ef',
+          dark: '#181825',
+        },
         card: {
-          DEFAULT: '#ccd0da',
+          DEFAULT: '#e6e9ef',
           dark: '#313244',
+        },
+        divider: {
+          DEFAULT: '#e6e9ef',
+          dark: '#181825',
         },
         text: {
           DEFAULT: '#4c4f69',
@@ -120,75 +128,74 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.gray.700'),
+            color: theme('colors.text.DEFAULT'),
             a: {
-              color: theme('colors.blue'),
+              color: theme('colors.blue.DEFAULT'),
               '&:hover': {
-                color: `${theme('colors.blue')} !important`,
+                color: `${theme('colors.blue.DEFAULT')} !important`,
               },
-              code: { color: theme('colors.blue') },
+              code: { color: theme('colors.blue.DEFAULT') },
             },
             h1: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: colors.text,
+              color: theme('colors.peach.DEFAULT'),
             },
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: colors.text,
+              color: theme('colors.peach.DEFAULT'),
             },
             h3: {
               fontWeight: '600',
-              color: colors.text,
+              color: theme('colors.peach.DEFAULT'),
             },
             'h4,h5,h6': {
-              color: colors.text,
+              color: theme('colors.peach.DEFAULT'),
             },
             pre: {
-              backgroundColor: theme('colors.gray.800'),
+              backgroundColor: theme('colors.divider.dark'),
             },
             code: {
-              color: theme('colors.pink.500'),
-              backgroundColor: colors.card,
+              color: theme('colors.pink.DEFAULT'),
+              backgroundColor: theme('colors.divider.DEFAULT'),
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',
               paddingBottom: '2px',
               borderRadius: '0.25rem',
-            },
-            'code::before': {
-              content: 'none',
-            },
-            'code::after': {
-              content: 'none',
             },
             details: {
-              backgroundColor: colors.card,
-              paddingLeft: '4px',
-              paddingRight: '4px',
-              paddingTop: '2px',
-              paddingBottom: '2px',
-              borderRadius: '0.25rem',
+              backgroundColor: theme('colors.divider.DEFAULT'),
             },
-            hr: { borderColor: theme('colors.gray.200') },
+            hr: { borderColor: theme('colors.divider.DEFAULT') },
             'ol li::marker': {
               fontWeight: '600',
-              color: theme('colors.gray.500'),
+              color: theme('colors.text.DEFAULT'),
             },
             'ul li::marker': {
-              backgroundColor: theme('colors.gray.500'),
+              backgroundColor: theme('colors.card.DEFAULT'),
             },
-            strong: { color: theme('colors.gray.600') },
+            strong: { color: colors.text },
+            thead: {
+              th: {
+                color: colors.text,
+              },
+            },
+            tbody: {
+              tr: {
+                borderBottomColor: theme('colors.divider.DEFAULT'),
+              },
+            },
             blockquote: {
               color: colors.text,
-              borderLeftColor: theme('colors.gray.200'),
+              borderLeftColor: theme('colors.divider.'),
             },
           },
         },
         dark: {
           css: {
-            color: theme('colors.gray.300'),
+            color: theme('colors.text.dark'),
             a: {
               color: theme('colors.blue.dark'),
               '&:hover': {
@@ -199,36 +206,42 @@ module.exports = {
             h1: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: colors.text,
+              color: theme('colors.peach.dark'),
             },
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: colors.text,
+              color: theme('colors.peach.dark'),
             },
             h3: {
               fontWeight: '600',
-              color: colors.text,
+              color: theme('colors.peach.dark'),
             },
             'h4,h5,h6': {
-              color: colors.text,
+              color: theme('colors.peach.dark'),
             },
             pre: {
-              backgroundColor: theme('colorsBackground'),
+              backgroundColor: theme('colors.divider.dark'),
             },
             code: {
-              backgroundColor: theme('colorsBackground'),
+              color: theme('colors.pink.dark'),
+              backgroundColor: theme('colors.divider.dark'),
+              paddingLeft: '4px',
+              paddingRight: '4px',
+              paddingTop: '2px',
+              paddingBottom: '2px',
+              borderRadius: '0.25rem',
             },
             details: {
-              backgroundColor: theme('colorsBackground'),
+              backgroundColor: theme('colors.divider.dark'),
             },
-            hr: { borderColor: theme('colorsBackground') },
+            hr: { borderColor: theme('colors.divider.dark') },
             'ol li::marker': {
               fontWeight: '600',
-              color: theme('colors.gray.400'),
+              color: theme('colors.text.dark'),
             },
             'ul li::marker': {
-              backgroundColor: theme('colors.gray.400'),
+              backgroundColor: theme('colors.card.dark'),
             },
             strong: { color: colors.text },
             thead: {
@@ -238,12 +251,12 @@ module.exports = {
             },
             tbody: {
               tr: {
-                borderBottomColor: theme('colors.gray.700'),
+                borderBottomColor: theme('colors.divider.dark'),
               },
             },
             blockquote: {
               color: colors.text,
-              borderLeftColor: theme('colors.gray.700'),
+              borderLeftColor: theme('colors.divider.'),
             },
           },
         },

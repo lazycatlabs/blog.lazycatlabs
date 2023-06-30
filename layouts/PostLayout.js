@@ -43,7 +43,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               <dl className="space-y-10">
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-sapphire dark:text-sapphire-dark">
+                  <dd className="text-base font-medium leading-6 text-roseWater dark:text-roseWater-dark">
                     <time dateTime={date}>
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)} |{' '}
                       {frontMatter.readingTime.text}
@@ -74,13 +74,13 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       )}
                       <dl className="whitespace-nowrap text-sm font-medium leading-5">
                         <dt className="sr-only">Name</dt>
-                        <dd className="text-text dark:text-text-dark">{author.name}</dd>
+                        <dd className="font-medium text-text dark:text-text-dark">{author.name}</dd>
                         <dt className="sr-only">Github</dt>
                         <dd>
                           {author.github && (
                             <Link
                               href={author.github}
-                              className="text-green hover:text-green-dark dark:text-green-dark dark:hover:text-green"
+                              className="font-light text-pink hover:text-pink-dark dark:text-pink-dark dark:hover:text-pink"
                             >
                               {author.github.replace('https://github.com/', '@')}
                             </Link>
