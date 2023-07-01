@@ -66,21 +66,23 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       {author.avatar && (
                         <Image
                           src={author.avatar}
-                          width="38px"
-                          height="38px"
+                          width="46px"
+                          height="46px"
                           alt="avatar"
                           className="h-10 w-10 rounded-full"
                         />
                       )}
                       <dl className="whitespace-nowrap text-sm font-medium leading-5">
                         <dt className="sr-only">Name</dt>
-                        <dd className="font-medium text-text dark:text-text-dark">{author.name}</dd>
+                        <dd className="text-base font-medium text-text dark:text-text-dark">
+                          {author.name}
+                        </dd>
                         <dt className="sr-only">Github</dt>
                         <dd>
                           {author.github && (
                             <Link
                               href={author.github}
-                              className="font-light text-pink hover:text-pink-dark dark:text-pink-dark dark:hover:text-pink"
+                              className="font-medium text-pink hover:text-pink-dark dark:text-pink-dark dark:hover:text-pink"
                             >
                               {author.github.replace('https://github.com/', '@')}
                             </Link>
