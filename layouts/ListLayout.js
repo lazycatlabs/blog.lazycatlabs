@@ -19,7 +19,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
     <>
       <div className="divide-y">
         <div className="space-y-2 pb-8 pt-4 md:space-y-5 md:pt-24">
-          <h1 className="mono-type text-4xl  font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className="mono-type text-4xl  font-extrabold leading-9 tracking-tight text-peach dark:text-peach-dark sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
           <div className="relative max-w-lg">
@@ -28,10 +28,10 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
               type="text"
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search articles"
-              className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
+              className="block w-full rounded-md  border border-gray-300 bg-backgroundSecondary px-4 py-2 text-text focus:border-pink focus:ring-pink dark:border-card-dark dark:bg-backgroundSecondary-dark dark:text-text-dark dark:focus:border-pink-dark dark:focus:ring-pink-dark"
             />
             <svg
-              className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-300"
+              className="absolute right-3 top-3 h-5 w-5 text-text dark:text-gray-300"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -55,8 +55,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <div className="flex justify-end md:justify-start">
                     <div className="sr-only">Published on</div>
-                    <div className="mono-type w-[9rem] rounded-md bg-black/5 py-1 pr-2 text-center font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-100">
-                      <time dateTime={date}>🗓️&nbsp; {formatDate(date)}</time>
+                    <div className="mono-type py-1 pr-2 text-center font-semibold text-flamingo dark:text-flamingo-dark">
+                      <time dateTime={date}>{formatDate(date)}</time>
                     </div>
                   </div>
                   <div className="space-y-3 xl:col-span-3">
@@ -64,7 +64,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                       <h3 className="mono-type mb-2 text-2xl font-extrabold leading-8 tracking-tight">
                         <Link
                           href={`/posts/${slug}`}
-                          className="text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 "
+                          className="text-text hover:text-peach dark:text-text-dark dark:hover:text-peach-dark"
                         >
                           {title}
                         </Link>
@@ -75,14 +75,14 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         ))}
                       </div>
                     </div>
-                    <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                    <div className="prose max-w-none text-gray-500 dark:text-text-dark">
                       {summary}
                     </div>
                     <div className="text-base font-medium leading-6">
                       <button className="group inline-flex h-9 items-center whitespace-nowrap text-sm font-semibold">
                         <Link
                           href={`/posts/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 "
+                          className="text-sky hover:text-sky-dark dark:text-sky-dark dark:hover:text-sky"
                           aria-label={`Read "${title}"`}
                         >
                           Read more &rarr;

@@ -26,8 +26,8 @@ const Table_of_Contents = ({ ids }) => {
                 <a
                   className={
                     currentActiveIndex === index
-                      ? 'font-medium text-primary-600 underline dark:text-primary-400'
-                      : 'hover:italic'
+                      ? 'font-medium text-peach underline dark:text-peach-dark'
+                      : 'text:text hover:italic dark:text-text-dark'
                   }
                 >
                   <li key={item.id} className="py-4">
