@@ -42,7 +42,7 @@ module.exports = {
         },
         gray: colors.neutral,
         // Light
-        backgroud: {
+        background: {
           DEFAULT: '#eff1f5',
           dark: '#1e1e2e',
         },
