@@ -1,0 +1,82 @@
+---
+title: 'Flutter Web - 404'
+date: '2023-07-05'
+tags: ['flutter', 'web', 'docker']
+images: ['/static/images/flutter/flutter_web_404.png']
+draft: false
+summary: 'Resolve 404 when refresh or direct access specific URL'
+---
+
+I got this issue when working on [https://lazycatlabs.com](https://lazycatlabs.com) v2, when I deploy it in the VPS I got this error when I'm trying to refresh [https://lazycatlabs.com/portfolio](https://lazycatlabs.com/portfolio).
+
+`Failed to load resource: the server responded with a status of 404 (File not found)`
+
+![image](https://user-images.githubusercontent.com/48603081/119799018-5ef70500-bee4-11eb-87e9-511ca7300bf7.png)
+
+## Background
+
+Before we start, I will explain about my server configuration
+
+[<img src="https://raw.githubusercontent.com/lazycatlabs/blog.lazycatlabs.com-giscus/main/blog-assets/server-diagram.png" width="400"/>](image.png)
+
+So, I do reverse proxy using [Nginx Proxy Manager](https://nginxproxymanager.com/) and put my Flutter Web inside Docker. This issue can't reproduce in Development, that's why I just realize when I deploy it and trying to refresh or directly access this URL [https://lazycatlabs.com/portfolio](https://lazycatlabs.com/portfolio).
+
+## Identify the root of cause
+
+As you can see, I get error code `404`, that's mean the browser can't found the assets/file when trying to access [https://lazycatlabs.com/portfolio](https://lazycatlabs.com/portfolio). When you run the Flutter Web in debug mode, Flutter will create a web service and load the web file from `/web` folder, but when you run it in release mode, Flutter will create and load files from `build/web`.
+
+Once the basic web server is activated, the `index.html` page automatically invoke from `Web` folder and will load the assets as well as the `main.dart.js` file which is `main.dart.js` file corresponds to the Flutter web application.
+
+That's mean, if you get access to the `index.html` file, you are `loading the whole application` looks like `Single Page Application`.
+
+## Force direct the URL to /
+
+The error `404` is happened when you're trying to refresh or directly access non-root path in Flutter web because the browser can't find index.html to load the whole application. That's why we need to redirect user request to `/`. In my cases, I use python to run my web server.
+
+```python
+from http.server import SimpleHTTPRequestHandler
+import socketserver
+
+PORT = 8080
+
+class MyRequestHandler(SimpleHTTPRequestHandler):
+def do_GET(self):
+if '.' not in self.path:
+self.path = '/'
+return SimpleHTTPRequestHandler.do_GET(self)
+
+server = socketserver.TCPServer(('', PORT), MyRequestHandler)
+print("Serving at PORT : " + str(PORT))
+server.serve_forever()
+```
+
+Based on that script, the app will be run in port `8080` and will check the `GET` request, if the request does not contain a dot (indicating a file extension), the path is modified to `'/'` (the root path). This ensures that if a file is not specified in the URL, the server will treat it as a request for the root path.
+
+## Conclusions
+
+In some cases, you just need to redirect the user request from a web service based on how you deploy on your App.
+
+If you are using `Apache` you can add this code on your `.htacces` file.
+
+```
+RewriteEngine On
+RewriteBase /
+RewriteCond $1 !^(index\.html|assets|robots\.txt|favicon\.png)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ index.html [L]
+```
+
+Source: [Stack Overflow](https://stackoverflow.com/a/70358750/3659416)
+
+But if you are using Nginx you can add this on your configuration
+
+```
+location / {
+  if (!-e $request_filename){
+    rewrite ^(.*)$ /index.html break;
+  }
+}
+```
+
+Source: [Stack Overflow](https://stackoverflow.com/a/76445020/3659416)
