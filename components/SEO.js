@@ -92,9 +92,12 @@ export const BlogSEO = ({
       : images
 
   const featuredImages = imagesArr.map((img) => {
+    let imgUrl = img.includes('https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/')
+      ? img
+      : siteMetadata.siteUrl + img
     return {
       '@type': 'ImageObject',
-      url: siteMetadata.siteUrl + img,
+      url: imgUrl,
     }
   })
 
