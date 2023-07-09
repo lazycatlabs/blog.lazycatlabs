@@ -2,7 +2,10 @@
 title: 'Flutter UI Slice: Lazycatlabs Part 2'
 date: '2023-03-13'
 tags: ['flutter', 'ui slice']
-images: ['/static/images/flutter/flutter_lazycatlabs_slice_2.png']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/flutter/flutter_lazycatlabs_slice_2.png?raw=true',
+  ]
 draft: false
 summary: 'In this part, we are trying to create Animated Button from LazycatLabs.com'
 ---
@@ -86,7 +89,6 @@ For animation duration, we set it into `1 second`, for the `vsync: this`, `this`
 
 And the next, we need to create `Offset Animation`, because we need to move the button when cursor `onHover` to make animation smoother when background circle changed.
 
-
 ```dart
 late final Animation<Offset> _offsetAnimation =
     Tween(begin: Offset.zero, end: const Offset(0.1,0))
@@ -95,10 +97,8 @@ late final Animation<Offset> _offsetAnimation =
         });
 ```
 
-
 So, we create `Animation` variable will return `Offset` with start offset is `Offset.zero` and the end of animation to `Offset(0.1,0)` it's mean the button will be moving 0.1 by Horizontal, and we will use `CurvedAnimation` with parent from `_animationController` and use `curve: Curves.easeIn`, and also we need to refresh the page if animation is changed.
 You can try to change the value and see the different.
-
 
 After that, we need to build the component using `MouseRegion` because we need to detect if the widget is hovering or not and use `SlideTransition`
 
