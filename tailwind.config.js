@@ -62,12 +62,10 @@ module.exports = {
           DEFAULT: '#4c4f69',
           dark: '#cdd6f4',
         },
-
         textSubtitle: {
           DEFAULT: '#7f849c',
           dark: '#8c8fa1',
         },
-
         red: {
           DEFAULT: '#d20f39',
           dark: '#f38ba8',
@@ -176,10 +174,10 @@ module.exports = {
             'ul li::marker': {
               backgroundColor: theme('colors.card.DEFAULT'),
             },
-            strong: { color: colors.text },
+            strong: { color: theme('colors.maroon.DEFAULT') },
             thead: {
               th: {
-                color: colors.text,
+                color: theme('colors.text.DEFAULT'),
               },
             },
             tbody: {
@@ -188,8 +186,8 @@ module.exports = {
               },
             },
             blockquote: {
-              color: colors.text,
-              borderLeftColor: theme('colors.divider.'),
+              color: theme('colors.text.DEFAULT'),
+              borderLeftColor: theme('colors.divider.DEFAULT'),
             },
           },
         },
@@ -243,10 +241,10 @@ module.exports = {
             'ul li::marker': {
               backgroundColor: theme('colors.card.dark'),
             },
-            strong: { color: colors.text },
+            strong: { color: theme('colors.maroon.dark') },
             thead: {
               th: {
-                color: colors.text,
+                color: theme('colors.text.dark'),
               },
             },
             tbody: {
@@ -255,8 +253,8 @@ module.exports = {
               },
             },
             blockquote: {
-              color: colors.text,
-              borderLeftColor: theme('colors.divider.'),
+              color: theme('colors.text.dark'),
+              borderLeftColor: theme('colors.divider.dark'),
             },
           },
         },
