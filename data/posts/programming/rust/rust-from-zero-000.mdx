@@ -1,0 +1,39 @@
+---
+title: 'Rust from Zero'
+date: '2023-07-09'
+tags: ['rust', 'programming']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/rust/rust-000.png?raw=true',
+  ]
+draft: false
+summary: 'Introduction and Installation'
+---
+
+This is my notes for my journey learning Rust as Mobile App Developer. I decide to choose Rust to learn because of its strong static typing, memory safety guarantees, and modern features. And one of the more interesting in Rust is the ownership system (owner and borrower), which allows for strict compile-time memory management. It ensures that programs are free from common issues such as null pointer dereferences, data races, and memory leaks.
+
+## Installation
+
+For the installation, you can read the official [documentation](https://doc.rust-lang.org/book/ch01-01-installation.html) from Rust. If you're using Fish Shell, you can import the cargo path in `shellInit`.
+
+```bash
+set -gx PATH "$HOME/.cargo/bin" $PATH
+```
+
+and after that, you can reload your `fish` shell by type
+
+```bash
+source ~/.config/fish/config.fish
+```
+
+### Or if you are using Nix
+
+You can run rust without installing it on your machine
+
+```bash
+nix develop "github:the-nix-way/dev-templates?dir=rust" -c $SHELL
+```
+
+![image](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/nix-rust.jpg?raw=true)
+
+See you on my next journey in learning Rust.
