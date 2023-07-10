@@ -1,0 +1,146 @@
+---
+title: 'Rust from Zero - 001'
+date: '2023-07-10'
+tags: ['rust', 'programming', 'rust-from-zero']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/rust/rust-001.png?raw=true',
+  ]
+draft: false
+summary: 'You should know about it first before going deep into Rust'
+---
+
+Before we go too deep, should be good if we understand the basic thing about Rust. As you know, I have a background in other programming Languages (dart, Kotlin, etc). So the `Rust from Zero` it's not from those who never or don't have experience in programming. I make this series to write my progress and also about my understanding when learning a new programming language, especially `Rust`.
+
+## File naming
+
+In Rust files always end with `.rs` extension. If you are using more than one word in your file name, you can use `_` _(underscore)_ to separate them.
+
+> 👍🏻 Do
+>
+> - hello.rs
+> - hello_word.rs
+
+> 🙅🏻‍♂️ Don't
+>
+> - Hello.rs
+> - HelloWord.rs
+> - helloWord.rs
+
+## Create new project
+
+In Rust, we have two options to create the project.
+
+### Without Cargo
+
+```bash
+mkdir project_name
+cd project_name
+touch main.rs // create the file main.rs
+```
+
+So, if we want to create a Rust project without `Cargo`, we need to create the file and folder manually the first time. But if
+
+### With Cargo
+
+```rust
+cargo new project_name
+```
+
+We just run that command, cargo will generate automatically the base project with `Cargo` support, which is `Cargo` work as Package Manager in `Rust`
+
+## Write, Compile, and Run a Rust Program
+
+In the `main.rs` if you create your project with `Cargo`, you can open and see the file inside `src/main.rs` should be like this.
+
+```rust
+fn main(){
+	println!("Hello, LazycatLabs!");
+}
+```
+
+but if you create it manually you can copy and paste that code into your `main.rs`. And after that, we need to compile the file first
+
+```bash
+$ rustc main.rs
+```
+
+after you run that command, if you're on Linux, MacOS or PowerShell on Windows you will see the `executable` file
+
+```bash
+$ ls
+main main.rs
+```
+
+But when you are using CMD on Windows, you also will see `main.exe` and `main.pdb`. And then you can your Rust Program with type this on your terminal.
+
+```bash
+$ ./main # or .\main.exe on Windows
+```
+
+## Anatomy of a Rust Program
+
+Let's review the main.rs program in detail.
+
+```rust
+fn main() {
+
+}
+```
+
+These lines define a function _`fn`_ named `main`. The `main` function is special because it's always the **first code that run** in every executable Rust program. In that code has no parameter and return nothing. If we want to add parameter, that parameter should be inside parentheses `()`.
+
+The function body is wrapped in `{}`. Rust requires curly brackets around all function bodies. You can use an automatic formatter tool called `rustfmt` to format your code. And if you're use `IntelliJ Idea` and install `Rust` plugin you can format your code easily and also you can add an external tool to analysis your code
+![image](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/external_tool_rust.png?raw=true)
+
+The body of the `main` function holds the following code:
+
+```rust
+println!("Hello, Lazycatlabs!");
+```
+
+There are 4 important details to notice here.
+
+1. Rust style is to indent with `four spaces`, **not a tab**
+2. `println!` calls a Rust macro, I can explain it later because I need to the `Caphter 19` to understand it 😅
+3. You see the `"Hello, Lazycatlabs!"` string, We pass the string as `argument` to `println!` and the string is printed to the screen.
+4. We end the line with semicolon `(;)` which is indicates that this expression is over.
+
+## Cargo
+
+Cargo is Rust's build system and package manager. Cargo also can build build your code, downloading the libraries your code depends on and build that library.
+
+When you create your project using Cargo like this
+
+```Rust
+cargo new project_name
+```
+
+That's automatically generate the folder project.
+
+```
+.
+├── Cargo.lock
+├── Cargo.toml
+└─── src
+     └── main.rs
+
+```
+
+And when you open the `Cargo.toml` file, you should see this code
+
+```toml
+[package]
+name = "rust_from_zero"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.5"
+```
+
+You can define what library do you want to use below `[dependecies]` for that example I want to use `rand` library with version `0.8.5`.
+
+In `[package]` you will see the default information generated based on your project name, and you can see here for more keys and their definition in [here](https://doc.rust-lang.org/cargo/reference/manifest.html).
