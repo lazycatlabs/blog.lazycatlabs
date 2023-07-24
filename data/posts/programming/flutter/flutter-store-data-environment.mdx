@@ -1,0 +1,220 @@
+---
+title: 'Flutter: Store data based on Environment'
+date: '2023-07-24'
+tags: ['flutter', 'dart', 'security']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/flutter/flutter_store_data_environment.png?raw=true',
+  ]
+draft: false
+summary: 'Store data to Flutter app based on Environment'
+---
+
+When developing an application, it is essential to have a well-defined environment setup to facilitate efficient and reliable development, testing, and deployment processes. The concept of having multiple environments, such as `development`, `staging`, and `production`, is a best practice commonly referred to as `environment management`.
+
+Creating a clear separation between development and production environments provides numerous benefits for application development. By not directly accessing the production API, we mitigate the risk of accidental changes or disruptions to critical systems. It also safeguards sensitive data, such as `API Keys`, `Client IDs`, and `Client Secrets`, preventing their exposure during the development stage. Employing this approach ensures a secure and controlled development environment while safeguarding production data and maintaining the integrity of the overall application ecosystem.
+
+Here are some methods we can use:
+
+## Use a config file ⚙️
+
+Through this method, we will create a file `config.dart` and hard-coding data to an enum variable. Btw on this example, I will use 2 environments, `staging`, and `production`.
+
+```dart
+/// Use an enum to define data based on the environment
+enum Environment {
+	staging(
+		baseUrl: "https://api.staging.com",
+		clientId: "69",
+		clientSecret: "clientSecretStaging",
+		userClientId: "99",
+		userClientSecret: "userClientSecretStaging",
+	),
+	production(
+		baseUrl: "https://api.production.com",
+		clientId: "69",
+		clientSecret: "clientSecretProduction",
+		userClientId: "99",
+		userClientSecret: "userClientSecretProduciton",
+	);
+
+	const Environment({
+		required this.baseUrl,
+		required this.clientId,
+		required this.clientSecret,
+		required this.userClientId,
+		required this.userClientSecret,
+	});
+
+	final String baseUrl;
+	final String clientId;
+	final String clientSecret;
+	final String userClientId;
+	final String userClientSecret;
+}
+
+/// Set default env to staging
+Environment environment = Environment.staging;
+```
+
+And after that, we need to _rename_ and _copy_ the file `main.dart`.
+We rename `main.dart` to `main_stg.dart` and `main_prd.dart` and after that, we need to add some code to handle the environment thing.
+
+```dart
+/// main_stg.dart
+import `package:your_app/config.dart`;
+
+void main(){
+
+environment = Environment.staging;
+
+....
+}
+```
+
+```dart
+/// main_prd.dart
+import `package:your_app/config.dart`;
+
+void main(){
+
+environment = Environment.production;
+
+....
+}
+```
+
+And to consume the data we just need to call the `environment variable`
+
+```dart
+/// api_services.dart
+import `package:your_app/config.dart`;
+
+class APIServices {
+	 final baseUrl = environment.baseUrl;
+	 final clientId = environment.clientId;
+
+....
+}
+```
+
+To run the app, we need to define a specific file target because by default flutter will search the file `main. dart`.
+
+```bash
+flutter run -t lib/main_stg.dart # or
+flutter run -t lib/main_prd.dart
+```
+
+We can add `config.dart` to `.gitignore` so that file will stay on our local and not be published on our online repository.
+
+```gitignore
+config.dart
+```
+
+## Passing the data via command-line arguments 🎯
+
+Flutter also supports passing data via argument at compile time. So we can define the data using the `--dart-define` flag.
+
+```bash
+flutter run --dart-define BASE_URL=https://api.production.com
+```
+
+And to get that data on the dart code, we can do:
+
+```dart
+const baseUrl = String.fromEnvironment('BASE_URL');
+
+if(baseUrl.isEmpty){
+   throw AssertionError("BASE_URL is not set");
+}
+```
+
+For multiple keys, you can do this
+
+```bash
+flutter run \
+	--dart-define BASE_URL=https://api.production.com \
+	--dart-define CLIENT_ID=69 \
+	--dart-define CLIENT_SECRET=clientSecretProduction \
+	--dart-define USER_CLIENT_ID=99 \
+	--dart-define USER_CLIENT_SECRET=userClientSecretProduciton
+```
+
+### New in flutter > 3.7: --dart-define-from-file
+
+Starting from Flutter version `3.7`, we can define that as a JSON file and use the `--dart-define-from-file` flag.
+
+```bash
+flutter run --dart-define-from-file .env.stg.json
+```
+
+Then we can add all the keys inside the JSON file based on the environment
+
+_.env.stg.json_
+
+```json
+{
+  "BASE_URL": "https://api.staging.com",
+  "CLIENT_ID": "69",
+  "CLIENT_SECRET": "clientSecretStaging",
+  "USER_CLIENT_ID": "99",
+  "USER_CLIENT_SECRET": "userClientSecretProduction"
+}
+```
+
+_.env.prd.json_
+
+```json
+{
+  "BASE_URL": "https://api.production.com",
+  "CLIENT_ID": "69",
+  "CLIENT_SECRET": "clientSecretProduction",
+  "USER_CLIENT_ID": "99",
+  "USER_CLIENT_SECRET": "userClientSecretProduction"
+}
+```
+
+Don't forget to add that's file to your `.gitignore`
+
+```.gitignore
+.env.stg.json
+.env.prd.json
+```
+
+## Bonus 🎁
+
+To make it easy when developing, we can add it to the launch configuration.
+
+### VSCode
+
+`.vscode/launch.json`
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "stg",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define-from-file", ".env.stg.json"]
+    },
+    {
+      "name": "prd",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define-from-file", ".env.prd.json"]
+    }
+  ]
+}
+```
+
+### IntelliJ Idea
+
+`Staging`
+![image](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/config_intellij_idea_img_stg.png?raw=true)
+
+`Production`
+![image](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/config_intellij_idea_img_prd.png?raw=true)
