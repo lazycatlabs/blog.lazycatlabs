@@ -1,0 +1,167 @@
+---
+title: 'Flutter: Hide Credential Keys'
+date: '2023-07-28'
+tags: ['flutter', 'dart', 'security']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/flutter/flutter_hide_keys.png?raw=true',
+  ]
+draft: false
+summary: 'Hide credential key on native Android and iOS with --dart-define'
+---
+
+In some cases, we need to hide some credential keys on our Application like `CLIENT_ID`, and `CLIENT_SECRET` even for your `GOOGLE_MAP_API` key. In my previous post talking about [Flutter: Store data based on Environment](https://blog.lazycatlabs.com/posts/programming/flutter/flutter-store-data-environment), we only hide the key from the `Dart Code`.
+
+So, in this article. We will be talking about how to hide credential keys in Android and iOS. For example, we will hide our google maps API key which we will use the [google_maps_flutter](https://pub.dev/packages/google_maps_flutter) library. You can see the documentation for more detailed implementation.
+
+So let's start! 🚀
+
+## Flutter
+
+In the flutter, we need to add our API key to the `JSON` file
+
+```json
+/// .env.json
+{
+ ...
+"GOOGLE_MAP_API": "thisIssampleAPIKey"
+ ...
+}
+```
+
+And then you can call the API key on the `Dart` code.
+
+```dart
+String.fromEnvironment("GOOGLE_MAP_API")
+```
+
+## Android
+
+On Android, we need to parse every variable from `--dart-define` and make them available `key:value` map to use.
+
+```gradle
+// android/app/build.gradle
+...
+
+/// parse dart-define
+def dartEnvironmentVariables = []
+if (project.hasProperty('dart-defines')) {
+    dartEnvironmentVariables = project.property('dart-defines')
+            .split(',')
+            .collectEntries { entry ->
+                def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+                [(pair.first()): pair.last()]
+            }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+...
+```
+
+With this, we successfully parsed the base64 version of every variable. So, how to use that?
+We can pass that data to Android resources.
+
+```xml
+
+<!--android/app/src/main/res/values/strings.xml -->
+<string name="map_key" translatable="false">@string/google_map_api</string>
+```
+
+Don't forget to register the string key first on the `build.gradle`
+
+```gradle
+// android/app/build.gradle
+...
+
+defaultConfig {
+    // TODO: Specify your unique Application ID (https://developer.android.com/studio/build/application-id.html).
+    applicationId "com.example.app"
+    minSdkVersion 20
+    targetSdkVersion 33
+    versionCode flutterVersionCode.toInteger()
+    versionName flutterVersionName
+    multiDexEnabled true
+
+    resValue "string", "google_map_api", dartEnvironmentVariables.GOOGLE_MAP_API
+
+...
+}
+```
+
+And on `AndroidManifest.xml`, we can call the Google Map API key with
+
+```xml
+<!-- android/app/main/AndroidManifest.xml -->
+
+<application
+						....>
+
+<meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="@string/map_key"/>
+
+</application>
+
+```
+
+## iOS
+
+On iOS also need to parse the `--dart-define` so the native iOS can read the variables.
+
+First, we need to add a key on `ios/Runner/Info.plist`
+
+```plist
+<plist>
+  <dict>
+		  ...
+		  <key>DART_DEFINES</key>
+			<string>$(DART_DEFINES)</string>
+  </dict>
+</plist>
+```
+
+And, to access the `--dart-define` values from `Swift` code
+
+```swift
+// ios/Runner/AppDelegate.swift
+
+import UIKit
+import Flutter
+import GoogleMaps
+import flutter_local_notifications
+
+@UIApplicationMain
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+
+    // Extract variable from --dart-define
+      let dartDefinesString = Bundle.main.infoDictionary!["DART_DEFINES"] as! String
+      var dartDefinesDictionary = [String:String]()
+      for definedValue in dartDefinesString.components(separatedBy: ",") {
+          let decoded = String(data: Data(base64Encoded: definedValue)!, encoding: .utf8)!
+          let values = decoded.components(separatedBy: "=")
+          dartDefinesDictionary[values[0]] = values[1]
+      }
+
+
+GMSServices.provideAPIKey(dartDefinesDictionary["GOOGLE_MAP_API"]!)
+
+    if #available(iOS 10.0, *) {
+      UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
+    }
+
+    GeneratedPluginRegistrant.register(with: self)
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+}
+```
+
+That's it! Now we can use your Google Map API key inside our native code without worrying that our keys are exposed in our native code.
+
+---
+
+_Reference:_ [How to setup dart-define for keys and secrets on Android and iOS in Flutter apps](https://medium.com/flutter-community/how-to-setup-dart-define-for-keys-and-secrets-on-android-and-ios-in-flutter-apps-4f28a10c4b6c)
