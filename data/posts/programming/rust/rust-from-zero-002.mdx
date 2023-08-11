@@ -152,36 +152,36 @@ pub(crate) fn guess_game(){
 			// if there are no more attempts
 			if attempts == 0 {
 
-		    println!("--------------------------------");
-		    println!("Do you want to play again? (y/n)");
-		    println!("--------------------------------");
-		    let mut play_again = String::new();
-		    io::stdin()
-		        .read_line(&mut play_again)
-		        .expect("Failed to read line");
+                println!("--------------------------------");
+                println!("Do you want to play again? (y/n)");
+                println!("--------------------------------");
+                let mut play_again = String::new();
+                io::stdin()
+                    .read_line(&mut play_again)
+                    .expect("Failed to read line");
 
-				// catch the user input
-		    match play_again.trim().to_lowercase().as_str() {
-		        "y" => {
-		            println!("\n\n---------------------");
-		            println!("Let's play again! 💃🏻");
-		            println!("---------------------");
+                // catch the user input
+                match play_again.trim().to_lowercase().as_str() {
+                    "y" => {
+                        println!("\n\n---------------------");
+                        println!("Let's play again! 💃🏻");
+                        println!("---------------------");
 
-								// generate a new random number
-		            secret_number = random_number();
-		            // reset attempts
-		            attempts = 5;
-		            continue;
-		        }
-		        "n" => {
-		            println!("Bye! 👋");
-		            break;
-		        }
-		        _ => {
-		            println!("Invalid input!");
-		            break;
-		        }
-		    }
+                        // generate a new random number
+                        secret_number = random_number();
+                        // reset attempts
+                        attempts = 5;
+                        continue;
+                    }
+                    "n" => {
+                        println!("Bye! 👋");
+                        break;
+                    }
+                    _ => {
+                        println!("Invalid input!");
+                        break;
+                    }
+                }
 			}
 		}
 }
