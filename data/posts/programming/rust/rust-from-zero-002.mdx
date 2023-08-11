@@ -120,35 +120,33 @@ pub(crate) fn guess_game(){
 			// we can use cmp::Ordering enum which is will return
 			// Ordering::Less, Ordering::Equal, and Ordering::Greater
 			match guess.cmp(&secret_number) {
-			    Ordering::Less => {
-			        if attempts != 0 {
-			            println!("⛔️ Too small!\n⚠️ You have {} attempts left", &attempts);
-			            println!("-------------------------------------------------");
-			        } else {
-					        println!("-----------------------------------");
-								  println!("You lose! The secret number was: {}", secret_number);
-								  println!("-----------------------------------\n");
-			        }
-			    }
-			    Ordering::Equal => {
-			        println!("------------------");
-			        println!("You win! 🎉");
-			        println!("------------------\n");
-
-							// reset attempts to show options
-			        attempts = 0;
-			    }
-			    Ordering::Greater => {
-			        if attempts != 0 {
-			            println!("⛔️ Too big!\n⚠️ You have {} attempts left", &attempts);
-			            println!("-------------------------------------------------");
-			        } else {
-								  println!("-----------------------------------");
-								  println!("You lose! The secret number was: {}", secret_number);
-								  println!("-----------------------------------\n");
-			        }
-			    }
-			}
+              Ordering::Less => {
+                  if attempts != 0 {
+                      println!("⛔️ Too small!\n⚠️ You have {} attempts left", &attempts);
+                      println!("-------------------------------------------------");
+                  } else {
+                      println!("-----------------------------------");
+                      println!("You lose! The secret number was: {}", secret_number);
+                      println!("-----------------------------------\n");
+                  }
+              }
+              Ordering::Equal => {
+                  println!("------------------");
+                  println!("You win! 🎉");
+                  println!("------------------\n");
+                  attempts = 0;
+              }
+              Ordering::Greater => {
+                  if attempts != 0 {
+                      println!("⛔️ Too big!\n⚠️ You have {} attempts left", &attempts);
+                      println!("-------------------------------------------------");
+                  } else {
+                      println!("-----------------------------------");
+                      println!("You lose! The secret number was: {}", secret_number);
+                      println!("-----------------------------------\n");
+                  }
+              }
+            }
 
 			// ask the user if they want to play again
 			// if there are no more attempts
