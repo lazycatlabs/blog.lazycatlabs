@@ -1,0 +1,210 @@
+---
+title: 'Rust from Zero - 002'
+date: '2023-08-11'
+tags: ['rust', 'programming', 'rust-from-zero']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/rust/rust-001.png?raw=true',
+  ]
+draft: false
+summary: 'Guess game with style'
+---
+
+Hello everyone! In this article, we're about to delve into the implementation of the [Guess Game](https://doc.rust-lang.org/book/ch02-00-guessing-game-tutorial.html) in Rust. Our journey through the `Rust from Zero series` closely aligns with the guidance thoughtfully provided in the [official Rust documentation](https://doc.rust-lang.org/book/). Let's embark on this enlightening adventure together!
+
+## Unveiling the Game Flow
+
+Before we dive into the code, let's establish the underlying algorithm and gain a clear understanding of how our application will operate.
+
+The Guess Game, as outlined in the Rust documentation, presently follows an uncomplicated sequence:
+
+1. The user inputs a number.
+2. The program attempts to guess the number:
+   1. It enters a loop if the guess is incorrect ❌.
+   2. The program will be exit if the guess is accurate ✅.
+
+While this simplistic approach serves as a solid foundation, we aspire to infuse our guessing game with enhanced interactivity to heighten the challenge.
+
+Expanding Horizons
+
+By infusing additional elements into our flow, we can elevate the intrigue of our guessing game:
+
+1. Players are granted a limited 5 attempts to unveil the mysterious number.
+2. The user provides numerical input.
+3. The program endeavors to guess the number:
+   1. Should the user's guess miss the mark in all 5 attempts, the user will experience defeat.
+   2. In the event of a correct deduction, we graciously inquire whether the user wishes to persevere or gracefully exit the game.
+4. Our revamped guessing game now boasts the following options:
+   1. An opportunity for the user to engage in another attempt.
+   2. A graceful exit for those who choose to conclude their gaming session.
+
+## Let's Dive into the Code!
+
+In this guessing game, we will utilize some essential libraries:
+
+1. `use std::cmp::Ordering;` – an enum used to determine whether your guessed number is less, equal to, or greater than the secret number.
+2. `use std::io;` – used for capturing user input.
+3. `use rand::Rng;` – this library assists in generating random integers. Remember to add this library to your `Cargo.toml` file.
+
+```toml
+[dependencies]
+rand = "0.8.5"
+```
+
+We can create a new file to separate the guess_game function code from `main.rs` is called `guess_game.rs`
+
+```rust
+// main.rs
+
+mod guess_game;
+
+fn main() {
+	println!("\n============================");
+	println!("      Hello, Lzyct!         ");
+	println!("============================\n");
+
+	guess_game::guess_game();
+}
+```
+
+```rust
+// guess_game.rs
+
+use std::cmp::Ordering;
+use std::io;
+use rand::Rng;
+
+// make the function pub (public), to make it accessible
+// to another file
+pub(crate) fn guess_game(){
+		// generate a random number from the random_number function
+		// make it mutable, we need to update the value if the user
+		// choose to play again
+		let mut secret_number = random_number();
+
+		// we set attempts is 5 times
+		// and make it mutable because we decrease the attempts
+		// when the user guesses the wrong number
+		let mut attempts = 5;
+
+		// create a loop to make program running
+		// until the user chooses to end the game
+		loop {
+			// this will hold the user input data
+			// and need to make it mutable because the value
+			// will update every time user inputs the number.
+			let mut guess = String::new();
+
+		  // this function will catch the user input and add it into
+		  // guess variable
+		  io::stdin()
+				  .read_line(&mut guess)
+				  .expect("Failed to read line"); // end when error we will throw this message
+
+			// shadowing guess variable to convert it from string to u32
+			// because cmp::Ordering function need input u32 and also
+			// to handle when the user inputs anything other than numbers
+			let guess: u32 = match guess.trim().prase() {
+				Ok(num) => num,
+				Err(e) => {
+					println!("{}", e.to_string());
+					println!("Please input a number!");
+					continue;
+				}
+			};
+
+			// decrement attempts
+			attempts = &attemps - 1;
+
+			// to check guess number and the secret number is matching
+			// we can use cmp::Ordering enum which is will return
+			// Ordering::Less, Ordering::Equal, and Ordering::Greater
+			match guess.cmp(&secret_number) {
+			    Ordering::Less => {
+			        if attempts != 0 {
+			            println!("⛔️ Too small!\n⚠️ You have {} attempts left", &attempts);
+			            println!("-------------------------------------------------");
+			        } else {
+					        println!("-----------------------------------");
+									println!("You lose! The secret number was: {}", secret_number);
+									println!("-----------------------------------\n");
+			        }
+			    }
+			    Ordering::Equal => {
+			        println!("------------------");
+			        println!("You win! 🎉");
+			        println!("------------------\n");
+
+							// reset attempts to show options
+			        attempts = 0;
+			    }
+			    Ordering::Greater => {
+			        if attempts != 0 {
+			            println!("⛔️ Too big!\n⚠️ You have {} attempts left", &attempts);
+			            println!("-------------------------------------------------");
+			        } else {
+									println!("-----------------------------------");
+									println!("You lose! The secret number was: {}", secret_number);
+									println!("-----------------------------------\n");
+			        }
+			    }
+			}
+
+			// ask the user if they want to play again
+			// if there are no more attempts
+			if attempts == 0 {
+
+		    println!("--------------------------------");
+		    println!("Do you want to play again? (y/n)");
+		    println!("--------------------------------");
+		    let mut play_again = String::new();
+		    io::stdin()
+		        .read_line(&mut play_again)
+		        .expect("Failed to read line");
+
+				// catch the user input
+		    match play_again.trim().to_lowercase().as_str() {
+		        "y" => {
+		            println!("\n\n---------------------");
+		            println!("Let's play again! 💃🏻");
+		            println!("---------------------");
+
+								// generate a new random number
+		            secret_number = random_number();
+		            // reset attempts
+		            attempts = 5;
+		            continue;
+		        }
+		        "n" => {
+		            println!("Bye! 👋");
+		            break;
+		        }
+		        _ => {
+		            println!("Invalid input!");
+		            break;
+		        }
+		    }
+			}
+		}
+}
+
+// to generate a random number that returns u32
+fn random_number() -> u32 {
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+    println!("The secret number is: {}", secret_number);
+    println!("Please input your guess. (integer between 1 and 100)");
+    println!("---------------------------------------------------");
+
+    return secret_number;
+}
+```
+
+## Result
+
+This is the result of the program 🎉🎉🎉
+
+<div align="center">
+  <img src="https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/rust_from_zero_002.gif?raw=true" />
+</div>
+
+The source code [rust_from_zero](https://github.com/Lzyct/rust_from_zero)
