@@ -1,0 +1,116 @@
+---
+title: 'Show verified badge in the git commit'
+date: '2023-09-29'
+tags: ['git', 'github', 'gitlab']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/tips/git-verified-badge.png?raw=true',
+  ]
+draft: false
+summary: 'Commit signing to verify your commit in git'
+---
+
+## Commit Signing
+
+![sample](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/sample-verified-label.png?raw=true)
+
+Commit signing is to show the verified badge on your commit in GitHub or GitLab. But what is commit signing and why do we need it? Well, the verified badge is used to validate if that commit is from your computer. You can see the difference between them before I add the GPG Key from my computer to GitHub.
+
+So let's get started!
+
+## Generate GPG Key
+
+```bash
+gpg --full-generate-key
+```
+
+Press enter to set the default value and follow the instructions to fill in the data.
+
+After generating the key,
+
+## Show list secret key
+
+```bash
+gpg --list-secret-keys --keyid-format=long
+```
+
+Result:
+
+```bash
+$ gpg --list-secret-keys --keyid-format=long
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+[keyboxd]
+---------
+sec   ed25519/AC275966XXXXXXXX 2023-09-29 [SC]
+      210D4EFD564AA0D54CFB4DA6AC2759666B133C5A
+uid                 [ultimate] Mudassir <hey.mudassir@gmail.com>
+ssb   cv25519/D155410A750BB753 2023-09-29 [E]
+```
+
+On that result, the GPG ID is `AC275966XXXXXXXX`, after we get the GPG ID we need to export it to get the `GPG Key`
+
+## Export GPG Key
+
+```bash
+gpg --armor --export AC275966XXXXXXXX
+```
+
+```bash
+$ gpg --armor --export AC275966XXXXXXXX
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+XxXxXXZKMhYJKwYBBAHaRw8BAQdAiwRhc30psmOTImWy9UDzrZZWOPcKAgF71nWG
+7zdQmq+0IU11ZGFzc2lyIDxoZXkubXVkYXNzaXJAZ21haWwuY29tPoiTBBMWCgA7
+FiEEIQ1O/VZKoNVM+02mrCdZZmsTPFoFAmUWSjICGwMFCwkISVBdaeWSAsoJCAsC
+BBYCAwECHgcCF4AACgkQrCdZZmsTPFrmHQEAykGw8NDnvmFFMdz/MsxuEqcPcqpr
+RJHLwygRV3fhKmQBANVAcdsetvH+ymcYxJOfQBwKGWkvi00umJpsibEyZzoIuDgE
+ZRZKMhIKKwYBBAGXVQEFAQEHQC195/jEeu2cUdgRVYH8fNdr/Ri3/6+k2/NvqrgF
+M75jAwEIB4h4BBgWCgAgFiEEIQ1?XXxXX+02mrCdZZmsTPFoFAmUWSjICGwwA
+CgkQrCdZZmsTPFoaGwEA0Ln4E6q3D261bjNS6FWF9QiMAOGMU4hh+lyC4C+dl/wB
+ALrl2aMKLP9WQAIbmbxq5x6QFT1NZw+/eURsu99YaFgL
+=SJIn
+-----END PGP PUBLIC KEY BLOCK-----
+
+```
+
+## Add the GPG Key to your GitHub or GitLab
+
+Copy result from `-----BEGIN` until `KEY BLOCK-----` and paste it to here:
+
+### GitHub
+
+You can open this URL to [Add your GPG key](https://github.com/settings/gpg/new)
+
+### GitLab
+
+For GitLab, you can use this URL to [add your GPG key](https://gitlab.com/-/profile/gpg_keys)
+
+## Set GPG signing in Git
+
+To set your primary GPG signing key in Git, paste the text below, substituting the GPG primary key ID you'd like to use. In this example, the GPG key ID is `AC275966XXXXXXXX`:
+
+```shell
+git config --global user.signingkey AC275966XXXXXXXX
+```
+
+But if you wanna use `different key` per project, you can open the terminal on your project and use this command
+
+```bash
+git config --local user.signingkey AC275966XXXXXXXX
+```
+
+## Optional
+
+Optionally, to configure Git to sign all commits by default, enter the following command:
+
+```shell
+git config --global commit.gpgsign true
+```
+
+For local config you can use this command
+
+```bash
+git config --local commit.gpgsign true
+```
