@@ -1,0 +1,58 @@
+---
+title: 'Flutter Firebase Cloud Message: Image Notification iOS'
+date: '2023-10-19'
+tags: ['flutter', 'library', 'firebase', 'cloud message', 'fix']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/flutter/flutter_error_image_notification.png?raw=true',
+  ]
+draft: false
+summary: 'Resolve error when add support Image Notification in iOS with Firebase Cloud Message'
+---
+
+If you use [Firebase Cloud Message](https://pub.dev/packages/firebase_messaging) to send Notifications in Flutter, you need to do [an extra step](https://firebase.google.com/docs/cloud-messaging/flutter/receive#display_images_in_notifications_on_ios) for iOS to enable Push Notification with Image.
+
+However the documentation is not clear and complete in some steps, so in this article, we will try to resolve all errors after we follow the [documentation](https://firebase.google.com/docs/cloud-messaging/flutter/receive#display_images_in_notifications_on_ios) from Official Firebase.
+
+Based on that documentation, in this [step](https://firebase.google.com/docs/cloud-messaging/flutter/receive#step_3_-_use_the_extension_helper) make sure you set the `ImageNotification` module `not embedded` in your existing project because that can make fail when you want to create a release build. Don't forget to set `Minimum Deployments` as same as your existing project to make it support lower OS versions.
+
+![image](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/ImageNotificationError.png?raw=true)
+
+## GoogleUtilities Error when creating a release build
+
+When you run your app in debug mode you will not be facing that issue.
+But when you want to create a release build, you will get this error.
+
+```
+'/Users/User/Library/Developer/Xcode/DerivedData/Runner-bdnpxekydrzewgcrgsvvbfowmdtn/Build/Intermediates.noindex/Arch
+iveIntermediates/prd/IntermediateBuildFilesPath/UninstalledProducts/iphoneos/GoogleUtilities.framework'
+
+
+Encountered error while archiving for device.
+
+```
+
+How to resolve that?
+We need to update our `Podfile` file to be like this
+
+```Podfile
+...
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+  pod 'GoogleUtilities'  #add this
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+end
+
+target 'ImageNotification' do
+  use_frameworks!
+  pod 'GoogleUtilities'  #add this
+  pod 'Firebase/Messaging'
+end
+```
+
+After that, you can create a new release build 🎉
+
+Please write your comment if you still facing issues while working on Push Notification with Image in iOS.
