@@ -23,7 +23,7 @@ const Table_of_Contents = ({ ids }) => {
           {ids.map((item, index) => {
             return (
               <Link href={`#${item.id}`} key={item.id}>
-                <a
+                <span
                   className={
                     currentActiveIndex === index
                       ? 'font-medium text-peach underline dark:text-peach-dark'
@@ -33,7 +33,7 @@ const Table_of_Contents = ({ ids }) => {
                   <li key={item.id} className="py-4">
                     {item.title}
                   </li>
-                </a>
+                </span>
               </Link>
             )
           })}
