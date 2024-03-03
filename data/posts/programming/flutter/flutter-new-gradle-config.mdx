@@ -1,0 +1,145 @@
+---
+title: 'Flutter: New gradle config'
+date: '2024-03-03'
+tags: ['flutter', 'android', 'gradle', 'firebase']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/flutter/flutter-gradle-update.png?raw=true',
+  ]
+draft: false
+summary: 'Resolve warning when run Android project in the new Flutter version'
+---
+
+If we use the latest Flutter version (3.19.2) and have an old project which is not created from Flutter version 3.19.2 we will get this warning when we try to run your app on Android.
+
+```
+You are applying Flutter's app_plugin_loader Gradle plugin imperatively using the apply script method, which is deprecated and will be removed in a future release. Migrate to applying Gradle plugins with the declarative plugins block: https://flutter.dev/go/flutter-gradle-plugin-apply
+```
+
+To remove that warning we can follow the steps in the [official documentation](https://flutter.dev/go/flutter-gradle-plugin-apply) from Flutter. But another issue after we migrate to the new implementation.
+
+We will get this issue when we try to run our app.
+
+```
+E/flutter ( 8069): [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: [core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()
+E/flutter ( 8069): #0      MethodChannelFirebase.app (package:firebase_core_platform_interface/src/method_channel/method_channel_firebase.dart:193:5)
+E/flutter ( 8069): #1      Firebase.app (package:firebase_core/src/firebase.dart:56:41)
+E/flutter ( 8069): #2      FirebaseCrashlytics.instance (package:firebase_crashlytics/src/firebase_crashlytics.dart:33:55)
+E/flutter ( 8069): #3      main.<anonymous closure> (package:flutter_auth_app/main.dart:28:27)
+E/flutter ( 8069): #4      _RootZone.runBinary (dart:async/zone.dart:1666:54)
+E/flutter ( 8069): #5      runZonedGuarded.<anonymous closure> (dart:async/zone.dart:1776:18)
+E/flutter ( 8069): #6      _Zone._processUncaughtError (dart:async/zone.dart:1081:14)
+E/flutter ( 8069): #7      _CustomZone.handleUncaughtError (dart:async/zone.dart:1285:5)
+E/flutter ( 8069): #8      Future._propagateToListeners (dart:async/future_impl.dart:752:16)
+E/flutter ( 8069): #9      Future._completeError (dart:async/future_impl.dart:651:5)
+E/flutter ( 8069): <asynchronous suspension>
+E/flutter ( 8069):
+```
+
+That would happen if our current project did not use [flutterfire_cli](https://firebase.google.com/docs/flutter/setup?platform=ios) when we set up the Firebase on our project.
+
+## Add Firebase Options
+
+As we can see, the error message is `No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()` even though we already added the `google-services.json` in our project. To fix that, we can create a class `DefaultFirebaseOptions` to handle FirebaseOptions based on the `Platform`.
+But we need to manage FirebaseOptions to support multiple environments like in my [previous article](https://blog.lazycatlabs.com/posts/programming/flutter/flutter-store-data-environment).
+
+There is the sample for the `DefaultFirebaseOptions` class
+
+```dart
+
+import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+
+
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    if (kIsWeb) {
+      throw UnsupportedError(
+        'DefaultFirebaseOptionsStg have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
+    }
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return android;
+      case TargetPlatform.iOS:
+        return ios;
+      default:
+        throw UnsupportedError(
+          'DefaultFirebaseOptionsStg are not supported for this platform.',
+        );
+    }
+  }
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: String.fromEnvironment("ANDROID_API_KEY"),
+    appId: String.fromEnvironment("ANDROID_APP_ID"),
+    messagingSenderId: String.fromEnvironment("ANDROID_SENDER_ID"),
+    projectId: String.fromEnvironment("ANDROID_PROJECT_ID"),
+    storageBucket: String.fromEnvironment("ANDROID_STORAGE_BUCKET"),
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: String.fromEnvironment("IOS_API_KEY"),
+    appId: String.fromEnvironment("IOS_APP_ID"),
+    messagingSenderId: String.fromEnvironment("IOS_SENDER_ID"),
+    projectId: String.fromEnvironment("IOS_PROJECT_ID"),
+    storageBucket: String.fromEnvironment("IOS_STORAGE_BUCKET"),
+    androidClientId: String.fromEnvironment("IOS_ANDROID_CLIENT_ID"),
+    iosClientId: String.fromEnvironment("IOS_IOS_CLIENT_ID"),
+    iosBundleId: String.fromEnvironment("IOS_BUNDLE_ID"),
+  );
+}
+```
+
+We can see, that all variables are defined using `dart-define`. so the next step is mapping the `FirebaseOptions` with our existing Firebase Project.
+
+### Mapping FirebaseOptions on Android
+
+We can fill the FirebaseOptions data using data from `google-services.json`
+
+| FirebaseOptions   | google-services.json                                                                       |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| apiKey            | current_key                                                                                |
+| appId             | mobilesdk_app_id (make sure to see the package_name is correct with your existing project) |
+| messagingSenderId | project_number                                                                             |
+| projectId         | project_id                                                                                 |
+| storageBucket     | storage_bucket                                                                             |
+
+### Mapping FirebaseOptions on iOS
+
+We can fill the FirebaseOptions data using data from `GoogleService-Info.plist`
+
+| FirebaseOptions   | google-services.json |
+| ----------------- | -------------------- |
+| apiKey            | API_KEY              |
+| appId             | GOOGLE_APP_ID        |
+| messagingSenderId | GCM_SENDER_ID        |
+| projectId         | PROJECT_ID           |
+| storageBucket     | STORAGE_BUCKET       |
+| androidClientId   | ANDROID_CLIENT_ID    |
+| iosClientId       | CLIENT_ID            |
+| iosBundleId       | BUNDLE_ID            |
+
+After we mapped our existing Firebase project in Android (google-services.json) and iOS (GoolgeService-Info.plist) we need to update the Firebase Initialization
+
+from :
+
+```dart
+await Firebase.initializeApp()
+```
+
+to :
+
+```dart
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+```
+
+and we can run our project normally.
+
+Or you can see my [PR on GitHub](https://github.com/lazycatlabs/flutter_auth_app/pull/25)
+
+Feel free if you have any questions.
