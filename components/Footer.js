@@ -17,11 +17,8 @@ export default function Footer() {
           <SocialIcon kind="instagram" href={siteMetadata.instagram} />
           <SocialIcon kind="youtube" href={siteMetadata.youtube} />
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-text-dark">
-          <Link
-            href="https://lazycatlabs.com"
-            className="hover:text-peach dark:hover:text-peach-dark"
-          >
+        <div className="mb-2 flex space-x-2 text-sm text-gray-500">
+          <Link href="https://lazycatlabs.com" className="hover:text-peach ">
             {siteMetadata.author}
           </Link>
           <div>{` • `}</div>

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
+import Script from 'next/script'
 
 const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl }) => {
   const router = useRouter()
@@ -151,10 +152,12 @@ export const BlogSEO = ({
         twImage={twImageUrl}
         canonicalUrl={canonicalUrl}
       />
+      {/* eslint-disable-next-line @next/next/no-script-component-in-head */}
       <Head>
         {date && <meta property="article:published_time" content={publishedAt} />}
         {lastmod && <meta property="article:modified_time" content={modifiedAt} />}
-        <script
+        <Script
+          id="structured-data-blog"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData, null, 2),

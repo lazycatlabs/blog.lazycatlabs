@@ -17,11 +17,11 @@ export default function PostLayout({ frontMatter, _, next, prev, children }) {
       <article>
         <div>
           <header>
-            <div className="space-y-1 border-b border-gray-200 pb-10 text-center dark:border-gray-700">
+            <div className="space-y-1 border-b border-gray-200 pb-10 text-center ">
               <dl>
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-text-dark">
+                  <dd className="text font-medium leading-6 text-subtext0">
                     <time dateTime={date}>{formatDate(date)}</time>
                   </dd>
                 </div>
@@ -32,21 +32,18 @@ export default function PostLayout({ frontMatter, _, next, prev, children }) {
             </div>
           </header>
           <div
-            className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0 "
+            className="divide-y divide-gray-200 pb-8 xl:divide-y-0"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-dark">{children}</div>
+            <div className="divide-y divide-surface0 xl:col-span-3 xl:row-span-2 xl:pb-0 ">
+              <div className="prose max-w-none pb-8 pt-10">{children}</div>
             </div>
             <Comments frontMatter={frontMatter} />
             <footer>
-              <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
+              <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-text">
                 {prev && (
                   <div className="pt-4 xl:pt-8">
-                    <Link
-                      href={`/posts/${prev.slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
+                    <Link href={`/posts/${prev.slug}`} className="text-peach hover:text-peach">
                       &larr; {prev.title}
                     </Link>
                   </div>
@@ -55,7 +52,7 @@ export default function PostLayout({ frontMatter, _, next, prev, children }) {
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/posts/${next.slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                      className="text-primary-500 hover:text-primary-600"
                     >
                       {next.title} &rarr;
                     </Link>
