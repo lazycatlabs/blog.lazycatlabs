@@ -1,23 +1,11 @@
 import Link from '@/components/Link'
-import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import { getAllFilesFrontMatter } from '@/lib/mdx'
-import formatDate from '@/lib/utils/formatDate'
 import { useState } from 'react'
+import Pagination from '@/components/Pagination'
+import formatDate from '@/lib/utils/formatDate'
 import Image from 'next/image'
 
-//import NewsletterForm from '@/components/NewsletterForm'
-
-const MAX_DISPLAY = 10
-
-export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('posts')
-
-  return { props: { posts } }
-}
-
-export default function Home({ posts }) {
+export default function GirdLayout({ posts, title, initialDisplayPosts = [], pagination }) {
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter((frontMatter) => {
     const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
@@ -25,15 +13,15 @@ export default function Home({ posts }) {
   })
 
   // If initialDisplayPosts exist, display it if no searchValue is specified
-  const displayPosts = posts.length > 0 && !searchValue ? posts : filteredBlogPosts
+  const displayPosts =
+    initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
   return (
     <>
-      <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y divide-overlay2">
         <div className="space-y-2 pb-8 pt-4 md:space-y-5 md:pt-24">
-          <h1 className="mono-type text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
+          <h1 className="mono-type  text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+            {title}
           </h1>
           <div className="relative max-w-lg">
             <input
@@ -41,10 +29,10 @@ export default function Home({ posts }) {
               type="text"
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search articles"
-              className=" block w-full rounded-md border border-overlay2 bg-mantle px-4 py-2 text-text focus:border-pink focus:ring-pink"
+              className="block w-full rounded-md border border-overlay2 bg-mantle px-4 py-2 text-text focus:border-pink focus:ring-pink"
             />
             <svg
-              className=" absolute right-3 top-3 h-5 w-5 text-text"
+              className="absolute right-3 top-3 h-5 w-5 text-text"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -65,6 +53,7 @@ export default function Home({ posts }) {
             <span> not found</span>
           </div>
         ) : null}
+
         <ul className="grid gap-x-10 md:grid-cols-2">
           {displayPosts.map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
@@ -124,18 +113,9 @@ export default function Home({ posts }) {
           })}
         </ul>
       </div>
-      {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end py-8 font-medium leading-6 text-base">
-          <Link href="/posts" className="text-sky" aria-label="all posts">
-            All Posts &rarr;
-          </Link>
-        </div>
+      {pagination && pagination.totalPages > 1 && !searchValue && (
+        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
       )}
-      {/* {siteMetadata.newsletter.provider !== '' && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
-        </div>
-      )} */}
     </>
   )
 }

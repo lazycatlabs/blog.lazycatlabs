@@ -34,7 +34,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
       />
       <ScrollTopAndComment />
       <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+        <div className="xl:divide-y xl:divide-surface1">
           <header className="pt-6 xl:pb-6">
             <div className="space-y-1 text-center">
               <div className="mono-type">
@@ -43,7 +43,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               <dl className="space-y-10">
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-roseWater dark:text-roseWater-dark">
+                  <dd className="font-medium leading-6 text-base text-subtext0">
                     <time dateTime={date}>
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)} |{' '}
                       {frontMatter.readingTime.text}
@@ -54,10 +54,10 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
             </div>
           </header>
           <div
-            className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+            className="divide-y divide-surface0 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 "
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
-            <dl className="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+            <dl className="pb-10 pt-6 xl:border-b xl:border-surface1 xl:pt-11">
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
@@ -74,15 +74,13 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       )}
                       <dl className="whitespace-nowrap text-sm font-medium leading-5">
                         <dt className="sr-only">Name</dt>
-                        <dd className="text-base font-medium text-text dark:text-text-dark">
-                          {author.name}
-                        </dd>
+                        <dd className="font-medium text-text">{author.name}</dd>
                         <dt className="sr-only">Github</dt>
                         <dd>
                           {author.github && (
                             <Link
                               href={author.github}
-                              className="font-medium text-pink hover:text-pink-dark dark:text-pink-dark dark:hover:text-pink"
+                              className="font-medium text-pink hover:text-pink"
                             >
                               {author.github.replace('https://github.com/', '@')}
                             </Link>
@@ -94,21 +92,19 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 </ul>
               </dd>
             </dl>
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-dark">{children}</div>
+            <div className="divide-y divide-surface1 xl:col-span-3 xl:row-span-2 xl:pb-0 ">
+              <div className="prose max-w-none pb-8 pt-10">{children}</div>
               <Support />
               <Comments frontMatter={frontMatter} />
             </div>
             <footer>
-              <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
+              <div className="divide-surface1 text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2 xl:divide-y">
                 {tags && (
                   <div className="py-4 xl:py-8">
-                    <h3 className="mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-text-dark">
-                      Tags
-                    </h3>
-                    <div className="flex flex-wrap">
+                    <h3 className="mb-4 text-xs uppercase tracking-wide text-subtext0">Tags</h3>
+                    <div className="flex flex-wrap gap-x-3 gap-y-5">
                       {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
+                        <Tag key={tag} text={tag} className="mb-1" />
                       ))}
                     </div>
                   </div>
@@ -117,20 +113,20 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                   <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                     {prev && (
                       <div>
-                        <h3 className="text-xs uppercase tracking-wide text-gray-500 dark:text-text-dark">
+                        <h3 className=" text-xs uppercase tracking-wide text-subtext0">
                           Previous Article
                         </h3>
-                        <div className="text-sky hover:text-sky-dark dark:text-sky-dark dark:hover:text-sky ">
+                        <div className="text-peach hover:text-peach">
                           <Link href={`/posts/${prev.slug}`}>{prev.title}</Link>
                         </div>
                       </div>
                     )}
                     {next && (
                       <div>
-                        <h3 className="text-xs uppercase tracking-wide text-gray-500 dark:text-text-dark">
+                        <h3 className="text-xs uppercase tracking-wide text-subtext0">
                           Next Article
                         </h3>
-                        <div className="text-sky hover:text-sky-dark dark:text-sky-dark dark:hover:text-sky ">
+                        <div className="text-peach hover:text-peach">
                           <Link href={`/posts/${next.slug}`}>{next.title}</Link>
                         </div>
                       </div>
@@ -139,10 +135,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 )}
               </div>
               <div className="sticky top-[50px] mb-2 pt-4 xl:pt-8">
-                <Link
-                  href="/posts"
-                  className="text-sky hover:text-sky-dark dark:text-sky-dark dark:hover:text-sky"
-                >
+                <Link href="/posts" className="text-sky hover:text-sky">
                   &larr; Back to the posts
                 </Link>
                 <div className="hidden xl:block">

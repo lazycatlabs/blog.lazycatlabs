@@ -22,12 +22,13 @@ const Table_of_Contents = ({ ids }) => {
         <ul>
           {ids.map((item, index) => {
             return (
+              // eslint-disable-next-line @next/next/link-passhref
               <Link href={`#${item.id}`} key={item.id}>
                 <span
                   className={
                     currentActiveIndex === index
-                      ? 'font-medium text-peach underline dark:text-peach-dark'
-                      : 'text:text hover:italic dark:text-text-dark'
+                      ? 'font-medium text-peach underline '
+                      : 'text:text hover:italic '
                   }
                 >
                   <li key={item.id} className="py-4">

@@ -8,7 +8,7 @@ export default function FourZeroFour() {
       <PageSEO title={`Page Not Found - ${siteMetadata.title}`} description="" />
       <div className="flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6">
         <div className="space-x-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="mono-type text-6xl font-extrabold leading-9 tracking-tight text-text dark:text-text-dark md:border-r-2 md:px-6 md:text-8xl md:leading-14">
+          <h1 className="mono-type font-extra bold text-6xl leading-9 tracking-tight text-text md:border-r-2 md:px-6 md:text-8xl md:leading-14">
             404
           </h1>
         </div>
@@ -20,7 +20,7 @@ export default function FourZeroFour() {
             But dont worry, you can find plenty of other things on our homepage.
           </p>
           <Link href="/">
-            <button className="focus:shadow-outline-blue inline rounded-lg border border-transparent bg-peach px-4 py-2 text-sm font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-peach-dark focus:outline-none dark:bg-peach-dark dark:hover:bg-peach">
+            <button className="focus:shadow-outline-blue inline rounded-lg border border-transparent bg-peach px-4 py-2 text-sm font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-peach focus:outline-none">
               Back to homepage
             </button>
           </Link>

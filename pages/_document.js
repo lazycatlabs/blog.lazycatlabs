@@ -26,7 +26,7 @@ class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         </Head>
-        <body className="bg-background text-text antialiased dark:bg-background-dark dark:text-text-dark">
+        <body className="antialiased">
           <Main />
           <NextScript />
         </body>

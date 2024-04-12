@@ -13,20 +13,11 @@
 }
 
 .footnotes {
-  @apply mt-12 border-t border-gray-200 pt-8 dark:border-gray-700;
+  @apply mt-12 border-t border-gray-200 pt-8;
 }
 
 .csl-entry {
   @apply my-5;
-}
-
-:root {
-  /* Your default theme */
-  --bg: #fff;
-}
-
-[color-scheme='dark'] {
-  --bg: #10172a;
 }
 
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
@@ -71,20 +62,20 @@ header.isSticky .title {
   margin: auto;
 }
 
-::selection {
-  background-color: rgba(56, 189, 248, 0.2);
-}
+/*::selection {*/
+/*  background-color: rgba(56, 189, 248, 0.2);*/
+/*}*/
 
 .mono-type {
-  font-family: 'Visuelt Pro';
+  font-family: 'Visuelt Pro', monospace;
 }
 
 a {
-  @apply duration-500 hover:line-through dark:hover:line-through;
+  @apply duration-500 hover:line-through;
 }
 
 button {
-  @apply duration-500 hover:line-through dark:hover:line-through;
+  @apply duration-500 hover:line-through;
 }
 
 .giscus,
