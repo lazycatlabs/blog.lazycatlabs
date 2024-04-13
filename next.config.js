@@ -57,6 +57,7 @@ module.exports = withBundleAnalyzer({
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   images: {
     domains: ['github.com'],
+    unoptimized: true,
   },
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],

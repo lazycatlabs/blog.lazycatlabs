@@ -23,13 +23,13 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
           <h1 className="mono-type  text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
-          <div className="relative max-w-lg">
+          <div className="relative max-w-lg overflow-hidden shadow-xl shadow-mantle">
             <input
               aria-label="Search articles"
               type="text"
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search articles"
-              className="block w-full rounded-md border border-overlay2 bg-mantle px-4 py-2 text-text focus:border-pink focus:ring-pink"
+              className=" block w-full rounded-md border border-overlay2 bg-crust px-4 py-2 text-text focus:border-pink focus:bg-surface0 focus:ring-pink"
             />
             <svg
               className="absolute right-3 top-3 h-5 w-5 text-text"
@@ -49,8 +49,8 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
         </div>
         {!filteredBlogPosts.length ? (
           <div className="content-center py-12 text-center">
-            <span className="text-xl font-medium text-red">{searchValue}</span>
-            <span> not found</span>
+            <span className="text-l font-medium text-red">" {searchValue} "</span>
+            <span> is not found</span>
           </div>
         ) : null}
 
@@ -58,37 +58,37 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
           {displayPosts.map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
             return (
-              <li key={slug} className="py-4">
+              <li key={slug} className="my-4 overflow-hidden rounded-md shadow-xl shadow-mantle">
                 <article className="space-y-4">
-                  <Image
-                    src={frontMatter.images[0]}
-                    alt=""
-                    width={700}
-                    height={500}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    loading="lazy"
-                  />
+                  <div className="pb-3">
+                    <h3 className="mono-type mb-2 text-2xl font-extrabold tracking-tight  md:line-clamp-2">
+                      <Link href={`/posts/${slug}`} className="text-text hover:text-peach">
+                        <Image
+                          src={frontMatter.images[0]}
+                          alt=""
+                          width={700}
+                          height={500}
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          loading="lazy"
+                        />
+                        <div className="border-b border-surface0 "></div>
 
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="mono-type mb-2 text-2xl font-extrabold tracking-tight  md:line-clamp-2">
-                        <Link href={`/posts/${slug}`} className="text-text hover:text-peach">
-                          <div>{title}</div>
-                          {title.length <= 50 ? <br /> : null}
-                        </Link>
-                      </h3>
-                      <div className="flex flex-wrap">
-                        {tags.map((tag) => (
-                          <Tag key={tag} text={tag} />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="prose max-w-none space-y-4 text-subtext0 md:line-clamp-2">
-                      <div>{summary}</div>
-                      {summary.length <= 65 ? <br /> : null}
+                        <div className="px-4 pt-4">{title}</div>
+                        {title.length <= 50 ? <br /> : null}
+                      </Link>
+                    </h3>
+                    <div className="flex flex-wrap px-4">
+                      {tags.map((tag) => (
+                        <Tag key={tag} text={tag} />
+                      ))}
                     </div>
                   </div>
-                  <div className="flex flex-row justify-between pb-4 font-medium leading-6 text-text">
+                  <div className="prose max-w-none space-y-4 px-4 text-subtext0 md:line-clamp-2">
+                    <div>{summary}</div>
+                    {summary.length <= 65 ? <br /> : null}
+                  </div>
+
+                  <div className="flex flex-row justify-between px-4 px-4 pb-6 pt-4 font-medium leading-6 text-text">
                     <button className="group items-center whitespace-nowrap text-sm font-semibold">
                       <Link
                         href={`/posts/${slug}`}
@@ -106,7 +106,6 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
                       </div>
                     </div>
                   </div>
-                  <div className="border-b border-surface0 "></div>
                 </article>
               </li>
             )
