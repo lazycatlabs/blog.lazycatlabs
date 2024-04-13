@@ -1,47 +1,46 @@
-# Install dependencies only when needed
-FROM node:alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-# COPY package.json yarn.lock ./
-COPY package.json package-lock.json ./
-# RUN yarn install --frozen-lockfile
-RUN npm i
+# use the official Bun image
+# see all versions at https://hub.docker.com/r/oven/bun/tags
+FROM imbios/bun-node:latest-current-debian AS base
+# use the official Bun image
+# see all versions at https://hub.docker.com/r/oven/bun/tags
 
-# Rebuild the source code only when needed
-FROM node:alpine AS builder
-WORKDIR /app
+RUN apt-get update -qq && \
+  apt-get install -y build-essential pkg-config python-is-python3
+
+
+WORKDIR /usr/src/app
+
+# install dependencies into temp directory
+# this will cache them and speed up future builds
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json bun.lockb /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
+
+# install with --production (exclude devDependencies)
+RUN mkdir -p /temp/prod
+COPY package.json bun.lockb /temp/prod/
+RUN cd /temp/prod && bun install --frozen-lockfile  --production --ignore-scripts
+
+# copy node_modules from temp directory
+# then copy all (non-ignored) project files into the image
+FROM base AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
-COPY --from=deps /app/node_modules ./node_modules
-# RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
-RUN npm run build && npm install --production --ignore-scripts --prefer-offline
 
-# Production image, copy all the files and run next
-FROM node:alpine AS runner
-WORKDIR /app
+# [optional] tests & build
+ENV NODE_ENV=production
+RUN bun test
+RUN bun run build
 
-ENV NODE_ENV production
+# copy production dependencies and source code into final image
+FROM base AS release
+COPY --from=install /temp/prod/node_modules node_modules
+COPY --from=prerelease  /usr/src/app/.next ./.next
+COPY --from=prerelease  /usr/src/app/public ./public
+COPY --from=prerelease /usr/src/app/package.json .
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-# You only need to copy next.config.js if you are NOT using the default configuration
-# COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
-
-EXPOSE 6970
-
-ENV PORT 3030
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry.
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# CMD ["yarn", "start"]
-CMD ["npm", "run", "serve"]
+# run the app
+USER bun
+EXPOSE 6970/tcp
+ENTRYPOINT [ "bun", "run", "serve" ]
