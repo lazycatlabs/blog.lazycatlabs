@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data",
-    "dev": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build && node ./scripts/generate-sitemap",
+    "start": "cross-env SOCKET=true bun ./scripts/next-remote-watch.js ./data",
+    "dev": "next dev",
+    "build": "next build && bun ./scripts/generate-sitemap",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
