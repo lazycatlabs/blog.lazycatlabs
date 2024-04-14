@@ -4,4 +4,4 @@
 docker build -t blog.lazycatlabs .
 
 # Bring up the Docker containers using docker-compose
-docker-compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up -d
