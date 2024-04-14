@@ -42,5 +42,6 @@ COPY --from=prerelease /usr/src/app/package.json .
 
 # run the app
 USER bun
-EXPOSE 6970/tcp
+EXPOSE 6970
+ENV PORT 3030
 ENTRYPOINT [ "bun", "run", "serve" ]
