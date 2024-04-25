@@ -1,6 +1,6 @@
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
-FROM imbios/bun-node:latest-current-debian AS base
+FROM imbios/bun-node:latest-21-slim AS base
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
 
