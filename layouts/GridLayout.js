@@ -88,7 +88,7 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
                     {summary.length <= 65 ? <br /> : null}
                   </div>
 
-                  <div className="flex flex-row justify-between px-4 px-4 pb-6 pt-4 font-medium leading-6 text-text">
+                  <div className="flex flex-row justify-between px-4 pb-6 pt-4 font-medium leading-6 text-text">
                     <button className="group items-center whitespace-nowrap text-sm font-semibold">
                       <Link
                         href={`/posts/${slug}`}
