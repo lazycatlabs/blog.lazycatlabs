@@ -1,0 +1,33 @@
+---
+title: 'Increase the internal storage of the Android Emulator'
+date: '2024-04-26'
+tags: ['android', 'tips', 'emulator']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/tips/increase-internal-storage-android-emulator.png?raw=true',
+  ]
+draft: false
+summary: 'Steps to increase the internal storage of the Android Emulator'
+---
+
+The Android Emulator is a valuable tool for Mobile developers, allowing them to test their applications on a variety of virtual devices. However, one limitation of the emulator is its default storage size, which can sometimes be insufficient for certain tasks. In this article, we'll show you how to increase the internal storage of the Android Emulator.
+
+## Step 1: Locate the Configuration File
+
+The first step is to locate the configuration file for the Android Virtual Device (AVD) you want to modify. The configuration file, named `config.ini`, is typically located in the `.android/avd/` directory in your home folder. For example, the configuration file for a device named `Pixel_7_Pro_API_34` would be located at `~/.android/avd/Pixel_7_Pro_API_34.avd/config.ini`.
+
+## Step 2: Edit the Configuration File
+
+Open the `config.ini` file in a text editor and locate the `disk.dataPartition.size` entry. This entry specifies the size of the internal storage for the emulator. Change the value to the desired size, for example, `disk.dataPartition.size=32G` to set the internal storage to 32 gigabytes.
+
+## Step 3: Remove Existing User Data
+
+To apply the new storage size, you need to remove the existing user data files for the emulator. These files are named `userdata-qemu.img` and `userdata-qemu.img.qcow2` and are located in the AVD directory. Deleting these files will reset the emulator to its default state.
+
+## Step 4: Restart the Emulator
+
+After deleting the user data files, restart the emulator. The emulator will now use the new internal storage size specified in the `config.ini` file.
+
+## Conclusion
+
+Increasing the internal storage of the Android Emulator can be useful when testing applications that require a large amount of storage space. By following the steps outlined in this article, you can easily increase the internal storage size of the emulator to meet your needs.
