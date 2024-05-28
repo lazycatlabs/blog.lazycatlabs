@@ -1,0 +1,83 @@
+---
+title: 'Locking App Orientation in Flutter: A Comprehensive Guide'
+date: '2024-05-28'
+tags: ['flutter', 'android', 'iOS']
+images:
+  [
+    'https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/seo-banner/flutter/flutter-lock-portrait-orientation.png?raw=true',
+  ]
+draft: false
+summary: 'Lock orientation in Flutter to portrait mode and native code in iOS and Android.'
+---
+
+In many mobile applications, maintaining a consistent orientation is crucial for the best user experience. If your app is designed specifically for portrait mode, allowing it to rotate to landscape can result in a messy and unusable interface. This guide will show you how to lock the orientation of your Flutter app to portrait mode, covering both the Flutter code and necessary configurations for Android and iOS.
+
+## Locking Orientation in Flutter
+
+To set the orientation to portrait in Flutter, add the following code inside your `void main()` function:
+
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(MyApp());
+}
+```
+
+However, this code will only take effect after the native splash screen is displayed. If your app launches in landscape mode, the splash screen will appear in landscape before switching to portrait, which can cause issues with responsive libraries like [flutter_screenutil](https://pub.dev/packages/flutter_screenutil). This is because the library might calculate the screen size based on the landscape orientation initially.
+
+For example:
+
+```dart
+ScreenUtilInit(
+  designSize: const Size(360, 690),
+  builder: () => MyApp(),
+);
+```
+
+To ensure that the orientation is locked from the start, you need to configure the native code as well.
+
+## Locking Orientation on Android
+
+To lock the orientation to portrait mode on Android, modify the `AndroidManifest.xml` file. Add the `android:screenOrientation="portrait"` attribute to the `activity` tag for your main activity:
+
+```xml
+<activity
+    android:name=".MainActivity"
+    android:screenOrientation="portrait"
+    ... >
+    ...
+</activity>
+```
+
+## Locking Orientation on iOS
+
+For iOS, you need to adjust the `Info.plist` file to restrict the orientations. Add the following keys and values to support only portrait orientation:
+
+```plist
+<key>UISupportedInterfaceOrientations</key>
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+</array>
+<key>UISupportedInterfaceOrientations~ipad</key>
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+```
+
+Note: iPad applications must support both portrait and landscape orientations. If you are planning to release your app for iPads, ensure that your design accommodates both orientations.
+
+### Conclusion
+
+Locking your Flutter app to portrait mode involves both Flutter and native configurations. By following the steps outlined above, you can ensure your app maintains a consistent orientation, providing a smooth and predictable user experience. Don't forget to test your app on various devices to ensure the orientation lock works as expected.
+
+By incorporating these changes, your app will reliably start and remain in portrait mode, avoiding potential layout issues and providing a consistent user experience.
+
+Happy coding!
