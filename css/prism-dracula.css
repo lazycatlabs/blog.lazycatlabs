@@ -8,7 +8,6 @@
 code[class*='language-'],
 pre[class*='language-'] {
   color: #eba0ac;
-  background: none;
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   font-family: 'MonoLisa Nerd Font', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas,
     Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -35,9 +34,11 @@ pre[class*='language-'] {
   border-radius: 0.3em;
 }
 
-:not(pre) > code[class*='language-'],
-pre[class*='language-'] {
-  background: #1e1e2e;
+.prose :where(pre):not(:where([class~='not-prose'] *)) {
+  /* Your styles here */
+  background-color: #282a36; /* Example style */
+  padding: 16px; /* Example style */
+  border-radius: 16px; /* Example style */
 }
 
 /* Inline code */
