@@ -58,7 +58,10 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
           {displayPosts.map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
             return (
-              <li key={slug} className="my-4 overflow-hidden rounded-md shadow-xl shadow-mantle">
+              <li
+                key={slug}
+                className="my-4 overflow-hidden rounded-xl bg-surface0 shadow-xl shadow-mantle"
+              >
                 <article className="space-y-4">
                   <div className="pb-3">
                     <h3 className="mono-type mb-2 text-2xl font-extrabold tracking-tight  md:line-clamp-2">
@@ -66,8 +69,12 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
                         <Image
                           src={frontMatter.images[0]}
                           alt=""
-                          width={700}
-                          height={500}
+                          width={100}
+                          height={100}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                          }}
                           sizes="(max-width: 768px) 100vw, 33vw"
                           loading="lazy"
                         />

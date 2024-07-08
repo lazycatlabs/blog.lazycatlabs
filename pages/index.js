@@ -69,7 +69,10 @@ export default function Home({ posts }) {
           {displayPosts.map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
             return (
-              <li key={slug} className="my-4 overflow-hidden rounded-md shadow-xl shadow-mantle">
+              <li
+                key={slug}
+                className="my-4 overflow-hidden rounded-xl bg-surface0 shadow-xl shadow-mantle"
+              >
                 <article className="space-y-4">
                   <div className="pb-3">
                     <h3 className="mono-type mb-2 text-2xl font-extrabold tracking-tight  md:line-clamp-2">
@@ -77,8 +80,12 @@ export default function Home({ posts }) {
                         <Image
                           src={frontMatter.images[0]}
                           alt=""
-                          width={700}
-                          height={500}
+                          width={100}
+                          height={100}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                          }}
                           sizes="(max-width: 768px) 100vw, 33vw"
                           loading="lazy"
                         />
@@ -123,7 +130,7 @@ export default function Home({ posts }) {
         </ul>
       </div>
       {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end py-8 font-medium leading-6 text-base">
+        <div className="flex justify-end py-8 text-base font-medium leading-6">
           <Link href="/posts" className="text-sky" aria-label="all posts">
             All Posts &rarr;
           </Link>
