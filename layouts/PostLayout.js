@@ -43,7 +43,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               <dl className="space-y-10">
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="font-medium leading-6 text-base text-subtext0">
+                  <dd className="text-base font-medium leading-6 text-subtext0">
                     <time dateTime={date}>
                       {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)} |{' '}
                       {frontMatter.readingTime.text}
