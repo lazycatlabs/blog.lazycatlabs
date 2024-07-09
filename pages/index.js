@@ -86,7 +86,6 @@ export default function Home({ posts }) {
                             width: '100%',
                             height: 'auto',
                           }}
-                          sizes="(max-width: 768px) 100vw, 33vw"
                           loading="lazy"
                         />
                         <div className="border-b border-surface0 "></div>
@@ -97,7 +96,7 @@ export default function Home({ posts }) {
                     </h3>
                     <div className="flex flex-wrap px-4">
                       {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
+                        <Tag key={tag} text={tag} isFromList={true} />
                       ))}
                     </div>
                   </div>
