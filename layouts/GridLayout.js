@@ -94,8 +94,8 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
                     {summary.length <= 65 ? <br /> : null}
                   </div>
 
-                  <div className="flex flex-row justify-between px-4 pb-6 pt-4 font-medium leading-6 text-text">
-                    <button className="group items-center whitespace-nowrap text-sm font-semibold">
+                  <div className="flex flex-row justify-between pb-4 font-medium leading-6 text-text">
+                    <button className="group items-center whitespace-nowrap px-4 py-2 text-sm font-semibold">
                       <Link
                         href={`/posts/${slug}`}
                         className="text-sky hover:text-sky"
@@ -107,7 +107,7 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
 
                     <div className="row-auto">
                       <div className="sr-only">Published on</div>
-                      <div className="mono-type  text-center font-semibold text-flamingo">
+                      <div className="mono-type px-4 py-2 text-center font-semibold text-flamingo">
                         <time dateTime={date}>{formatDate(date)}</time>
                       </div>
                     </div>
