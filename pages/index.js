@@ -86,7 +86,7 @@ export default function Home({ posts }) {
                             width: '100%',
                             height: 'auto',
                           }}
-                          loading="lazy"
+                          rel="preload"
                         />
                         <div className="border-b border-surface0 "></div>
 
