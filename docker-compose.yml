@@ -1,8 +1,9 @@
 version: '3.9'
 
 services:
-  lazycatlabs.blog:
-    container_name: "blog.lazycatlabs"
-    image: blog.lazycatlabs:latest
+  blog:
+    container_name: "blog"
+    image: lazycatlabs/blog:latest
+    #image: blog:latest # enable it only for build not in the vm
     ports:
       - "6970:3030"
