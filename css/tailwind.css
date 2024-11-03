@@ -1,5 +1,3 @@
-@import url('../font/stylesheet.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -66,8 +64,8 @@ header.isSticky .title {
 /*  background-color: rgba(56, 189, 248, 0.2);*/
 /*}*/
 
-.mono-type {
-  font-family: 'Visuelt Pro', monospace;
+html {
+  font-family: 'Onest', monospace;
 }
 
 a {
