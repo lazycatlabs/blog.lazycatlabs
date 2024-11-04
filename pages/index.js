@@ -32,7 +32,7 @@ export default function Home({ posts }) {
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y divide-overlay2">
         <div className="space-y-2 pb-8 pt-4 md:space-y-5 md:pt-24">
-          <h1 className="mono-type text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className=" md:leading-14 text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl">
             Latest
           </h1>
           <div className="relative max-w-lg overflow-hidden shadow-xl shadow-mantle">
@@ -75,7 +75,7 @@ export default function Home({ posts }) {
               >
                 <article className="space-y-4">
                   <div className="pb-3">
-                    <h3 className="mono-type mb-2 text-2xl font-extrabold tracking-tight  md:line-clamp-2">
+                    <h3 className=" mb-2 text-2xl font-extrabold tracking-tight  md:line-clamp-2">
                       <Link href={`/posts/${slug}`} className="text-text hover:text-peach">
                         <Image
                           src={frontMatter.images[0]}
@@ -117,7 +117,7 @@ export default function Home({ posts }) {
 
                     <div className="row-auto">
                       <div className="sr-only">Published on</div>
-                      <div className="mono-type px-4 py-2 text-center font-semibold text-flamingo">
+                      <div className=" px-4 py-2 text-center font-semibold text-flamingo">
                         <time dateTime={date}>{formatDate(date)}</time>
                       </div>
                     </div>

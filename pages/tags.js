@@ -18,7 +18,7 @@ export default function Tags({ tags }) {
       <PageSEO title={`Tags - ${siteMetadata.author}`} description="" />
       <div className="flex flex-col  items-start justify-start divide-y divide-gray-200 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0 ">
         <div className="space-x-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="mono-type text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14">
+          <h1 className=" md:leading-14 text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl">
             Tags
           </h1>
         </div>

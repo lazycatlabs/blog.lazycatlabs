@@ -10,29 +10,22 @@ import ThemeSwitch from './ThemeSwitch'
 const LayoutWrapper = ({ children }) => {
   return (
     <SectionContainer>
-      <div className="flex h-screen flex-col justify-between">
-        <header className="flex items-center justify-between py-10">
+      <div className=" flex h-screen flex-col ">
+        <header className="flex items-center justify-between py-6">
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between no-underline">
                 <Logo />
-                {typeof siteMetadata.headerTitle === 'string' ? (
-                  <h1 className="mono-type hidden text-3xl  font-extrabold tracking-tight text-sapphire sm:block md:border-l-2 md:border-l-surface0 md:px-6 md:leading-14">
-                    (β)Log
-                  </h1>
-                ) : (
-                  siteMetadata.headerTitle
-                )}
               </div>
             </Link>
           </div>
-          <div className="flex items-center text-base leading-5">
+          <div className="flex items-center text-base">
             <div className="hidden sm:block">
               {headerNavLinks.map((link) => (
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="mono-type p-1 font-medium text-text hover:text-sky sm:p-4"
+                  className="p-1 font-medium text-text hover:text-mauve sm:p-4"
                 >
                   {link.title}
                 </Link>

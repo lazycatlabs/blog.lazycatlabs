@@ -19,7 +19,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
     <>
       <div className="divide-y divide-overlay2">
         <div className="space-y-2 pb-8 pt-4 md:space-y-5 md:pt-24">
-          <h1 className="mono-type  text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className="  md:leading-14 text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:text-6xl">
             {title}
           </h1>
           <div className="relative max-w-lg">
@@ -55,13 +55,13 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <div className="flex justify-end md:justify-start">
                     <div className="sr-only">Published on</div>
-                    <div className="mono-type  py-1 pr-2 text-center font-semibold text-flamingo">
+                    <div className="  py-1 pr-2 text-center font-semibold text-flamingo">
                       <time dateTime={date}>{formatDate(date)}</time>
                     </div>
                   </div>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
-                      <h3 className="mono-type mb-2 text-2xl font-extrabold leading-8 tracking-tight">
+                      <h3 className=" mb-2 text-2xl font-extrabold leading-8 tracking-tight">
                         <Link href={`/posts/${slug}`} className=" text-text hover:text-peach">
                           {title}
                         </Link>
