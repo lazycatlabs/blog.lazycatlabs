@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env SOCKET=true bun ./scripts/next-remote-watch.js ./data",
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build && bun ./scripts/generate-sitemap",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
@@ -59,8 +59,8 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "remark-footnotes": "^4.0.1",
-    "remark-gfm": "^4.0.0",
-    "remark-math": "^6.0.0",
+    "remark-gfm": "^3.0.1",
+    "remark-math": "^5.1.1",
     "socket.io-client": "^4.8.1"
   },
   "lint-staged": {
