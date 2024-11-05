@@ -8,7 +8,7 @@ const GiscusComponent = dynamic(
   { ssr: false }
 )
 
-const Comments = ({ frontMatter }) => {
+const Comments = () => {
   const comment = siteMetadata?.comment
   if (!comment || Object.keys(comment).length === 0) return <></>
   return (

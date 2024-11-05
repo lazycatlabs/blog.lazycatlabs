@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import Link from 'next/link'
 
 const CustomLink = ({ href, ...rest }) => {
@@ -8,7 +7,7 @@ const CustomLink = ({ href, ...rest }) => {
   if (isInternalLink) {
     return (
       <Link href={href} passHref={true}>
-        <span {...rest} />
+        rest
       </Link>
     )
   }

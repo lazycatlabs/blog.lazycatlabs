@@ -4,7 +4,7 @@ import Facebook from './facebook.svg'
 import Youtube from './youtube.svg'
 import Linkedin from './linkedin.svg'
 import Instagram from './instagram.svg'
-import Upwork from './upwork.svg'
+import Upwork from './upwork.svg' // Icons taken from: https://simpleicons.org/
 
 // Icons taken from: https://simpleicons.org/
 

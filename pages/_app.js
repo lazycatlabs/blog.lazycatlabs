@@ -21,7 +21,7 @@ const onest = Onest({
 })
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider className={`${onest.className} mx-auto`} defaultTheme={siteMetadata.theme}>
+    <ThemeProvider className={onest.className} defaultTheme={siteMetadata.theme}>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>

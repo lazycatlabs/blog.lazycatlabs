@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useRef, useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import Table_of_Contents from './TOC'
 
