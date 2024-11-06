@@ -59,6 +59,7 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "remark-math": "^6.0.0",
+    "remark-gfm": "^3.0.1",
     "socket.io-client": "^4.8.1"
   },
   "lint-staged": {
