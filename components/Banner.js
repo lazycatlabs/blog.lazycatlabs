@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import CustomLink from '@/components/Link'
 
 export default function Banner() {
-  const [_, setMounted] = useState(false)
+  const [isMounted, setMounted] = useState(false)
   const { theme } = useTheme()
   const title = 'Free Palestine 🇵🇸'
   const description = `Stand for humanity! Palestine has a right to defend itself. Together, we can put an end to the Gaza genocide. Let's unite to #SAVEGAZA and ensure that every life in this region has access to the most basic necessities.`
@@ -14,6 +14,9 @@ export default function Banner() {
     setMounted(true)
   }, [theme])
 
+  if (!isMounted) {
+    return null
+  }
   return (
     <div
       className={`relative top-0 isolate z-50 flex items-center overflow-hidden bg-mantle px-3.5 py-2.5 backdrop-blur-sm sm:sticky md:px-6`}

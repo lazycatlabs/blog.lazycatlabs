@@ -20,12 +20,12 @@ export default function Card({ slug, date, title, summary, tags }) {
         <div className="px-4 py-2 text-end text-sm italic text-subtext0">
           <time dateTime={date}>{formatDate(date)}</time>
         </div>
-        <div className="flex flex-wrap gap-4 p-4">
-          {tags.map((tag) => (
-            <Tag key={tag} text={tag} isFromList={true} />
-          ))}
-        </div>
       </CustomLink>
+      <div className="flex flex-wrap gap-4 p-4">
+        {tags.map((tag) => (
+          <Tag key={tag} text={tag} isFromList={true} />
+        ))}
+      </div>
     </li>
   )
 }
