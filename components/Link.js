@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 
-const CustomLink = ({ href, className, children, ...props }) => {
+const CustomLink = ({ href, children, ...props }) => {
   if (!href) return null
 
   // Handle internal links
   if (href.startsWith('/')) {
     return (
-      <Link href={href} className={className} {...props}>
+      <Link href={href} {...props}>
         {children}
       </Link>
     )
@@ -17,7 +17,7 @@ const CustomLink = ({ href, className, children, ...props }) => {
   // Handle anchor links
   if (href.startsWith('#')) {
     return (
-      <a href={href} className={className} {...props}>
+      <a href={href} {...props}>
         {children}
       </a>
     )
@@ -25,7 +25,7 @@ const CustomLink = ({ href, className, children, ...props }) => {
 
   // Handle external links
   return (
-    <a href={href} className={className} target="_blank" rel="noopener noreferrer" {...props}>
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
       {children}
     </a>
   )
