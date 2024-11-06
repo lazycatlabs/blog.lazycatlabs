@@ -34,7 +34,7 @@ export default function Banner() {
         <BlurDiv />
       </div>
       <p className={`mx-auto text-sm font-medium leading-4 text-text sm:leading-6`}>
-        <CustomLink href={linkTo} target="_blank" passHref={true}>
+        <CustomLink href={linkTo} target="_blank">
           <strong className="font-semibold">{title}</strong>
           <svg
             viewBox="0 0 2 2"

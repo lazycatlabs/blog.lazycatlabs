@@ -10,12 +10,10 @@ import ThemeSwitch from './ThemeSwitch'
 const LayoutWrapper = ({ children }) => {
   return (
     <SectionContainer>
-      <div className="h-screen flex-col">
+      <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-6">
           <CustomLink href="/" aria-label={siteMetadata.headerTitle}>
-            <div className="flex items-center justify-between no-underline">
-              <Logo />
-            </div>
+            <Logo />
           </CustomLink>
           <div className="flex items-center text-base leading-5">
             <div className="hidden sm:block">
