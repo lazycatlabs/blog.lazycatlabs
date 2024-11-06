@@ -58,9 +58,10 @@
     "next-remote-watch": "^1.0.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "remark-math": "^6.0.0",
     "remark-gfm": "^3.0.1",
-    "socket.io-client": "^4.8.1"
+    "remark-math": "^6.0.0",
+    "socket.io-client": "^4.8.1",
+    "unist-util-visit": "^5.0.0"
   },
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [

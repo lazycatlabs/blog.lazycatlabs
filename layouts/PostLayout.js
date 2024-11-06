@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomLink from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
@@ -17,12 +17,15 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
   const { slug, date, title, tags } = frontMatter
 
   const [ids, setIds] = React.useState([])
-  React.useEffect(() => {
-    const titles = document.querySelectorAll('h2')
-    const idArrays = Array.prototype.slice
-      .call(titles)
-      .map((title) => ({ id: title.id, title: title.innerText }))
-    setIds(idArrays)
+  useEffect(() => {
+    const headings = Array.from(document.querySelectorAll('h2, h3'))
+
+    const tocData = headings.map((heading) => ({
+      id: heading.id,
+      text: heading.innerText,
+      level: heading.tagName.toLowerCase(),
+    }))
+    setIds(tocData)
   }, [])
 
   return (

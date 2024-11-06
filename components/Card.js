@@ -12,12 +12,12 @@ export default function Card({ slug, date, title, summary, tags }) {
             <div className="px-4 py-4">{title}</div>
             {title.length <= 50 ? <br /> : null}
           </h3>
-          <div className="prose space-y-4 px-4 text-subtext0 md:line-clamp-2">
+          <div className="prose space-y-4 px-4 text-subtext1 md:line-clamp-2">
             <div>{summary}</div>
             {summary.length <= 65 ? <br /> : null}
           </div>
         </div>
-        <div className="px-4 py-2 text-end text-sm italic text-subtext0">
+        <div className="px-4 py-2 text-end text-sm  text-subtext0">
           <time dateTime={date}>{formatDate(date)}</time>
         </div>
       </CustomLink>

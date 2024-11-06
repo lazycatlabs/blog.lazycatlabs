@@ -1,36 +1,30 @@
-import useScrollSpy from '../lib/scrollSpy'
 import CustomLink from '@/components/Link'
+import useScrollSpy from '@/lib/scrollSpy'
 
 /**
  * This offset is meant for the smooth scrolling and
  * Scrollspy to take into account the header height
  */
-const OFFSET = 100
 
 const Table_of_Contents = ({ ids }) => {
-  const [currentActiveIndex] = useScrollSpy(
-    ids.map((item) =>
-      document.querySelector(`#${item.id.toString()}`).parentElement.closest('section')
-    ),
-    { offset: OFFSET }
-  )
-  if (ids.length > 0) {
+  const filteredIds = ids.filter((item) => item.id)
+  const currentActiveId = useScrollSpy(filteredIds)
+  if (filteredIds.length > 0) {
     return (
       <div className="table-of-contents mt-8">
         <ul>
-          {ids.map((item, index) => {
+          {filteredIds.map((item) => {
             return (
-              // eslint-disable-next-line @next/next/link-passhref
               <CustomLink href={`#${item.id}`} key={item.id}>
                 <span
                   className={
-                    currentActiveIndex === index
+                    currentActiveId === item.id
                       ? 'font-medium text-peach underline '
                       : 'text:text hover:italic '
                   }
                 >
-                  <li key={item.id} className="py-4">
-                    {item.title}
+                  <li key={item.id} className={`${item.level === 'h3' ? 'ml-4 py-1' : 'py-2'} `}>
+                    {item.text}
                   </li>
                 </span>
               </CustomLink>
