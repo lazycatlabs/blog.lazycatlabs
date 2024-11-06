@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import CustomLink from './Link'
+import CustomLink from '@/components/Link'
 import headerNavLinks from '@/data/headerNavLinks'
 import Footer from './Footer'
 
