@@ -1,4 +1,4 @@
-import Link from '@/components/Link'
+import CustomLink from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
 import { BlogSEO } from '@/components/SEO'
@@ -43,19 +43,22 @@ export default function PostLayout({ frontMatter, _, next, prev, children }) {
               <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-text">
                 {prev && (
                   <div className="pt-4 xl:pt-8">
-                    <Link href={`/posts/${prev.slug}`} className="text-peach hover:text-peach">
+                    <CustomLink
+                      href={`/posts/${prev.slug}`}
+                      className="text-peach hover:text-peach"
+                    >
                       &larr; {prev.title}
-                    </Link>
+                    </CustomLink>
                   </div>
                 )}
                 {next && (
                   <div className="pt-4 xl:pt-8">
-                    <Link
+                    <CustomLink
                       href={`/posts/${next.slug}`}
                       className="text-primary-500 hover:text-primary-600"
                     >
                       {next.title} &rarr;
-                    </Link>
+                    </CustomLink>
                   </div>
                 )}
               </div>

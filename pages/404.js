@@ -1,4 +1,4 @@
-import Link from '@/components/Link'
+import CustomLink from '@/components/Link'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 
@@ -19,11 +19,11 @@ export default function FourZeroFour() {
           <p className="mb-8">
             But dont worry, you can find plenty of other things on our homepage.
           </p>
-          <Link href="/">
+          <CustomLink href="/">
             <button className="focus:shadow-outline-blue inline rounded-lg border border-transparent bg-peach px-4 py-2 text-sm font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-peach focus:outline-none">
               Back to homepage
             </button>
-          </Link>
+          </CustomLink>
         </div>
       </div>
     </>

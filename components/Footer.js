@@ -1,4 +1,4 @@
-import Link from './Link'
+import CustomLink from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
 
@@ -18,9 +18,9 @@ export default function Footer() {
           <SocialIcon kind="youtube" href={siteMetadata.youtube} />
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-subtext0">
-          <Link href="https://lazycatlabs.com" className="hover:text-peach ">
+          <CustomLink href="https://lazycatlabs.com" className="hover:text-peach ">
             {siteMetadata.author}
-          </Link>
+          </CustomLink>
           <div>{` • `}</div>
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>

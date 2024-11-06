@@ -1,4 +1,4 @@
-import Link from '@/components/Link'
+import CustomLink from '@/components/Link' //import NewsletterForm from '@/components/NewsletterForm'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
@@ -51,9 +51,9 @@ export default function Home({ posts }) {
       </ul>
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end py-8 text-base font-medium leading-6">
-          <Link href="/posts" className="text-sky" aria-label="all posts">
+          <CustomLink href="/posts" className="text-sky" aria-label="all posts">
             All Posts &rarr;
-          </Link>
+          </CustomLink>
         </div>
       )}
     </>

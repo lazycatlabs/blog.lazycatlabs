@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import useScrollSpy from '../lib/scrollSpy'
+import CustomLink from '@/components/Link'
 
 /**
  * This offset is meant for the smooth scrolling and
@@ -22,7 +21,7 @@ const Table_of_Contents = ({ ids }) => {
           {ids.map((item, index) => {
             return (
               // eslint-disable-next-line @next/next/link-passhref
-              <Link href={`#${item.id}`} key={item.id}>
+              <CustomLink href={`#${item.id}`} key={item.id}>
                 <span
                   className={
                     currentActiveIndex === index
@@ -34,7 +33,7 @@ const Table_of_Contents = ({ ids }) => {
                     {item.title}
                   </li>
                 </span>
-              </Link>
+              </CustomLink>
             )
           })}
         </ul>

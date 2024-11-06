@@ -1,7 +1,7 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
-import Link from './Link'
+import CustomLink from './Link'
 import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
@@ -12,23 +12,21 @@ const LayoutWrapper = ({ children }) => {
     <SectionContainer>
       <div className="h-screen flex-col">
         <header className="flex items-center justify-between py-6">
-          <div>
-            <Link href="/" aria-label={siteMetadata.headerTitle}>
-              <div className="flex items-center justify-between no-underline">
-                <Logo />
-              </div>
-            </Link>
-          </div>
+          <CustomLink href="/" aria-label={siteMetadata.headerTitle}>
+            <div className="flex items-center justify-between no-underline">
+              <Logo />
+            </div>
+          </CustomLink>
           <div className="flex items-center text-base leading-5">
             <div className="hidden sm:block">
               {headerNavLinks.map((link) => (
-                <Link
+                <CustomLink
                   key={link.title}
                   href={link.href}
                   className="p-1 font-medium text-text hover:text-mauve sm:p-4"
                 >
                   {link.title}
-                </Link>
+                </CustomLink>
               ))}
             </div>
             <ThemeSwitch />

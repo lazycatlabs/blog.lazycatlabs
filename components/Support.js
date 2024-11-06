@@ -1,4 +1,4 @@
-import Link from './Link'
+import CustomLink from './Link'
 import siteMetadata from '@/data/siteMetadata'
 
 export default function Support() {
@@ -9,28 +9,34 @@ export default function Support() {
           <h3 className="font-semibold text-text">Support Me ❤️</h3>
         </div>
         <div className=" mb-2 flex flex-wrap content-center gap-x-2 gap-y-3 space-x-2 text-sm text-gray-500">
-          <Link href={siteMetadata.kofi} className="font-medium text-yellow hover:text-yellow">
+          <CustomLink
+            href={siteMetadata.kofi}
+            className="font-medium text-yellow hover:text-yellow"
+          >
             Ko-Fi
-          </Link>
+          </CustomLink>
           <div>{` • `}</div>
-          <Link href={siteMetadata.saweria} className="font-medium text-yellow hover:text-yellow">
+          <CustomLink
+            href={siteMetadata.saweria}
+            className="font-medium text-yellow hover:text-yellow"
+          >
             Saweria
-          </Link>
+          </CustomLink>
           <div>{` • `}</div>
-          <Link
+          <CustomLink
             href={siteMetadata.buymecoffee}
             className="font-medium text-yellow  hover:text-yellow"
           >
             Buy me a coffee
-          </Link>
+          </CustomLink>
 
           <div>{` • `}</div>
-          <Link
+          <CustomLink
             href={siteMetadata.githubSponsor}
             className="font-medium text-yellow hover:text-yellow"
           >
             GitHub Sponsor
-          </Link>
+          </CustomLink>
         </div>
       </div>
     </footer>

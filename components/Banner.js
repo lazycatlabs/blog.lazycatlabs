@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import CustomLink from '@/components/Link'
 
 export default function Banner() {
   const [_, setMounted] = useState(false)
@@ -31,7 +31,7 @@ export default function Banner() {
         <BlurDiv />
       </div>
       <p className={`mx-auto text-sm font-medium leading-4 text-text sm:leading-6`}>
-        <Link href={linkTo} target="_blank" passHref={true}>
+        <CustomLink href={linkTo} target="_blank" passHref={true}>
           <strong className="font-semibold">{title}</strong>
           <svg
             viewBox="0 0 2 2"
@@ -41,7 +41,7 @@ export default function Banner() {
             <circle cx={1} cy={1} r={1} />
           </svg>
           {description}
-        </Link>
+        </CustomLink>
       </p>
     </div>
   )

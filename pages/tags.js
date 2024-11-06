@@ -1,4 +1,4 @@
-import Link from '@/components/Link'
+import CustomLink from '@/components/Link'
 import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
@@ -28,12 +28,12 @@ export default function Tags({ tags }) {
             return (
               <div key={t} className="mb-2 mr-5 mt-2">
                 <Tag text={t} />
-                <Link
+                <CustomLink
                   href={`/tags/${kebabCase(t)}`}
                   className="-ml-2 text-sm font-semibold uppercase text-gray-600"
                 >
                   {` (${tags[t]})`}
-                </Link>
+                </CustomLink>
               </div>
             )
           })}
