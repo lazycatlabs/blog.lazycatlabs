@@ -8,7 +8,7 @@ export default function Card({ slug, date, title, summary, tags }) {
     <li className="transform overflow-hidden rounded-md bg-mantle p-2 transition-transform duration-300 hover:scale-105">
       <CustomLink href={`/posts/${slug}`}>
         <div className="pb-2">
-          <h3 className="text-2xl font-extrabold tracking-tight md:line-clamp-2">
+          <h3 className="text-xl font-extrabold tracking-tight md:line-clamp-2 lg:text-2xl">
             <div className="px-4 py-4">{title}</div>
             {title.length <= 50 ? <br /> : null}
           </h3>
