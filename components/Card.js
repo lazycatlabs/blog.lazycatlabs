@@ -4,8 +4,14 @@ import Tag from '@/components/Tag'
 import formatDate from '@/lib/utils/formatDate'
 
 export default function Card({ slug, date, title, summary, tags }) {
+  const splitSlug = slug.split('/')
+  const category = splitSlug.length > 2 ? splitSlug[1] : splitSlug[0]
+
   return (
-    <li className="transform overflow-hidden rounded-md bg-mantle p-2 transition-transform duration-300 hover:scale-105">
+    <li className="transform overflow-hidden rounded-md bg-mantle pb-2 pl-2 transition-transform duration-300 hover:scale-105">
+      <div className="w-1/5 justify-self-end rounded-md rounded-br-none rounded-tl-none bg-subtext0 bg-opacity-10 py-1 text-center font-medium first-letter:uppercase ">
+        {category}
+      </div>
       <CustomLink href={`/posts/${slug}`}>
         <div className="pb-2">
           <h3 className="text-xl font-extrabold tracking-tight md:line-clamp-2 lg:text-2xl">
