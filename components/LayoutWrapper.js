@@ -21,7 +21,7 @@ const LayoutWrapper = ({ children }) => {
                 <CustomLink
                   key={link.title}
                   href={link.href}
-                  className="p-1 font-medium text-text hover:text-mauve sm:p-4"
+                  className=" font-medium text-text hover:font-bold hover:text-pink sm:p-4"
                 >
                   {link.title}
                 </CustomLink>
