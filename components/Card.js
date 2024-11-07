@@ -13,17 +13,17 @@ export default function Card({ slug, date, title, summary, tags }) {
         {category}
       </div>
       <CustomLink href={`/posts/${slug}`}>
-        <div className="pb-2">
-          <h3 className="text-xl font-extrabold tracking-tight md:line-clamp-2 lg:text-2xl">
-            <div className="px-4 py-4">{title}</div>
+        <div className="py-2">
+          <h3 className="text-3xl font-extrabold md:line-clamp-2">
+            <div className="px-4 ">{title}</div>
             {title.length <= 50 ? <br /> : null}
           </h3>
-          <div className="prose space-y-4 px-4 text-subtext1 md:line-clamp-2">
+          <div className="prose space-y-4 px-4 py-2 text-subtext1 md:line-clamp-2">
             <div>{summary}</div>
             {summary.length <= 65 ? <br /> : null}
           </div>
         </div>
-        <div className="px-4 py-2 text-end text-sm  text-subtext0">
+        <div className="px-4  text-end text-sm  text-subtext0">
           <time dateTime={date}>{formatDate(date)}</time>
         </div>
       </CustomLink>

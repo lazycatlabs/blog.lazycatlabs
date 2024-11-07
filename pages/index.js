@@ -35,7 +35,7 @@ export default function Home({ posts }) {
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="space-y-2 pb-4 pt-4 md:space-y-6 md:pt-20">
-        <h1 className="font-extrabold text-peach sm:text-3xl sm:leading-10 md:text-6xl">Latest</h1>
+        <h1 className="text-3xl font-extrabold text-peach sm:leading-10 md:text-6xl">Latest</h1>
         <Search onChange={setSearchValue} />
       </div>
       {!filteredBlogPosts.length ? (

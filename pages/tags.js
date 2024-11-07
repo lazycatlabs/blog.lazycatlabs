@@ -30,9 +30,9 @@ export default function Tags({ tags }) {
                 <Tag text={t} />
                 <CustomLink
                   href={`/tags/${kebabCase(t)}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600"
+                  className=" text-sm font-semibold uppercase text-gray-600"
                 >
-                  {` (${tags[t]})`}
+                  {`[${tags[t]}]`}
                 </CustomLink>
               </div>
             )
