@@ -1,11 +1,6 @@
 import CustomLink from '@/components/Link'
 import useScrollSpy from '@/lib/scrollSpy'
 
-/**
- * This offset is meant for the smooth scrolling and
- * Scrollspy to take into account the header height
- */
-
 const Table_of_Contents = ({ ids }) => {
   const filteredIds = ids.filter((item) => item.id)
   const currentActiveId = useScrollSpy(filteredIds)
@@ -19,8 +14,8 @@ const Table_of_Contents = ({ ids }) => {
                 <span
                   className={
                     currentActiveId === item.id
-                      ? 'font-medium text-peach underline '
-                      : 'text:text hover:italic '
+                      ? 'text-xl font-medium text-peach underline'
+                      : 'text:text text-sm hover:italic '
                   }
                 >
                   <li key={item.id} className={`${item.level === 'h3' ? 'ml-4 py-1' : 'py-2'} `}>
