@@ -21,8 +21,10 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
 
   return (
     <>
-      <div className="space-y-2 pb-4 pt-4 md:space-y-6 md:pt-20">
-        <h1 className="text-3xl font-extrabold text-peach sm:leading-10 md:text-6xl">{title}</h1>
+      <div className="space-y-6 pb-4 pt-10 md:pt-20">
+        <h1 className="animate-text bg-gradient-to-r from-teal via-pink to-peach bg-clip-text text-6xl font-black text-transparent sm:leading-10">
+          {title}
+        </h1>
         <Search onChange={setSearchValue} />
       </div>
       {!filteredBlogPosts.length ? (
