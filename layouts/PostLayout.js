@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from '@/components/Link'
+import React, { useEffect } from 'react'
+import CustomLink from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
 import { BlogSEO } from '@/components/SEO'
@@ -17,12 +17,15 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
   const { slug, date, title, tags } = frontMatter
 
   const [ids, setIds] = React.useState([])
-  React.useEffect(() => {
-    const titles = document.querySelectorAll('h2')
-    const idArrays = Array.prototype.slice
-      .call(titles)
-      .map((title) => ({ id: title.id, title: title.innerText }))
-    setIds(idArrays)
+  useEffect(() => {
+    const headings = Array.from(document.querySelectorAll('h2, h3'))
+
+    const tocData = headings.map((heading) => ({
+      id: heading.id,
+      text: heading.innerText,
+      level: heading.tagName.toLowerCase(),
+    }))
+    setIds(tocData)
   }, [])
 
   return (
@@ -37,7 +40,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
         <div className="xl:divide-y xl:divide-surface1">
           <header className="pt-6 xl:pb-6">
             <div className="space-y-1 text-center">
-              <div className="mono-type">
+              <div className="">
                 <PageTitle>{title}</PageTitle>
               </div>
               <dl className="space-y-10">
@@ -78,12 +81,12 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         <dt className="sr-only">Github</dt>
                         <dd>
                           {author.github && (
-                            <Link
+                            <CustomLink
                               href={author.github}
                               className="font-medium text-pink hover:text-pink"
                             >
                               {author.github.replace('https://github.com/', '@')}
-                            </Link>
+                            </CustomLink>
                           )}
                         </dd>
                       </dl>
@@ -117,7 +120,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                           Previous Article
                         </h3>
                         <div className="text-peach hover:text-peach">
-                          <Link href={`/posts/${prev.slug}`}>{prev.title}</Link>
+                          <CustomLink href={`/posts/${prev.slug}`}>{prev.title}</CustomLink>
                         </div>
                       </div>
                     )}
@@ -127,7 +130,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                           Next Article
                         </h3>
                         <div className="text-peach hover:text-peach">
-                          <Link href={`/posts/${next.slug}`}>{next.title}</Link>
+                          <CustomLink href={`/posts/${next.slug}`}>{next.title}</CustomLink>
                         </div>
                       </div>
                     )}
@@ -135,9 +138,9 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 )}
               </div>
               <div className="sticky top-[50px] mb-2 pt-4 xl:pt-8">
-                <Link href="/posts" className="text-sky hover:text-sky">
+                <CustomLink href="/posts" className="text-sky hover:text-sky">
                   &larr; Back to the posts
-                </Link>
+                </CustomLink>
                 <div className="hidden xl:block">
                   <LeftNavigation ids={ids} />
                 </div>

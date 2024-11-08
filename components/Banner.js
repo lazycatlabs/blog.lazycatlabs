@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import CustomLink from '@/components/Link'
 
 export default function Banner() {
-  const [mounted, setMounted] = useState(false)
+  const [isMounted, setMounted] = useState(false)
   const { theme } = useTheme()
   const title = 'Free Palestine 🇵🇸'
   const description = `Stand for humanity! Palestine has a right to defend itself. Together, we can put an end to the Gaza genocide. Let's unite to #SAVEGAZA and ensure that every life in this region has access to the most basic necessities.`
@@ -14,11 +14,12 @@ export default function Banner() {
     setMounted(true)
   }, [theme])
 
+  if (!isMounted) {
+    return null
+  }
   return (
     <div
-      className={`relative top-0 isolate z-50 flex items-center overflow-hidden sm:sticky ${
-        mounted && theme === 'mocha' ? 'bg-gray-600/70' : 'bg-gray-50/70'
-      } px-3.5 py-2.5 backdrop-blur-sm  md:px-6`}
+      className={`relative top-0 isolate z-50 flex items-center overflow-hidden bg-mantle px-3.5 py-2.5 backdrop-blur-sm sm:sticky md:px-6`}
     >
       <div
         className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
@@ -32,12 +33,8 @@ export default function Banner() {
       >
         <BlurDiv />
       </div>
-      <p
-        className={`mx-auto text-sm leading-4 sm:leading-6 ${
-          mounted && theme === 'mocha' ? 'text-gray-300' : 'text-gray-900'
-        }`}
-      >
-        <Link href={linkTo} target="_blank" passHref={true}>
+      <p className={`mx-auto text-sm font-medium leading-4 text-text sm:leading-6`}>
+        <CustomLink href={linkTo} target="_blank">
           <strong className="font-semibold">{title}</strong>
           <svg
             viewBox="0 0 2 2"
@@ -47,7 +44,7 @@ export default function Banner() {
             <circle cx={1} cy={1} r={1} />
           </svg>
           {description}
-        </Link>
+        </CustomLink>
       </p>
     </div>
   )

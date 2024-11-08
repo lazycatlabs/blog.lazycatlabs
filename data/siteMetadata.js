@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: 'Lazycat Labs | (β)Log',
-  author: 'Lazycat Labs',
-  headerTitle: 'Lazycat Labs',
+  title: 'LazycatLabs | Blog',
+  author: 'LazycatLabs',
+  headerTitle: 'LazycatLabs',
   description: 'A blog about programming and technology in a lazy way',
   language: 'en-us',
   theme: 'system', // system, dark or light
@@ -20,7 +20,6 @@ const siteMetadata = {
   kofi: 'https://ko-fi.com/lzyct',
   buymecoffee: 'https://www.buymeacoffee.com/Lzyct',
   saweria: 'https://saweria.co/Lzyct',
-  socialBanner: '/static/images/lazycatlabs-card.png',
   locale: 'en-US',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
@@ -29,7 +28,7 @@ const siteMetadata = {
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
     simpleAnalytics: false, // true or false
     umamiWebsiteId: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
-    googleAnalyticsId: 'G-B640LCWPGY', // e.g. UA-000000-2 or G-XXXXXXX
+    googleAnalyticsId: 'G-9BFFYVT2WE', // e.g. UA-000000-2 or G-XXXXXXX
     posthogAnalyticsId: '', // posthog.init e.g. phc_5yXvArzvRdqtZIsHkEm3Fkkhm3d0bEYUXCaFISzqPSQ
   },
   newsletter: {

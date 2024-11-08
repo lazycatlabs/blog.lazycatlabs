@@ -1,4 +1,4 @@
-import Link from '@/components/Link'
+import CustomLink from '@/components/Link'
 import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
@@ -16,24 +16,22 @@ export default function Tags({ tags }) {
   return (
     <>
       <PageSEO title={`Tags - ${siteMetadata.author}`} description="" />
-      <div className="flex flex-col  items-start justify-start divide-y divide-gray-200 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0 ">
-        <div className="space-x-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="mono-type text-4xl font-extrabold leading-9 tracking-tight text-peach sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14">
-            Tags
-          </h1>
-        </div>
+      <div className="flex flex-col items-start justify-start   md:my-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
+        <h1 className="animate-text bg-gradient-to-r from-teal via-pink to-peach bg-clip-text py-8 text-6xl font-black text-transparent">
+          Tags
+        </h1>
         <div className="flex max-w-lg flex-wrap">
           {Object.keys(tags).length === 0 && 'No tags found.'}
           {sortedTags.map((t) => {
             return (
               <div key={t} className="mb-2 mr-5 mt-2">
                 <Tag text={t} />
-                <Link
+                <CustomLink
                   href={`/tags/${kebabCase(t)}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600"
+                  className=" text-sm font-semibold uppercase text-gray-600"
                 >
-                  {` (${tags[t]})`}
-                </Link>
+                  {`[${tags[t]}]`}
+                </CustomLink>
               </div>
             )
           })}

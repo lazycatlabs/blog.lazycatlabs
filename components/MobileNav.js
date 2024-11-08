@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Link from './Link'
+import CustomLink from '@/components/Link'
 import headerNavLinks from '@/data/headerNavLinks'
 import Footer from './Footer'
 
@@ -60,13 +60,13 @@ const MobileNav = () => {
           <div>
             {headerNavLinks.map((link) => (
               <div key={link.title} className="px-12 py-4">
-                <Link
+                <CustomLink
                   href={link.href}
-                  className="mono-type text-5xl font-bold tracking-widest text-text "
+                  className=" text-5xl font-bold tracking-widest text-text "
                   onClick={onToggleNav}
                 >
                   {link.title}
-                </Link>
+                </CustomLink>
               </div>
             ))}
           </div>

@@ -1,4 +1,4 @@
-import Link from '@/components/Link'
+import CustomLink from '@/components/Link'
 
 export default function Pagination({ totalPages, currentPage }) {
   const prevPage = parseInt(currentPage) - 1 > 0
@@ -13,11 +13,11 @@ export default function Pagination({ totalPages, currentPage }) {
           </button>
         )}
         {prevPage && (
-          <Link href={currentPage - 1 === 1 ? `/posts/` : `/posts/page/${currentPage - 1}`}>
+          <CustomLink href={currentPage - 1 === 1 ? `/posts/` : `/posts/page/${currentPage - 1}`}>
             <button className="font-medium text-sky hover:text-sky disabled:opacity-50">
               &larr; Previous
             </button>
-          </Link>
+          </CustomLink>
         )}
         <span className="text-gray-500">
           {currentPage} of {totalPages}
@@ -28,11 +28,11 @@ export default function Pagination({ totalPages, currentPage }) {
           </button>
         )}
         {nextPage && (
-          <Link href={`/posts/page/${currentPage + 1}`}>
+          <CustomLink href={`/posts/page/${currentPage + 1}`}>
             <button className="font-medium text-sky hover:text-sky disabled:opacity-50">
               Next &rarr;
             </button>
-          </Link>
+          </CustomLink>
         )}
       </nav>
     </div>

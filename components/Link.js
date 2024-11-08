@@ -1,23 +1,34 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
+'use client'
+
 import Link from 'next/link'
 
-const CustomLink = ({ href, ...rest }) => {
-  const isInternalLink = href && href.startsWith('/')
-  const isAnchorLink = href && href.startsWith('#')
+const CustomLink = ({ href, children, ...props }) => {
+  if (!href) return null
 
-  if (isInternalLink) {
+  // Handle internal links
+  if (href.startsWith('/')) {
     return (
-      <Link href={href} passHref={true}>
-        <span {...rest} />
+      <Link href={href} {...props}>
+        {children}
       </Link>
     )
   }
 
-  if (isAnchorLink) {
-    return <a href={href} {...rest} />
+  // Handle anchor links
+  if (href.startsWith('#')) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    )
   }
 
-  return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
+  // Handle external links
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  )
 }
 
 export default CustomLink

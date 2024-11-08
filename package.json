@@ -22,7 +22,8 @@
     "gray-matter": "^4.0.3",
     "image-size": "1.0.0",
     "mdx-bundler": "^8.1.0",
-    "next": "^15.0.2",
+    "next": "^15.0.3",
+    "next-themes": "^0.4.3",
     "postcss": "^8.4.47",
     "preact": "^10.24.3",
     "react": "^18.3.1",
@@ -39,7 +40,7 @@
   },
   "devDependencies": {
     "@catppuccin/tailwindcss": "^0.1.6",
-    "@next/bundle-analyzer": "^15.0.2",
+    "@next/bundle-analyzer": "^15.0.3",
     "@svgr/webpack": "^6.5.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "cross-env": "^7.0.3",
@@ -55,13 +56,12 @@
     "lint-staged": "^11.2.6",
     "mdast-util-to-string": "^4.0.0",
     "next-remote-watch": "^1.0.0",
-    "next-themes": "^0.4.1",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "remark-footnotes": "^4.0.1",
-    "remark-gfm": "^4.0.0",
+    "remark-gfm": "^3.0.1",
     "remark-math": "^6.0.0",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "unist-util-visit": "^5.0.0"
   },
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
@@ -70,5 +70,8 @@
     "*.+(js|jsx|ts|tsx|json|css|md|mdx)": [
       "prettier --write"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "core-js-pure"
+  ]
 }

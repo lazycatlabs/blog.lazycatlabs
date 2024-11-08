@@ -69,11 +69,11 @@ html {
 }
 
 a {
-  @apply duration-500 hover:line-through;
+  @apply duration-500 hover:underline;
 }
 
 button {
-  @apply duration-500 hover:line-through;
+  @apply duration-500 hover:underline;
 }
 
 .giscus,
