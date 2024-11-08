@@ -116,9 +116,6 @@ export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, can
     description: summary,
   }
 
-  // const twImageUrl = featuredImages[0].url
-
-  console.log(ogImageUrl)
   return (
     <>
       <CommonSEO
