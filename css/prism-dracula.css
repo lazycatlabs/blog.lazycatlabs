@@ -1,14 +1,6 @@
-/**
- * Dracula Theme originally by Zeno Rocha [@zenorocha]
- * https://draculatheme.com/
- *
- * Ported for PrismJS by Albert Vallverdu [@byverdu]
- */
-
 code[class*='language-'],
 pre[class*='language-'] {
-  color: #eba0ac;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  color: theme(colors.flamingo.DEFAULT);
   font-family: 'MonoLisa Nerd Font', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas,
     Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
@@ -36,9 +28,9 @@ pre[class*='language-'] {
 
 .prose :where(pre):not(:where([class~='not-prose'] *)) {
   /* Your styles here */
-  background-color: #282a36; /* Example style */
-  padding: 16px; /* Example style */
-  border-radius: 16px; /* Example style */
+  background-color: theme(colors.mantle.DEFAULT); /* Example style */
+  padding: 24px; /* Example style */
+  border-radius: 8px; /* Example style */
 }
 
 /* Inline code */
@@ -52,11 +44,11 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #cdd6f4;
+  color: theme(colors.subtext0.DEFAULT);
 }
 
 .token.punctuation {
-  color: #f5c2e7;
+  color: theme(colors.pink.DEFAULT);
   font-weight: bold;
 }
 
@@ -69,12 +61,12 @@ pre[class*='language-'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #f5c2e7;
+  color: theme(colors.pink.DEFAULT);
 }
 
 .token.boolean,
 .token.number {
-  color: #cba6f7;
+  color: theme(colors.lavender.DEFAULT);
 }
 
 .token.selector,
@@ -83,7 +75,7 @@ pre[class*='language-'] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #a6e3a1;
+  color: theme(colors.green.DEFAULT);
 }
 
 .token.operator,
@@ -92,24 +84,24 @@ pre[class*='language-'] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-  color: #f38ba8;
+  color: theme(colors.red.DEFAULT);
 }
 
 .token.atrule,
 .token.attr-value,
 .token.function,
 .token.class-name {
-  color: #f9e2af;
+  color: theme(colors.yellow.DEFAULT);
 }
 
 .token.keyword {
-  color: #89dceb;
+  color: theme(colors.teal.DEFAULT);
   font-style: italic;
 }
 
 .token.regex,
 .token.important {
-  color: #fab387;
+  color: theme(colors.peach.DEFAULT);
 }
 
 .token.important,

@@ -38,28 +38,31 @@ module.exports = {
               code: { color: theme('colors.sapphire.DEFAULT') },
             },
             h1: {
-              fontWeight: '700',
+              fontWeight: '800',
+              fontSize: theme('fontSize.5xl'),
               letterSpacing: theme('letterSpacing.tight'),
               color: theme('colors.pink.DEFAULT'),
             },
             h2: {
-              fontWeight: '700',
+              fontWeight: '800',
+              fontSize: theme('fontSize.4xl'),
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.pink.DEFAULT'),
+              color: theme('colors.flamingo.DEFAULT'),
             },
             h3: {
-              fontWeight: '600',
-              color: theme('colors.pink.DEFAULT'),
+              fontWeight: '700',
+              fontSize: theme('fontSize.3xl'),
+              color: theme('colors.flamingo.DEFAULT'),
             },
             'h4,h5,h6': {
-              color: theme('colors.pink.DEFAULT'),
+              color: theme('colors.flamingo.DEFAULT'),
             },
             pre: {
               backgroundColor: theme('colors.mantle.DEFAULT'),
             },
             code: {
               color: theme('colors.yellow.DEFAULT'),
-              backgroundColor: theme('colors.surface0.DEFAULT'),
+              backgroundColor: theme('colors.mantle.DEFAULT'),
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',
@@ -67,7 +70,7 @@ module.exports = {
               borderRadius: '0.25rem',
             },
             details: {
-              backgroundColor: theme('colors.surface0.DEFAULT'),
+              backgroundColor: theme('colors.mantle.DEFAULT'),
             },
             hr: { borderColor: theme('colors.mantle.DEFAULT') },
             'ol li::marker': {
@@ -75,7 +78,7 @@ module.exports = {
               color: theme('colors.text.DEFAULT'),
             },
             'ul li::marker': {
-              backgroundColor: theme('colors.surface0.DEFAULT'),
+              backgroundColor: theme('colors.mantle.DEFAULT'),
             },
             strong: { color: theme('colors.yellow.DEFAULT') },
             thead: {
@@ -85,12 +88,12 @@ module.exports = {
             },
             tbody: {
               tr: {
-                borderBottomColor: theme('colors.surface0.DEFAULT'),
+                borderBottomColor: theme('colors.mantle.DEFAULT'),
               },
             },
             blockquote: {
               color: theme('colors.text.DEFAULT'),
-              borderLeftColor: theme('colors.surface0.DEFAULT'),
+              borderLeftColor: theme('colors.mantle.DEFAULT'),
             },
           },
         },
