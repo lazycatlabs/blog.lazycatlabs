@@ -59,6 +59,7 @@ module.exports = withBundleAnalyzer({
     domains: ['github.com'],
     unoptimized: true,
   },
+  output: 'standalone',
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
