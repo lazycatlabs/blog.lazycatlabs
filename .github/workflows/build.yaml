@@ -1,0 +1,19 @@
+name: Lzycat Build 
+
+on: 
+  workflow_dispatch:
+  pull_request: 
+    branches: 
+      - main 
+
+jobs:
+  runtest: 
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Running docker scripts
+      run: ./run_docker.sh
