@@ -90,6 +90,9 @@ export default async function handler(req) {
     {
       width: 1200,
       height: 630,
+      headers: {
+        'Content-Type': 'image/png',
+      },
       fonts: fontData
         ? [
             {
