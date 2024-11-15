@@ -16,18 +16,18 @@ export default async function handler(req) {
   const site = searchParams.get('site') || 'https://lazycatlabs.com'
 
   // Fetch the Onest font from Google Fonts
-  // const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
-  // let fontData
-  // try {
-  //   const fontResponse = await fetch(fontUrl)
-  //   if (!fontResponse.ok) {
-  //     throw new Error('Failed to fetch font')
-  //   }
-  //   fontData = await fontResponse.arrayBuffer()
-  // } catch (error) {
-  //   console.error('Error fetching font:', error)
-  //   fontData = null
-  // }
+  const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
+  let fontData
+  try {
+    const fontResponse = await fetch(fontUrl)
+    if (!fontResponse.ok) {
+      throw new Error('Failed to fetch font')
+    }
+    fontData = await fontResponse.arrayBuffer()
+  } catch (error) {
+    console.error('Error fetching font:', error)
+    fontData = null
+  }
 
   const textColor = '#4c4f69'
   const subText1 = '#6c6f85'
@@ -93,15 +93,15 @@ export default async function handler(req) {
       headers: {
         'Content-Type': 'image/png',
       },
-      // fonts: fontData
-      //   ? [
-      //       {
-      //         name: 'Onest',
-      //         data: fontData,
-      //         style: 'normal',
-      //       },
-      //     ]
-      //   : [],
+      fonts: fontData
+        ? [
+            {
+              name: 'Onest',
+              data: fontData,
+              style: 'normal',
+            },
+          ]
+        : [],
     }
   )
 }
