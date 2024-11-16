@@ -76,6 +76,8 @@ export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, can
     title
   )}&description=${encodeURIComponent(summary)}&date=${publishedAt}`
 
+  console.log(ogImageUrl)
+
   let authorList
   if (authorDetails) {
     authorList = authorDetails.map((author) => {
