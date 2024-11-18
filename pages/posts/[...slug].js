@@ -43,29 +43,41 @@ export async function getStaticProps({ params }) {
 
 export default function Blog({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
-  const { title, description, image } = frontMatter
+  const { title, description, date, authors, slug } = frontMatter
+
+  // Build OG Image URL
+  const ogImageUrl = new URL(
+    '/api/og',
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+  )
+  ogImageUrl.searchParams.append('title', title)
+  ogImageUrl.searchParams.append('description', description)
+  ogImageUrl.searchParams.append('author', authors?.[0] || 'Unknown Author') // Adjust based on authors array
+  ogImageUrl.searchParams.append('date', date)
+  ogImageUrl.searchParams.append(
+    'site',
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+  )
 
   return (
     <>
       <Head>
+        <title>{title}</title>
         <title>{title}</title>
         <meta name="description" content={description} />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={image || '/default-og-image.png'} />
-        <meta
-          property="og:url"
-          content={`https://blog.lazycatlabs.com/posts/${frontMatter.slug}`}
-        />
+        <meta property="og:image" content={ogImageUrl.toString()} />
+        <meta property="og:url" content={`https://lazycatlabs.com/posts/${slug}`} />
         <meta property="og:type" content="article" />
 
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={image || '/default-og-image.png'} />
+        <meta name="twitter:image" content={ogImageUrl.toString()} />
       </Head>
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer
