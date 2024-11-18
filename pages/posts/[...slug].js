@@ -59,6 +59,8 @@ export default function Blog({ post, authorDetails, prev, next }) {
     process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
   )
 
+  console.log(ogImageUrl.toString())
+
   return (
     <>
       <Head>
