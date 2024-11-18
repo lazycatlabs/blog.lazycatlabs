@@ -1,4 +1,5 @@
 import fs from 'fs'
+import Head from 'next/head'
 import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
@@ -42,9 +43,30 @@ export async function getStaticProps({ params }) {
 
 export default function Blog({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
+  const { title, description, image } = frontMatter
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image || '/default-og-image.png'} />
+        <meta
+          property="og:url"
+          content={`https://blog.lazycatlabs.com/posts/${frontMatter.slug}`}
+        />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={image || '/default-og-image.png'} />
+      </Head>
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
