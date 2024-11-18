@@ -54,31 +54,6 @@ const securityHeaders = [
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
-  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
-  images: {
-    domains: ['github.com'],
-    unoptimized: true,
-  },
-  output: 'standalone',
-  eslint: {
-    dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
-  },
-  async headers() {
-    return [
-      // {
-      //   source: '/(.*)',
-      //   headers: securityHeaders,
-      // },
-      {
-        // matching all API routes
-        source: '/api/:path*',
-        headers: [
-          // other headers omitted for brevity...
-          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-        ],
-      },
-    ]
-  },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,
