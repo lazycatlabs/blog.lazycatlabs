@@ -52,7 +52,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
   )
   ogImageUrl.searchParams.append('title', title)
   ogImageUrl.searchParams.append('description', description)
-  ogImageUrl.searchParams.append('author', authors?.[0] || 'Unknown Author') // Adjust based on authors array
+  ogImageUrl.searchParams.append('author', authors?.[0]) // Adjust based on authors array
   ogImageUrl.searchParams.append('date', date)
   ogImageUrl.searchParams.append(
     'site',
