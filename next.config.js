@@ -54,6 +54,7 @@ const securityHeaders = [
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
+  output: 'standalone',
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,
