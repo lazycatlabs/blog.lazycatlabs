@@ -65,10 +65,10 @@ module.exports = withBundleAnalyzer({
   },
   async headers() {
     return [
-      {
-        source: '/(.*)',
-        headers: securityHeaders,
-      },
+      // {
+      //   source: '/(.*)',
+      //   headers: securityHeaders,
+      // },
       {
         // matching all API routes
         source: '/api/:path*',
