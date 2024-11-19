@@ -1,10 +1,8 @@
 import { ImageResponse } from 'next/og'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge'
 
-export default async function handler(req) {
+export async function GET(req) {
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -23,7 +21,7 @@ export default async function handler(req) {
   }
 
   // try {
-  const { searchParams } = new URL(req.url)
+  const { searchParams } = new URL(req.nextUrl)
   const title = searchParams.get('title') || 'Welcome to Lazycatlabs 👋🏻'
   // const description =
   //   searchParams.get('description') ||
