@@ -72,7 +72,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogImageUrl.toString()} />
-        <meta property="og:url" content={`https://lazycatlabs.com/posts/${slug}`} />
+        <meta property="og:url" content={`https://blog.lazycatlabs.com/posts/${slug}`} />
         <meta property="og:type" content="article" />
 
         {/* Twitter Meta Tags */}
