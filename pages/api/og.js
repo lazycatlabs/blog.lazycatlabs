@@ -6,6 +6,23 @@ export const config = {
 }
 
 export default async function handler(req) {
+  // Set CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Cross-Origin-Resource-Policy': 'cross-origin',
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Content-Type': 'image/png',
+  }
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers,
+    })
+  }
+
   try {
     const { searchParams } = new URL(req.url)
     const title = searchParams.get('title') || 'Welcome to Lazycatlabs 👋🏻'
@@ -16,27 +33,11 @@ export default async function handler(req) {
     const date = searchParams.get('date') || new Date().toISOString()
     const site = searchParams.get('site') || 'https://lazycatlabs.com'
 
-    console.log('Generating image with the following parameters:', {
-      title,
-      description,
-      author,
-      date,
-      site,
-    })
-
-    // Fetch the Onest font from Google Fonts
+    // Fetch the Onest font from Google Fonts with error handling
     const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
-    let fontData
-    try {
-      const fontResponse = await fetch(fontUrl)
-      if (!fontResponse.ok) {
-        throw new Error('Failed to fetch font')
-      }
-      fontData = await fontResponse.arrayBuffer()
-    } catch (error) {
-      console.error('Error fetching font:', error)
-      fontData = null
-    }
+    const fontData = await fetch(fontUrl)
+      .then((res) => res.arrayBuffer())
+      .catch(() => null)
 
     const textColor = '#4c4f69'
     const subText1 = '#6c6f85'
@@ -99,9 +100,7 @@ export default async function handler(req) {
       {
         width: 1200,
         height: 630,
-        headers: {
-          'Content-Type': 'image/png',
-        },
+        headers,
         fonts: fontData
           ? [
               {
@@ -115,8 +114,9 @@ export default async function handler(req) {
     )
   } catch (error) {
     console.error('Error generating image:', error)
-    return new Response(`Internal Server Error Failed to Generated OG Image ${error}`, {
+    return new Response(`Failed to Generate OG Image: ${error.message}`, {
       status: 500,
+      headers,
     })
   }
 }

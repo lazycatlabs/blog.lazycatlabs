@@ -31,8 +31,7 @@ module.exports = withBundleAnalyzer({
         headers: securityHeaders,
       },
       {
-        // matching all API routes
-        source: '/api/:path*',
+        source: '/api/og',
         headers: [
           // other headers omitted for brevity...
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
