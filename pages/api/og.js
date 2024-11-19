@@ -5,6 +5,7 @@ export const config = {
 }
 
 export default async function handler(req) {
+  console.log('Full Request URL:', req.url)
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -41,16 +42,16 @@ export default async function handler(req) {
     })
 
     // Simplified font fetching with more robust error handling
-    const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
-    let fontData = null
-    try {
-      const response = await fetch(fontUrl)
-      if (response.ok) {
-        fontData = await response.arrayBuffer()
-      }
-    } catch (fontError) {
-      console.error('Font Fetch Error:', fontError)
-    }
+    // const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
+    // let fontData = null
+    // try {
+    //   const response = await fetch(fontUrl)
+    //   if (response.ok) {
+    //     fontData = await response.arrayBuffer()
+    //   }
+    // } catch (fontError) {
+    //   console.error('Font Fetch Error:', fontError)
+    // }
 
     const textColor = '#4c4f69'
     const subText1 = '#6c6f85'
@@ -131,19 +132,23 @@ export default async function handler(req) {
         width: 1200,
         height: 630,
         headers,
-        fonts: fontData
-          ? [
-              {
-                name: 'Onest',
-                data: fontData,
-                style: 'normal',
-              },
-            ]
-          : [],
+        // fonts: fontData
+        //   ? [
+        //       {
+        //         name: 'Onest',
+        //         data: fontData,
+        //         style: 'normal',
+        //       },
+        //     ]
+        //   : [],
       }
     )
   } catch (error) {
-    console.error('OG Image Generation Error:', error)
+    console.error('Complete OG Image Error:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name,
+    })
     return new Response(`OG Image Generation Failed: ${error.message}`, {
       status: 500,
       headers: {
