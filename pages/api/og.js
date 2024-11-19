@@ -33,11 +33,25 @@ export default async function handler(req) {
     const date = searchParams.get('date') || new Date().toISOString()
     const site = searchParams.get('site') || 'https://lazycatlabs.com'
 
-    // Fetch the Onest font from Google Fonts with error handling
+    console.log('OG Image Parameters:', {
+      title,
+      description,
+      author,
+      date,
+      site,
+    })
+
+    // Simplified font fetching with more robust error handling
     const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
-    const fontData = await fetch(fontUrl)
-      .then((res) => res.arrayBuffer())
-      .catch(() => null)
+    let fontData = null
+    try {
+      const response = await fetch(fontUrl)
+      if (response.ok) {
+        fontData = await response.arrayBuffer()
+      }
+    } catch (fontError) {
+      console.error('Font Fetch Error:', fontError)
+    }
 
     const textColor = '#4c4f69'
     const subText1 = '#6c6f85'
@@ -113,10 +127,13 @@ export default async function handler(req) {
       }
     )
   } catch (error) {
-    console.error('Error generating image:', error)
-    return new Response(`Failed to Generate OG Image: ${error.message}`, {
+    console.error('OG Image Generation Error:', error)
+    return new Response(`OG Image Generation Failed: ${error.message}`, {
       status: 500,
-      headers,
+      headers: {
+        'Content-Type': 'text/plain',
+        'Access-Control-Allow-Origin': '*',
+      },
     })
   }
 }
