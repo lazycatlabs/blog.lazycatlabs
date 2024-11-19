@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og'
-import Logo from '@/data/logo.svg'
 
 export const config = {
   runtime: 'edge',
@@ -63,6 +62,8 @@ export default async function handler(req) {
         <div
           // tw={`flex flex-col w-full h-full px-8 py-4`}
           style={{
+            display: 'flex',
+            flexDirection: 'column',
             backgroundColor: backgroundColor,
             backgroundImage:
               'radial-gradient(circle at 25px 25px, lightgray 3%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
@@ -70,12 +71,18 @@ export default async function handler(req) {
           }}
         >
           <div
-          // tw={`flex justify-end mb-auto`}
+            style={{
+              display: 'flex',
+            }}
+            // tw={`flex justify-end mb-auto`}
           >
             {/*<Logo />*/}
           </div>
           <div
-          // tw={`flex flex-col justify-end`}
+            style={{
+              display: 'flex',
+            }}
+            // tw={`flex flex-col justify-end`}
           >
             <h1
               // tw={`text-7xl p-0`}
@@ -95,7 +102,10 @@ export default async function handler(req) {
             </p>
 
             <div
-            // tw={`flex flex-row justify-between`}
+              style={{
+                display: 'flex',
+              }}
+              // tw={`flex flex-row justify-between`}
             >
               <p
                 // tw={`text-xl`}
