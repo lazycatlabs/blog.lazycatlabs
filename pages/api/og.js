@@ -61,7 +61,7 @@ export default async function handler(req) {
     return new ImageResponse(
       (
         <div
-          tw={`flex flex-col w-full h-full px-8 py-4`}
+          // tw={`flex flex-col w-full h-full px-8 py-4`}
           style={{
             backgroundColor: backgroundColor,
             backgroundImage:
@@ -69,12 +69,16 @@ export default async function handler(req) {
             backgroundSize: '100px 100px',
           }}
         >
-          <div tw={`flex justify-end mb-auto`}>
-            <Logo />
+          <div
+          // tw={`flex justify-end mb-auto`}
+          >
+            {/*<Logo />*/}
           </div>
-          <div tw={`flex flex-col justify-end`}>
+          <div
+          // tw={`flex flex-col justify-end`}
+          >
             <h1
-              tw={`text-7xl p-0`}
+              // tw={`text-7xl p-0`}
               style={{
                 color: textColor,
               }}
@@ -82,7 +86,7 @@ export default async function handler(req) {
               {title}
             </h1>
             <p
-              tw={`text-2xl`}
+              // tw={`text-2xl`}
               style={{
                 color: subText1,
               }}
@@ -90,9 +94,11 @@ export default async function handler(req) {
               {description}
             </p>
 
-            <div tw={`flex flex-row justify-between`}>
+            <div
+            // tw={`flex flex-row justify-between`}
+            >
               <p
-                tw={`text-xl`}
+                // tw={`text-xl`}
                 style={{
                   color: textColor,
                 }}
@@ -100,7 +106,7 @@ export default async function handler(req) {
                 {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
               </p>
               <p
-                tw={`text-xl`}
+                // tw={`text-xl`}
                 style={{
                   color: urlColor,
                 }}
