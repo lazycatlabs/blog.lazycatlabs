@@ -1,4 +1,4 @@
-import { ImageResponse } from '@vercel/og'
+import { ImageResponse } from 'next/og'
 import Logo from '@/data/logo.svg'
 
 export const runtime = 'edge'

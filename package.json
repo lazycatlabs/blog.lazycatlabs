@@ -15,7 +15,6 @@
     "@agentofuser/rehype-section": "^1.0.5",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
-    "@vercel/og": "^0.6.4",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.24.0",
     "framer-motion": "^4.1.17",
@@ -37,8 +36,7 @@
     "rehype-prism-plus": "^1.6.3",
     "rehype-slug": "^5.1.0",
     "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.14",
-    "vercel": "^39.1.0"
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@catppuccin/tailwindcss": "^0.1.6",
