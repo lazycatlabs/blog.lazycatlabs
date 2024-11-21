@@ -3,7 +3,7 @@ import Logo from '@/data/logo.svg'
 
 export const runtime = 'edge'
 
-export default async function handler(req) {
+export default async function handler(req, res) {
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
