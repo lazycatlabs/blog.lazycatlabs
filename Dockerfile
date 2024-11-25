@@ -30,8 +30,8 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Create a non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+#RUN addgroup --system --gid 1001 nodejs
+#RUN adduser --system --uid 1001 nextjs
 
 # Copy necessary files from builder
 COPY --from=builder /app/public ./public
@@ -42,9 +42,9 @@ COPY --from=builder /app/.next/static ./.next/static
 RUN chown -R nextjs:nodejs /app
 
 # Switch to non-root user
-USER nextjs
+#USER nextjs
 
 EXPOSE 6970
 ENV PORT 3030
 # Start the application
-CMD ["bun", "server.js"]
+CMD ["bun", "run","serve"]
