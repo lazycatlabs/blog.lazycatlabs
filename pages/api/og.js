@@ -32,16 +32,16 @@ export default async function handler(req, res) {
     const site = searchParams.get('site') || 'https://lazycatlabs.com'
 
     // Simplified font fetching with more robust error handling
-    const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
-    let fontData = null
-    try {
-      const response = await fetch(fontUrl)
-      if (response.ok) {
-        fontData = await response.arrayBuffer()
-      }
-    } catch (fontError) {
-      console.error('Font Fetch Error:', fontError)
-    }
+    // const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
+    // let fontData = null
+    // try {
+    //   const response = await fetch(fontUrl)
+    //   if (response.ok) {
+    //     fontData = await response.arrayBuffer()
+    //   }
+    // } catch (fontError) {
+    //   console.error('Font Fetch Error:', fontError)
+    // }
 
     const textColor = '#4c4f69'
     const subText1 = '#6c6f85'
@@ -86,15 +86,15 @@ export default async function handler(req, res) {
         width: 1200,
         height: 630,
         headers,
-        fonts: fontData
-          ? [
-              {
-                name: 'Onest',
-                data: fontData,
-                style: 'normal',
-              },
-            ]
-          : [],
+        // fonts: fontData
+        //   ? [
+        //       {
+        //         name: 'Onest',
+        //         data: fontData,
+        //         style: 'normal',
+        //       },
+        //     ]
+        //   : [],
       }
     )
   } catch (error) {
