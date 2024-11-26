@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y git \
 COPY package.json bun.lockb ./
 
 # Install dependencies
-RUN bun install --frozen-lockfile
+RUN bun install --frozen-lockfile --ignore-scripts
+
 
 # Copy the rest of the application
 COPY . .
@@ -36,11 +37,11 @@ WORKDIR /app
 # Copy necessary files from builder
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/.next/server ./.next/server
+COPY --from=builder /app/.next/static ./
+COPY --from=builder /app/.next/server ./
 
 # Set correct permissions
-RUN chown -R nextjs:nodejs /app
+#RUN chown -R nextjs:nodejs /app
 
 # Switch to non-root user
 #USER nextjs

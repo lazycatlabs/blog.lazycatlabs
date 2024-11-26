@@ -1,6 +1,6 @@
 module.exports = {
   experimental: {
-    optimizeUniversalDefaults: true,
+    optimizeUniversalDefaults: false,
   },
   content: [
     './pages/**/*.js',
