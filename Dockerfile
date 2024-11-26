@@ -37,8 +37,9 @@ WORKDIR /app
 # Copy necessary files from builder
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./
-COPY --from=builder /app/.next/server ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.next/server ./.next/server
+COPY --from=builder /app/node_modules ./node_modules
 
 # Set correct permissions
 #RUN chown -R nextjs:nodejs /app
@@ -49,4 +50,5 @@ COPY --from=builder /app/.next/server ./
 EXPOSE 6970
 ENV PORT 3030
 # Start the application
+
 CMD ["bun", "run","serve"]
