@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import Logo from '@/data/logo.svg'
+// import Logo from '@/data/logo.svg'
 
 export const runtime = 'edge'
 
@@ -51,60 +51,90 @@ export default async function handler(req, res) {
     return new ImageResponse(
       (
         <div
-          tw={`flex flex-col w-full h-full px-8 py-4`}
           style={{
-            backgroundColor: backgroundColor,
-            backgroundImage:
-              'radial-gradient(circle at 25px 25px, lightgray 3%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
-            backgroundSize: '100px 100px',
+            display: 'flex',
+            background: 'white',
+            width: '100%',
+            height: '100%',
           }}
         >
-          <div tw={`flex justify-end mb-auto`}>
-            <Logo />
-          </div>
-          <div tw={`flex flex-col justify-end`}>
-            <h1 tw={`text-7xl p-0`} style={{ color: textColor }}>
-              {title}
-            </h1>
-
-            <p tw={`text-2xl`} style={{ color: subText1 }}>
-              {description}
-            </p>
-
-            <div tw={`flex flex-row justify-between`}>
-              <p tw={`text-xl`} style={{ color: textColor }}>
-                {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
-              </p>
-              <p tw={`text-xl`} style={{ color: urlColor }}>
-                {site}
-              </p>
-            </div>
-          </div>
+          Simple OG Image
         </div>
       ),
-      {
-        width: 1200,
-        height: 630,
-        headers,
-        // fonts: fontData
-        //   ? [
-        //       {
-        //         name: 'Onest',
-        //         data: fontData,
-        //         style: 'normal',
-        //       },
-        //     ]
-        //   : [],
-      }
+      { width: 1200, height: 630 }
     )
+
+    // return new ImageResponse(
+    //   (
+    //     <div
+    //       tw={`flex flex-col w-full h-full px-8 py-4`}
+    //       style={{
+    //         backgroundColor: backgroundColor,
+    //         backgroundImage:
+    //           'radial-gradient(circle at 25px 25px, lightgray 3%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
+    //         backgroundSize: '100px 100px',
+    //       }}
+    //     >
+    //       <div tw={`flex justify-end mb-auto`}>{/*<Logo />*/}</div>
+    //       <div tw={`flex flex-col justify-end`}>
+    //         <h1 tw={`text-7xl p-0`} style={{ color: textColor }}>
+    //           {title}
+    //         </h1>
+    //
+    //         <p tw={`text-2xl`} style={{ color: subText1 }}>
+    //           {description}
+    //         </p>
+    //
+    //         <div tw={`flex flex-row justify-between`}>
+    //           <p tw={`text-xl`} style={{ color: textColor }}>
+    //             {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
+    //           </p>
+    //           <p tw={`text-xl`} style={{ color: urlColor }}>
+    //             {site}
+    //           </p>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ),
+    //   {
+    //     width: 1200,
+    //     height: 630,
+    //     headers,
+    //     // fonts: fontData
+    //     //   ? [
+    //     //       {
+    //     //         name: 'Onest',
+    //     //         data: fontData,
+    //     //         style: 'normal',
+    //     //       },
+    //     //     ]
+    //     //   : [],
+    //   }
+    // )
   } catch (error) {
-    console.error('OG Image Generation Error:', error)
-    return new Response(`OG Image Generation Failed: ${error.message}`, {
-      status: 500,
-      headers: {
-        'Content-Type': 'text/plain',
-        'Access-Control-Allow-Origin': '*',
+    console.error('OG Image Error Details:', {
+      message: error.message,
+      stack: error.stack,
+      type: error.constructor.name,
+      req: {
+        method: req.method,
+        url: req.url,
+        headers: req.headers,
       },
     })
+
+    // More comprehensive error response
+    return new Response(
+      JSON.stringify({
+        error: 'OG Image Generation Failed',
+        details: error.message,
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
   }
 }
