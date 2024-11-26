@@ -1,25 +1,18 @@
 import { ImageResponse } from 'next/og'
 // import Logo from '@/data/logo.svg'
 
-export const runtime = 'edge'
+export const config = {
+  runtime: 'edge',
+}
 
-export default async function handler(req, res) {
-  // Set CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Cross-Origin-Resource-Policy': 'cross-origin',
-    'Cross-Origin-Opener-Policy': 'same-origin',
-    'Content-Type': 'image/png',
-  }
-
-  // Handle preflight OPTIONS request
-  if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 204,
-      headers,
-    })
-  }
+export default async function handler(req, _) {
+  // Detailed logging of request
+  console.log('Request Details:', {
+    method: req.method,
+    nextUrl: req.nextUrl,
+    url: req.url,
+    headers: Object.fromEntries(req.headers),
+  })
 
   try {
     const { searchParams } = new URL(req.nextUrl)
@@ -32,85 +25,67 @@ export default async function handler(req, res) {
     const site = searchParams.get('site') || 'https://lazycatlabs.com'
 
     // Simplified font fetching with more robust error handling
-    // const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
-    // let fontData = null
-    // try {
-    //   const response = await fetch(fontUrl)
-    //   if (response.ok) {
-    //     fontData = await response.arrayBuffer()
-    //   }
-    // } catch (fontError) {
-    //   console.error('Font Fetch Error:', fontError)
-    // }
+    const fontUrl = 'https://fonts.gstatic.com/s/onest/v6/gNMZW3F-SZuj7zOT0IfSjTS16cPhEhiZsg.ttf'
+    let fontData = null
+    try {
+      const response = await fetch(fontUrl)
+      if (response.ok) {
+        fontData = await response.arrayBuffer()
+      }
+    } catch (fontError) {
+      console.error('Font Fetch Error:', fontError)
+    }
 
     const textColor = '#4c4f69'
     const subText1 = '#6c6f85'
     const backgroundColor = '#eff1f5'
     const urlColor = '#dd7878'
-
     return new ImageResponse(
       (
         <div
+          tw={`flex flex-col w-full h-full px-8 py-4`}
           style={{
-            display: 'flex',
-            background: 'white',
-            width: '100%',
-            height: '100%',
+            backgroundColor: backgroundColor,
+            backgroundImage:
+              'radial-gradient(circle at 25px 25px, lightgray 3%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
+            backgroundSize: '100px 100px',
           }}
         >
-          Simple OG Image
+          <div tw={`flex justify-end mb-auto`}>{/*<Logo />*/}</div>
+          <div tw={`flex flex-col justify-end`}>
+            <h1 tw={`text-7xl p-0`} style={{ color: textColor }}>
+              {title}
+            </h1>
+
+            <p tw={`text-2xl`} style={{ color: subText1 }}>
+              {description}
+            </p>
+
+            <div tw={`flex flex-row justify-between`}>
+              <p tw={`text-xl`} style={{ color: textColor }}>
+                {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
+              </p>
+              <p tw={`text-xl`} style={{ color: urlColor }}>
+                {site}
+              </p>
+            </div>
+          </div>
         </div>
       ),
-      { width: 1200, height: 630 }
+      {
+        width: 1200,
+        height: 630,
+        fonts: fontData
+          ? [
+              {
+                name: 'Onest',
+                data: fontData,
+                style: 'normal',
+              },
+            ]
+          : [],
+      }
     )
-
-    // return new ImageResponse(
-    //   (
-    //     <div
-    //       tw={`flex flex-col w-full h-full px-8 py-4`}
-    //       style={{
-    //         backgroundColor: backgroundColor,
-    //         backgroundImage:
-    //           'radial-gradient(circle at 25px 25px, lightgray 3%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
-    //         backgroundSize: '100px 100px',
-    //       }}
-    //     >
-    //       <div tw={`flex justify-end mb-auto`}>{/*<Logo />*/}</div>
-    //       <div tw={`flex flex-col justify-end`}>
-    //         <h1 tw={`text-7xl p-0`} style={{ color: textColor }}>
-    //           {title}
-    //         </h1>
-    //
-    //         <p tw={`text-2xl`} style={{ color: subText1 }}>
-    //           {description}
-    //         </p>
-    //
-    //         <div tw={`flex flex-row justify-between`}>
-    //           <p tw={`text-xl`} style={{ color: textColor }}>
-    //             {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
-    //           </p>
-    //           <p tw={`text-xl`} style={{ color: urlColor }}>
-    //             {site}
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   ),
-    //   {
-    //     width: 1200,
-    //     height: 630,
-    //     headers,
-    //     // fonts: fontData
-    //     //   ? [
-    //     //       {
-    //     //         name: 'Onest',
-    //     //         data: fontData,
-    //     //         style: 'normal',
-    //     //       },
-    //     //     ]
-    //     //   : [],
-    //   }
-    // )
   } catch (error) {
     console.error('OG Image Error Details:', {
       message: error.message,
