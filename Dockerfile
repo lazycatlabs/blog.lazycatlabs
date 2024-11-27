@@ -1,54 +1,17 @@
-# Use Bun base image
-FROM oven/bun:1 AS builder
+FROM oven/bun:1-slim 
 
-# Set working directory
-WORKDIR /app
+WORKDIR /app 
 
-# Install git for Husky
-RUN apt-get update && apt-get install -y git \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy package files
 COPY package.json bun.lockb ./
 
-# Install dependencies
 RUN bun install --frozen-lockfile --ignore-scripts
 
+COPY . . 
 
-# Copy the rest of the application
-COPY . .
+ENV PORT=3030
 
-# Build the application
 RUN bun run build
 
-# Production image
-FROM oven/bun:1-slim AS runner
-
-WORKDIR /app
-
-# Set environment variables
-#ENV NODE_ENV=production
-#ENV NEXT_TELEMETRY_DISABLED=1
-
-# Create a non-root user
-#RUN addgroup --system --gid 1001 nodejs
-#RUN adduser --system --uid 1001 nextjs
-
-# Copy necessary files from builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/.next/server ./.next/server
-COPY --from=builder /app/node_modules ./node_modules
-
-# Set correct permissions
-#RUN chown -R nextjs:nodejs /app
-
-# Switch to non-root user
-#USER nextjs
-
 EXPOSE 6970
-ENV PORT 3030
-# Start the application
 
 CMD ["bun", "run","serve"]

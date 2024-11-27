@@ -2,6 +2,7 @@ services:
   blog:
     container_name: "blog"
     image: lazycatlabs/blog:latest
+    platform: linux/amd64
     #image: blog:latest # enable it only for build not in the vm
     ports:
       - "6970:3030"
