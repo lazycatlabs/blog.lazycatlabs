@@ -54,11 +54,11 @@ export default async function handler(req, _) {
             </p>
 
             <div tw={`flex flex-row justify-between items-end mt-16`}>
-              <p tw={`text-3xl`} style={{ color: textColor }}>
-                {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
-              </p>
               <p tw={`text-xl`} style={{ color: urlColor }}>
                 {site}
+              </p>
+              <p tw={`text-3xl`} style={{ color: textColor }}>
+                {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
               </p>
             </div>
           </div>
