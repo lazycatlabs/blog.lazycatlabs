@@ -12,7 +12,7 @@ Forked from the excellent [Tailwind Nextjs Starter Blog](https://github.com/timl
 ## Installation ⚙️
 
 ```bash
-bun install
+npm install
 ```
 
 ## Development 🤌
@@ -20,13 +20,13 @@ bun install
 First, run the development server:
 
 ```bash
-bun start
+npm start
 ```
 
 or
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
