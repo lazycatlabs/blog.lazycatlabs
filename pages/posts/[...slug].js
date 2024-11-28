@@ -51,15 +51,13 @@ export default function Blog({ post, authorDetails, prev, next }) {
     process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
   )
   ogImageUrl.searchParams.append('title', title)
-  ogImageUrl.searchParams.append('description', description)
-  ogImageUrl.searchParams.append('author', authors?.[0]) // Adjust based on authors array
+  if (description !== undefined) ogImageUrl.searchParams.append('description', description)
+  if (authors?.[0] !== undefined) ogImageUrl.searchParams.append('author', authors?.[0]) // Adjust based on authors array
   ogImageUrl.searchParams.append('date', date)
   ogImageUrl.searchParams.append(
     'site',
     process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
   )
-
-  console.log(ogImageUrl.toString())
 
   return (
     <>
