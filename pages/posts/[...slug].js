@@ -43,7 +43,7 @@ export async function getStaticProps({ params }) {
 
 export default function Blog({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
-  const { title, description, date, authors, slug } = frontMatter
+  const { title, summary, date, authors, slug } = frontMatter
 
   // Build OG Image URL
   const ogImageUrl = new URL(
@@ -51,7 +51,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
     process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
   )
   ogImageUrl.searchParams.append('title', title)
-  if (description !== undefined) ogImageUrl.searchParams.append('description', description)
+  if (summary !== undefined) ogImageUrl.searchParams.append('description', summary)
   if (authors?.[0] !== undefined) ogImageUrl.searchParams.append('author', authors?.[0]) // Adjust based on authors array
   ogImageUrl.searchParams.append('date', date)
   ogImageUrl.searchParams.append(
@@ -63,12 +63,11 @@ export default function Blog({ post, authorDetails, prev, next }) {
     <>
       <Head>
         <title>{title}</title>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        <meta name="description" content={summary} />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:description" content={summary} />
         <meta property="og:image" content={ogImageUrl.toString()} />
         <meta property="og:url" content={`https://blog.lazycatlabs.com/posts/${slug}`} />
         <meta property="og:type" content="article" />
@@ -76,7 +75,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
+        <meta name="twitter:description" content={summary} />
         <meta name="twitter:image" content={ogImageUrl.toString()} />
       </Head>
       {frontMatter.draft !== true ? (

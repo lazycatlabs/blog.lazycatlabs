@@ -49,11 +49,11 @@ export default async function handler(req, _) {
               {title}
             </h1>
 
-            <p tw={`text-3xl`} style={{ color: subText1 }}>
+            <p tw={`text-4xl`} style={{ color: subText1 }}>
               {description}
             </p>
 
-            <div tw={`flex flex-row justify-between items-end`}>
+            <div tw={`flex flex-row justify-between items-end mt-16`}>
               <p tw={`text-3xl`} style={{ color: textColor }}>
                 {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
               </p>
