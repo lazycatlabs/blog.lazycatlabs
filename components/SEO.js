@@ -5,6 +5,11 @@ import Script from 'next/script'
 
 const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl }) => {
   const router = useRouter()
+
+  const ogImageUrl = new URL(
+    '/api/og',
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+  )
   return (
     <Head>
       <title>{title}</title>
@@ -15,14 +20,14 @@ const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl 
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:description" content={description} />
       <meta property="og:title" content={title} />
-      <meta property="og:image" content={ogImage} key={ogImage} />
+      <meta property="og:image" content={ogImageUrl.toString()} />
       <meta property="og:image:alt" content="Lazycatlabs" />
       <meta property="og:image:type" content="image/png" key={ogImage} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={siteMetadata.twitter} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={twImage} />
+      <meta name="twitter:image" content={ogImageUrl.toString()} />
       <link
         rel="canonical"
         href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath}`}
@@ -45,17 +50,10 @@ export const PageSEO = ({ title, description }) => {
 }
 
 export const TagSEO = ({ title, description }) => {
-  const ogImageUrl = `${siteMetadata.siteUrl}/api/og`
   const router = useRouter()
   return (
     <>
-      <CommonSEO
-        title={title}
-        description={description}
-        ogType="website"
-        ogImage={ogImageUrl}
-        twImage={ogImageUrl}
-      />
+      <CommonSEO title={title} description={description} ogType="website" />
       <Head>
         <link
           rel="alternate"
