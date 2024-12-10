@@ -6,10 +6,19 @@ import Script from 'next/script'
 const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl }) => {
   const router = useRouter()
 
-  const ogImageUrl = new URL(
-    '/api/og',
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
-  )
+  const ignoredPaths = [
+    'https://blog.lazycatlabs.com/',
+    'https://blog.lazycatlabs.com/posts',
+    'https://blog.lazycatlabs.com/tags',
+  ]
+  let ogImageUrl = null
+  if (ignoredPaths.includes(`${siteMetadata.siteUrl}${router.asPath}`)) {
+    ogImageUrl = new URL(
+      '/api/og',
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+    )
+  }
+
   return (
     <Head>
       <title>{title}</title>
@@ -20,14 +29,18 @@ const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl 
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:description" content={description} />
       <meta property="og:title" content={title} />
-      <meta property="og:image" content={ogImageUrl.toString()} />
+      {ogImageUrl !== null && (
+        <>
+          <meta property="og:image" content={ogImageUrl.toString()} />
+          <meta name="twitter:image" content={ogImageUrl.toString()} />
+        </>
+      )}
       <meta property="og:image:alt" content="Lazycatlabs" />
       <meta property="og:image:type" content="image/png" key={ogImage} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={siteMetadata.twitter} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImageUrl.toString()} />
       <link
         rel="canonical"
         href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath}`}
