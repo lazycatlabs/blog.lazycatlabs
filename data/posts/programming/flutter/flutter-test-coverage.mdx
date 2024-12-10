@@ -1,0 +1,86 @@
+---
+title: 'Flutter Test Coverage'
+date: '2024-12-10'
+tags: ['flutter', 'test']
+draft: false
+summary: 'Check the test coverage of your Flutter project.'
+---
+
+Creating the test can help you write better code, catch the regression early, and make you confident to refactor your code. That also helps you to be aware of what you write in your code.
+The automated test can also save you time to test for repetitive things. Instead, you do it manually.
+
+Flutter provides tools to generate and visualize test coverage on your project down to each line of code.
+
+But before we go deep on test coverage. I will try to tell you the benefits of why we should implement the Test Coverage.
+
+- We can easily see how far we do the test in our project.
+- We can see which one of the unused code/functions on our project.
+- We can be confident in our code because we can measure it.
+
+Let's get started 🔥
+
+## Flutter test --coverage
+
+Suppose you have written some tests, and you want to see how much your test coverage is in your project.
+
+All you need to do is run these commands:
+
+```bash
+# To generate `covarage/lcov.info`
+flutter test --coverage
+
+# Generate HTML report
+# For MacOS you need to install lcov on your system to use this (brew install lcov);
+
+genhtml coverage/lcov.info -o coverage/html
+
+# open the generated HTML report
+open coverage/html/index.html
+
+```
+
+> **_NOTE:_** Don't forget to add `coverage/` folder on your `.gitignore` file
+
+The result of the generated report looks like this:
+![LOC code coverage](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/LCOV%20code%20coverage.png?raw=true)
+
+We can see the coverage rate for each folder on our project.
+
+## Analyze the test report
+
+![Dimens.dart](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/LCOV%20code%20coverage%201.png?raw=true)
+
+The good thing about the file report is that all relevant lines are color-coded _(blue: covered, red: not covered)_
+
+![Unused code](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/Coverage%203.png?raw=true)
+
+In some cases, the _red color_ can help you to identify which code is used or not. For example, the code `selectedIndicatorW` is marked as not coverage, and when you check it, there is no usage found for that variable.
+
+> **_NOTES_**: This report just tells you if there are tests that cover a given line, not if the test passes or not, you need to ensure all your tests pass.
+
+## Ignore some files or folder
+
+But sometimes, we want to ignore some files or folders in the coverage report, for example, the resources folder, localization, and some generated folders and files.
+
+We can run this command:
+
+```bash
+flutter test --coverage;lcov --remove coverage/lcov.info 'lib/core/localization/generated/' 'lib/core/resources/*' 'lib/utils/services/firebase/*' '**/*.g.dart' -o coverage/new_lcov.info ;genhtml coverage/new_lcov.info -o coverage/html
+
+```
+
+on that command, we will remove some folders and files from the generated `lcov` and create a `new_lcov.info` file then we generate the HTML file
+
+This is the result after we ignore some files and folders
+
+![ignored](https://github.com/lazycatlabs/blog.lazycatlabs.com-giscus/blob/main/blog-assets/LCOV%20code%20coverage%20-%20ignore.png?raw=true)
+
+## Bonus
+
+You can also use codecov for your CI/CD project and show the badge coverage on your README.md project.
+
+This sample badge from [flutter_auth_app](https://github.com/lazycatlabs/flutter_auth_app) [![codecov](https://codecov.io/gh/lazycatlabs/flutter_auth_app/main/graph/badge.svg)](https://codecov.io/gh/lazycatlabs/flutter_auth_app)
+
+You can see the [official documentation](https://docs.codecov.com/docs/quick-start) about how to integrate the codecove into your project.
+
+Feel free to comment if you have a question or if you want to add something I miss. Thanks
