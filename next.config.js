@@ -59,6 +59,7 @@ module.exports = withBundleAnalyzer({
     domains: ['github.com'],
     unoptimized: true,
   },
+  output: 'standalone',
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
@@ -75,7 +76,7 @@ module.exports = withBundleAnalyzer({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
-
+    config.cache = false
     if (!dev && !isServer) {
       // Replace React with Preact only in client production build
       Object.assign(config.resolve.alias, {
