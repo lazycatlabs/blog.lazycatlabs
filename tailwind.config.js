@@ -2,6 +2,19 @@ module.exports = {
   experimental: {
     optimizeUniversalDefaults: false,
   },
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['light'],
+        },
+        black: {
+          ...require('daisyui/src/theming/themes')['black'],
+          secondary: 'pink',
+        },
+      },
+    ],
+  },
   content: [
     './pages/**/*.js',
     './components/**/*.js',
@@ -11,58 +24,44 @@ module.exports = {
   ],
   theme: {
     extend: {
-      animation: {
-        text: 'text 5s ease infinite',
-      },
-      keyframes: {
-        text: {
-          '0%, 100%': {
-            'background-size': '200% 200%',
-            'background-position': 'left center',
-          },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'right center',
-          },
-        },
-      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.text.DEFAULT'),
+            color: theme('colors.base-content.DEFAULT'),
             a: {
-              color: theme('colors.sky.DEFAULT'),
+              color: theme('colors.teal.DEFAULT'),
               '&:hover': {
-                color: `${theme('colors.sapphire.DEFAULT')} !important`,
+                color: `${theme('colors.secondary')} !important`,
               },
-              code: { color: theme('colors.sapphire.DEFAULT') },
+              code: { color: theme('colors.secondary') },
             },
             h1: {
               fontWeight: '800',
               fontSize: theme('fontSize.5xl'),
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.pink.DEFAULT'),
+              color: theme('teal.DEFAULT'),
             },
             h2: {
               fontWeight: '800',
-              fontSize: theme('fontSize.4xl'),
+              fontSize: theme('fontSize.3xl'),
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.flamingo.DEFAULT'),
+              color: theme('secondary'),
             },
             h3: {
               fontWeight: '700',
-              fontSize: theme('fontSize.3xl'),
-              color: theme('colors.flamingo.DEFAULT'),
+              fontSize: theme('fontSize.2xl'),
+              color: theme('colors.secondary'),
             },
             'h4,h5,h6': {
-              color: theme('colors.flamingo.DEFAULT'),
+              color: theme('colors.secondary'),
             },
             pre: {
-              backgroundColor: theme('colors.mantle.DEFAULT'),
+              backgroundColor: '#2a2c2d',
+              paddingLeft: '1rem',
             },
             code: {
               color: theme('colors.yellow.DEFAULT'),
-              backgroundColor: theme('colors.mantle.DEFAULT'),
+              backgroundColor: theme('colors.secondary'),
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',
@@ -70,30 +69,30 @@ module.exports = {
               borderRadius: '0.25rem',
             },
             details: {
-              backgroundColor: theme('colors.mantle.DEFAULT'),
+              backgroundColor: theme('colors.secondary'),
             },
-            hr: { borderColor: theme('colors.mantle.DEFAULT') },
+            hr: { borderColor: theme('colors.secondary') },
             'ol li::marker': {
               fontWeight: '600',
-              color: theme('colors.text.DEFAULT'),
+              color: theme('colors.base-content.DEFAULT'),
             },
             'ul li::marker': {
-              backgroundColor: theme('colors.mantle.DEFAULT'),
+              backgroundColor: theme('colors.secondary'),
             },
             strong: { color: theme('colors.yellow.DEFAULT') },
             thead: {
               th: {
-                color: theme('colors.text.DEFAULT'),
+                color: theme('colors.base-content.DEFAULT'),
               },
             },
             tbody: {
               tr: {
-                borderBottomColor: theme('colors.mantle.DEFAULT'),
+                borderBottomColor: theme('colors.secondary'),
               },
             },
             blockquote: {
-              color: theme('colors.text.DEFAULT'),
-              borderLeftColor: theme('colors.mantle.DEFAULT'),
+              color: theme('colors.base-content.DEFAULT'),
+              borderLeftColor: theme('colors.secondary'),
             },
           },
         },
@@ -101,12 +100,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
-    require('@catppuccin/tailwindcss')({
-      prefix: false,
-      defaultFlavour: 'mocha',
-    }),
+    require('daisyui'),
   ],
 }

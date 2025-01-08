@@ -138,7 +138,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 )}
               </div>
               <div className="sticky top-[50px] mb-2 pt-4 xl:pt-8">
-                <CustomLink href="/posts" className="text-sky hover:text-sky">
+                <CustomLink href="/posts" className="text-secondary hover:text-secondary">
                   &larr; Back to the posts
                 </CustomLink>
                 <div className="hidden xl:block">

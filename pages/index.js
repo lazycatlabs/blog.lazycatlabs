@@ -35,9 +35,7 @@ export default function Home({ posts }) {
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="space-y-6 pb-4 pt-10 md:pt-16">
-        <h1 className="animate-text bg-gradient-to-r from-teal via-pink to-peach bg-clip-text py-4  text-6xl font-black text-transparent sm:leading-10">
-          Latest
-        </h1>
+        <h1 className=" py-4  text-6xl font-black  sm:leading-10">Latest</h1>
         <Search onChange={setSearchValue} />
       </div>
       {!filteredBlogPosts.length ? (
@@ -53,7 +51,7 @@ export default function Home({ posts }) {
       </ul>
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end py-8 text-base font-medium leading-6">
-          <CustomLink href="/posts" className="text-sky" aria-label="all posts">
+          <CustomLink href="/posts" className="text-secondary" aria-label="all posts">
             All Posts &rarr;
           </CustomLink>
         </div>
