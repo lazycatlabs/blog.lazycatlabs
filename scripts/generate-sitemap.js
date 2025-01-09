@@ -1,4 +1,4 @@
-import fs from 'fs'
+const fs = require('fs')
 import { globby } from 'globby'
 import prettier from 'prettier'
 
