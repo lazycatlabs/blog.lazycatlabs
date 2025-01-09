@@ -34,7 +34,7 @@ export default function Home({ posts }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
-      <div className="space-y-6 pb-4 pt-10 md:pt-16">
+      <div className="space-y-6 pb-16 pt-10 md:pt-16">
         <h1 className=" py-4  text-6xl font-black  sm:leading-10">Latest</h1>
         <Search onChange={setSearchValue} />
       </div>
@@ -44,7 +44,7 @@ export default function Home({ posts }) {
           <span> is not found</span>
         </div>
       ) : null}
-      <ul className="grid gap-4 md:grid-cols-2">
+      <ul className="grid gap-8 md:grid-cols-2">
         {displayPosts.map((frontMatter) => (
           <Card key={frontMatter.slug} {...frontMatter} />
         ))}
