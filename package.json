@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env SOCKET=true bun ./scripts/next-remote-watch.js ./data",
+    "start": "cross-env SOCKET=true np ./scripts/next-remote-watch.js ./data",
     "dev": "next dev",
     "build": "next build && node ./scripts/generate-sitemap",
     "serve": "next start",
@@ -16,7 +16,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.24.2",
-    "framer-motion": "^11.16.1",
+    "framer-motion": "^11.16.3",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "image-size": "1.2.0",
