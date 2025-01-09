@@ -14,7 +14,7 @@ const Table_of_Contents = ({ ids }) => {
                 <span
                   className={
                     currentActiveId === item.id
-                      ? 'text-lg font-medium text-base-content underline'
+                      ? 'text-md font-medium text-base-content underline '
                       : 'text-base-content text-sm hover:text-lg'
                   }
                 >

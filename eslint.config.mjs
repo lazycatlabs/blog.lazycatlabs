@@ -3,39 +3,42 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import js from '@eslint/js'
 import { FlatCompat } from '@eslint/eslintrc'
+import prettier from 'eslint-config-prettier'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
+  recommendedConfig: js.configs.recommended
 })
 
 const esLintConfig = [
-  compat.extends(
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-    'next',
-    'next/core-web-vitals'
+  ...compat.extends(
+      'eslint:recommended',
+      'next',
+      'next/core-web-vitals'
   ),
   {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    ignores: ['**/node_modules/**', '**/.next/**'],
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.amd,
-        ...globals.node,
+        ...globals.node
       },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      }
     },
-
     rules: {
-      'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 0,
-      'no-unused-vars': 0,
-      'react/no-unescaped-entities': 0,
-    },
+      'react/prop-types': 'off',
+      'no-unused-vars': 'warn',
+      'react/no-unescaped-entities': 'off'
+    }
   },
+  prettier
 ]
 
 export default esLintConfig

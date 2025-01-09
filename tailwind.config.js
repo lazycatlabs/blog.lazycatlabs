@@ -7,9 +7,11 @@ module.exports = {
       {
         light: {
           ...require('daisyui/src/theming/themes')['light'],
+          secondary: '#FF77B7',
         },
         black: {
           ...require('daisyui/src/theming/themes')['black'],
+          'base-content': '#FFFFFF',
           secondary: 'pink',
         },
       },
