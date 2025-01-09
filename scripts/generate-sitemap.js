@@ -1,6 +1,7 @@
-const fs = require('fs')
-const globby = require('globby')
-const prettier = require('prettier')
+import fs from 'fs'
+import globby from 'globby'
+import prettier from 'prettier'
+
 const siteMetadata = require('../data/siteMetadata')
 
 ;(async () => {
@@ -46,6 +47,5 @@ const siteMetadata = require('../data/siteMetadata')
     parser: 'html',
   })
 
-  // eslint-disable-next-line no-sync
   fs.writeFileSync('public/sitemap.xml', formatted)
 })()
