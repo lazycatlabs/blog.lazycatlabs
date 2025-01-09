@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import Logo from '@/data/logo.svg'
+import Logo from '@/data/logo_dark.svg'
 
 export const config = {
   runtime: 'edge',
@@ -13,7 +13,7 @@ export default async function handler(req, _) {
       searchParams.get('description') ||
       'A blog about programming, peripheral, and technology in a lazy way'
     const author = searchParams.get('author') || 'Mudassir'
-    const date = searchParams.get('date') || new Date().toISOString()
+    const date = searchParams.get('date')
     const site = searchParams.get('site') || 'https://lazycatlabs.com'
 
     // Simplified font fetching with more robust error handling
@@ -28,10 +28,10 @@ export default async function handler(req, _) {
       console.error('Font Fetch Error:', fontError)
     }
 
-    const textColor = '#4c4f69'
-    const subText1 = '#6c6f85'
-    const backgroundColor = '#eff1f5'
-    const urlColor = '#dd7878'
+    const textColor = '#000000'
+    const subText1 = '#707070'
+    const backgroundColor = '#ffffff'
+    const urlColor = '#FF77B7'
     return new ImageResponse(
       (
         <div
@@ -49,7 +49,7 @@ export default async function handler(req, _) {
               {title}
             </h1>
 
-            <p tw={`text-4xl`} style={{ color: subText1 }}>
+            <p tw={`text-3xl`} style={{ color: subText1 }}>
               {description}
             </p>
 
@@ -57,8 +57,9 @@ export default async function handler(req, _) {
               <p tw={`text-xl`} style={{ color: urlColor }}>
                 {site}
               </p>
-              <p tw={`text-3xl`} style={{ color: textColor }}>
-                {author} | {new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}
+              <p tw={`text-2xl`} style={{ color: textColor }}>
+                {author}{' '}
+                {date && `| ${new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}`}
               </p>
             </div>
           </div>
