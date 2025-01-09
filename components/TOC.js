@@ -14,8 +14,8 @@ const Table_of_Contents = ({ ids }) => {
                 <span
                   className={
                     currentActiveId === item.id
-                      ? 'text-lg font-medium text-peach underline'
-                      : 'text:text text-sm hover:text-lg'
+                      ? 'text-md font-medium text-base-content underline '
+                      : 'text-base-content text-sm hover:text-lg'
                   }
                 >
                   <li key={item.id} className={`${item.level === 'h3' ? 'ml-4 py-1' : 'py-2'} `}>

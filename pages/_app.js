@@ -1,8 +1,6 @@
 import '@/css/globals.css'
 import '@/css/tailwind.css'
-import '@/css/prism-dracula.css'
 import 'katex/dist/katex.css'
-
 import { ThemeProvider } from 'next-themes'
 import Head from 'next/head'
 
@@ -12,6 +10,8 @@ import LayoutWrapper from '@/components/LayoutWrapper'
 import { ClientReload } from '@/components/ClientReload'
 import Banner from '@/components/Banner'
 import { Onest } from 'next/font/google'
+
+import 'highlight.js/styles/panda-syntax-dark.css' // Dark theme
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET

@@ -19,7 +19,7 @@ export default function Banner() {
   }
   return (
     <div
-      className={`relative top-0 isolate z-50 flex items-center overflow-hidden bg-mantle px-3.5 py-2.5 backdrop-blur-sm sm:sticky md:px-6`}
+      className={`relative top-0 isolate z-50 flex items-center overflow-hidden bg-base-100 px-3.5 py-2.5 backdrop-blur-sm sm:sticky md:px-6`}
     >
       <div
         className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
@@ -33,7 +33,7 @@ export default function Banner() {
       >
         <BlurDiv />
       </div>
-      <p className={`mx-auto text-sm font-medium leading-4 text-text sm:leading-6`}>
+      <p className={`mx-auto text-sm font-medium leading-8 text-text sm:leading-6`}>
         <CustomLink href={linkTo} target="_blank">
           <strong className="font-semibold">{title}</strong>
           <svg

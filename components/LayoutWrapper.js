@@ -1,19 +1,35 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
-import Logo from '@/data/logo.svg'
+import LogoLight from '@/data/logo_light.svg'
+import LogoDark from '@/data/logo_dark.svg'
 import CustomLink from '@/components/Link'
 import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const LayoutWrapper = ({ children }) => {
+  const [isMounted, setMounted] = useState(false)
+  const { theme } = useTheme()
+
+  // When mounted on client, now we can show the UI
+  useEffect(() => {
+    document.body.classList = theme
+    setMounted(true)
+  }, [theme])
+
+  if (!isMounted) {
+    return null
+  }
+
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-6">
           <CustomLink href="/" aria-label={siteMetadata.headerTitle}>
-            <Logo />
+            {isMounted && theme === 'black' ? <LogoLight /> : <LogoDark />}
           </CustomLink>
           <div className="flex items-center text-base leading-5">
             <div className="hidden sm:block">
@@ -21,7 +37,7 @@ const LayoutWrapper = ({ children }) => {
                 <CustomLink
                   key={link.title}
                   href={link.href}
-                  className=" font-medium text-text hover:font-bold hover:text-pink sm:p-4"
+                  className=" font-medium text-text hover:font-bold hover:text-secondary sm:p-4"
                 >
                   {link.title}
                 </CustomLink>

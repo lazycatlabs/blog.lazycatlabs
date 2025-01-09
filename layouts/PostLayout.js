@@ -11,7 +11,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import Support from '@/components/Support'
 import LeftNavigation from '@/components/LeftNavigation'
 
-const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+const postDateTemplate = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }
 
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
   const { slug, date, title, tags } = frontMatter
@@ -48,7 +48,9 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-subtext0">
                     <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)} |{' '}
+                      {'🗓️ '}{' '}
+                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)} |
+                      {' 📖 '}
                       {frontMatter.readingTime.text}
                     </time>
                   </dd>
@@ -69,21 +71,21 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       {author.avatar && (
                         <Image
                           src={author.avatar}
-                          width={46}
-                          height={46}
+                          width={60}
+                          height={60}
                           alt="avatar"
-                          className="h-10 w-10 rounded-full"
+                          className="h-11 w-11 rounded-full"
                         />
                       )}
-                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
+                      <dl className="whitespace-nowrap leading-5">
                         <dt className="sr-only">Name</dt>
-                        <dd className="font-medium text-text">{author.name}</dd>
+                        <dd>{author.name}</dd>
                         <dt className="sr-only">Github</dt>
                         <dd>
                           {author.github && (
                             <CustomLink
                               href={author.github}
-                              className="font-medium text-pink hover:text-pink"
+                              className="font-medium text-sm text-secondary hover:text-secondary"
                             >
                               {author.github.replace('https://github.com/', '@')}
                             </CustomLink>
@@ -116,20 +118,16 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                   <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                     {prev && (
                       <div>
-                        <h3 className=" text-xs uppercase tracking-wide text-subtext0">
-                          Previous Article
-                        </h3>
-                        <div className="text-peach hover:text-peach">
+                        <h3 className=" text-xs uppercase tracking-wide ">Previous Article</h3>
+                        <div className="font-medium text-base">
                           <CustomLink href={`/posts/${prev.slug}`}>{prev.title}</CustomLink>
                         </div>
                       </div>
                     )}
                     {next && (
                       <div>
-                        <h3 className="text-xs uppercase tracking-wide text-subtext0">
-                          Next Article
-                        </h3>
-                        <div className="text-peach hover:text-peach">
+                        <h3 className="text-xs uppercase tracking-wide">Next Article</h3>
+                        <div className="font-medium text-base">
                           <CustomLink href={`/posts/${next.slug}`}>{next.title}</CustomLink>
                         </div>
                       </div>
@@ -138,7 +136,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 )}
               </div>
               <div className="sticky top-[50px] mb-2 pt-4 xl:pt-8">
-                <CustomLink href="/posts" className="text-sky hover:text-sky">
+                <CustomLink href="/posts" className="text-secondary hover:text-secondary">
                   &larr; Back to the posts
                 </CustomLink>
                 <div className="hidden xl:block">

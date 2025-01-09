@@ -21,10 +21,8 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
 
   return (
     <>
-      <div className="space-y-6 pb-4 pt-10 md:pt-16">
-        <h1 className="animate-text bg-gradient-to-r from-teal via-pink to-peach bg-clip-text py-4 text-6xl font-black text-transparent sm:leading-10">
-          {title}
-        </h1>
+      <div className="space-y-6 pb-16 pt-10 md:pt-16">
+        <h1 className=" py-4 text-6xl font-black  sm:leading-10">{title}</h1>
         <Search onChange={setSearchValue} />
       </div>
       {!filteredBlogPosts.length ? (
@@ -34,7 +32,7 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
         </div>
       ) : null}
 
-      <ul className="grid gap-4 md:grid-cols-2">
+      <ul className="grid gap-8 md:grid-cols-2">
         {displayPosts.map((frontMatter) => (
           <Card key={frontMatter.slug} {...frontMatter} />
         ))}

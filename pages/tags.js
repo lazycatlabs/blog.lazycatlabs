@@ -17,9 +17,7 @@ export default function Tags({ tags }) {
     <>
       <PageSEO title={`Tags - ${siteMetadata.author}`} description="" />
       <div className="flex flex-col items-start justify-start   md:my-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
-        <h1 className="animate-text bg-gradient-to-r from-teal via-pink to-peach bg-clip-text py-8 text-6xl font-black text-transparent">
-          Tags
-        </h1>
+        <h1 className="py-8 text-6xl font-black">Tags</h1>
         <div className="flex max-w-lg flex-wrap">
           {Object.keys(tags).length === 0 && 'No tags found.'}
           {sortedTags.map((t) => {
@@ -30,7 +28,7 @@ export default function Tags({ tags }) {
                   href={`/tags/${kebabCase(t)}`}
                   className=" text-sm font-semibold uppercase text-gray-600"
                 >
-                  {`[${tags[t]}]`}
+                  {` [${tags[t]}]`}
                 </CustomLink>
               </div>
             )
