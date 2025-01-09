@@ -1,9 +1,8 @@
-const fs = require('fs')
-import globby from 'globby'
+import fs from 'fs'
+import { globby } from 'globby'
 import prettier from 'prettier'
 
-const siteMetadata = require('../data/siteMetadata')
-
+import siteMetadata from '../data/siteMetadata.js'
 ;(async () => {
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js')
   const pages = await globby([
@@ -42,7 +41,7 @@ const siteMetadata = require('../data/siteMetadata')
         </urlset>
     `
 
-  const formatted = prettier.format(sitemap, {
+  const formatted = await prettier.format(sitemap, {
     ...prettierConfig,
     parser: 'html',
   })
