@@ -2,21 +2,6 @@ module.exports = {
   experimental: {
     optimizeUniversalDefaults: false,
   },
-  daisyui: {
-    themes: [
-      {
-        light: {
-          ...require('daisyui/src/theming/themes')['light'],
-          secondary: '#FF77B7',
-        },
-        black: {
-          ...require('daisyui/src/theming/themes')['black'],
-          'base-content': '#FFFFFF',
-          secondary: 'pink',
-        },
-      },
-    ],
-  },
   content: [
     './pages/**/*.js',
     './components/**/*.js',
