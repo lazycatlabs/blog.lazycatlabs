@@ -10,10 +10,6 @@
   @apply list-none;
 }
 
-.footnotes {
-  @apply mt-12 border-t border-gray-200 pt-8;
-}
-
 .csl-entry {
   @apply my-5;
 }
@@ -21,7 +17,9 @@
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
-  transition: background-color 600000s 0s, color 600000s 0s;
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
 }
 
 .backdrop {
