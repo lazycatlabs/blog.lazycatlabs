@@ -1,11 +1,13 @@
 @import 'tailwindcss';
 
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/aspect-ratio';
+
 @plugin "daisyui" {
   themes:
     light --default,
     black --prefersdark;
 }
-
 @plugin "daisyui/theme" {
   name: light;
   default: true;
@@ -14,7 +16,7 @@
 
 @plugin "daisyui/theme" {
   name: black;
-  --color-secondary: #ff77b7;
+  --color-secondary: pink;
   --color-base-content: #ffffff;
 }
 
@@ -32,8 +34,7 @@
   color: var(--color-base-content);
   letter-spacing: var(--tracking-wide);
   & a {
-    color: var(--color-blue-500);
-
+    font-weight: bold;
     &:hover {
       color: var(--color-secondary) !important;
     }
@@ -55,8 +56,6 @@
     font-size: var(--text-3xl);
     letter-spacing: var(--tracking-tight);
     color: var(--color-secondary);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
   }
 
   & h3 {
@@ -77,14 +76,8 @@
   }
 
   & code {
-    color: var(--color-secondary);
-    background-color: var(--color-secondary);
     padding: 2px 4px;
     border-radius: 0.25rem;
-  }
-
-  & details {
-    background-color: var(--color-secondary);
   }
 
   & hr {
@@ -100,16 +93,8 @@
     background-color: var(--color-secondary);
   }
 
-  & strong {
-    color: var(--color-yellow-500);
-  }
-
   & thead th {
     color: var(--color-base-content, theme(--color-gray-700));
-  }
-
-  & tbody tr {
-    border-bottom-color: var(--color-secondary);
   }
 
   & blockquote {
