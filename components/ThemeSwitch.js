@@ -30,7 +30,7 @@ const ThemeSwitch = () => {
       aria-label="Toggle coffee Mode"
       type="button"
       className="ml-1 mr-1 h-8 w-8 rounded p-1 sm:ml-4"
-      onClick={() => setTheme(theme === 'black' ? 'light' : 'black')}
+      onClick={() => setTheme(theme === 'black' ? 'lofi' : 'black')}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

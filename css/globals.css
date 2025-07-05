@@ -1,6 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin "daisyui" {
+  themes:
+    light --default,
+    black --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: light;
+  default: true;
+  --color-secondary: #ff77b7;
+}
+
+@plugin "daisyui/theme" {
+  name: black;
+  --color-secondary: #ff77b7;
+  --color-base-content: #ffffff;
+}
 
 @layer base {
   body,
@@ -8,5 +24,96 @@
   div#__next,
   div#__next > div {
     @apply h-full;
+  }
+}
+
+/* Typography Plugin Styles */
+@utility prose {
+  color: var(--color-base-content);
+  letter-spacing: var(--tracking-wide);
+  & a {
+    color: var(--color-blue-500);
+
+    &:hover {
+      color: var(--color-secondary) !important;
+    }
+
+    & code {
+      color: var(--color-secondary);
+    }
+  }
+
+  & h1 {
+    font-weight: 800;
+    font-size: var(--text-5xl);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-teal-500);
+  }
+
+  & h2 {
+    font-weight: 800;
+    font-size: var(--text-3xl);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-secondary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  & h3 {
+    font-weight: 700;
+    font-size: var(--text-2xl);
+    color: var(--color-secondary);
+  }
+
+  & h4,
+  & h5,
+  & h6 {
+    color: var(--color-secondary);
+  }
+
+  & pre {
+    background-color: #2a2c2d;
+    padding-left: 1rem;
+  }
+
+  & code {
+    color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    padding: 2px 4px;
+    border-radius: 0.25rem;
+  }
+
+  & details {
+    background-color: var(--color-secondary);
+  }
+
+  & hr {
+    border-color: var(--color-secondary);
+  }
+
+  & ol li::marker {
+    font-weight: 600;
+    color: var(--color-base-content, theme(--color-gray-700));
+  }
+
+  & ul li::marker {
+    background-color: var(--color-secondary);
+  }
+
+  & strong {
+    color: var(--color-yellow-500);
+  }
+
+  & thead th {
+    color: var(--color-base-content, theme(--color-gray-700));
+  }
+
+  & tbody tr {
+    border-bottom-color: var(--color-secondary);
+  }
+
+  & blockquote {
+    color: var(--color-base-content, theme(--color-gray-700));
+    border-left-color: var(--color-secondary);
   }
 }
