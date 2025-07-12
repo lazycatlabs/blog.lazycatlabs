@@ -33,6 +33,7 @@
 @utility prose {
   color: var(--color-base-content);
   letter-spacing: var(--tracking-wide);
+  line-height: inherit;
   & a {
     font-weight: bold;
     &:hover {
