@@ -10,6 +10,7 @@ import Comments from '@/components/comments'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import Support from '@/components/Support'
 import LeftNavigation from '@/components/LeftNavigation'
+import ArticleAd from '@/components/ArticleAd'
 
 const postDateTemplate = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }
 
@@ -98,7 +99,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               </dd>
             </dl>
             <div className="divide-y divide-surface1 xl:col-span-3 xl:row-span-2 xl:pb-0 ">
-              <div className="prose max-w-none pb-8 pt-10">{children}</div>
+              <ArticleAd adSlot="7919241591" />
+              <div className="prose max-w-none p-6">{children}</div>
               <Support />
               <Comments frontMatter={frontMatter} />
             </div>

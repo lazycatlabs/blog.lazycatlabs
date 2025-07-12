@@ -1,4 +1,6 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Script from 'next/script'
+
 class MyDocument extends Document {
   render() {
     return (
@@ -25,6 +27,11 @@ class MyDocument extends Document {
           <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <Script
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2962932702636730"
+            strategy="beforeInteractive"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body className="antialiased">
           <Main />
