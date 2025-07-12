@@ -11,7 +11,7 @@ default-src 'self';
   media-src 'none';
   connect-src *;
   font-src 'self' fonts.googleapis.com fonts.gstatic.com;
-  frame-src giscus.app youtube.com *.googlesyndication.com googleads.g.doubleclick.net *.doubleclick.net www.youtube.com tpc.googlesyndication.com adtrafficquality.google google.com;
+  frame-src giscus.app youtube.com *.googlesyndication.com googleads.g.doubleclick.net *.doubleclick.net www.youtube.com tpc.googlesyndication.com ep2.adtrafficquality.google www.google.com;
 `
 
 const securityHeaders = [
