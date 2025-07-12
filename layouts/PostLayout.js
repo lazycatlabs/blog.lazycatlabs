@@ -100,7 +100,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
             </dl>
             <div className="divide-y divide-surface1 xl:col-span-3 xl:row-span-2 xl:pb-0 ">
               <ArticleAd adSlot="7919241591" />
-              <div className="prose max-w-none p-6">{children}</div>
+              <div className="prose max-w-none p-2">{children}</div>
               <Support />
               <Comments frontMatter={frontMatter} />
             </div>

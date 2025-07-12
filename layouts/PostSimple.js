@@ -9,7 +9,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import ArticleAd from '@/components/ArticleAd'
 import Support from '@/components/Support'
 
-export default function PostLayout({ frontMatter, _, next, prev, children }) {
+export default function PostLayout({ frontMatter, next, prev, children }) {
   const { date, title } = frontMatter
 
   return (
