@@ -1,7 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 const ArticleAd = ({ adSlot }) => {
-  const adRef = useRef(null)
   useEffect(() => {
     try {
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
@@ -10,20 +9,8 @@ const ArticleAd = ({ adSlot }) => {
     }
   }, [])
 
-  useEffect(() => {
-    try {
-      if (adRef.current && !adRef.current.getAttribute('data-ad-loaded')) {
-        ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-        adRef.current.setAttribute('data-ad-loaded', 'true')
-      }
-    } catch (e) {
-      console.error('Error loading ads:', e)
-    }
-  }, [])
-
   return (
     <ins
-      ref={adRef}
       className="adsbygoogle"
       style={{
         display: 'inline-block',
