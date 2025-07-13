@@ -1,20 +1,7 @@
-import { useEffect } from 'react'
-
-const AD_CLIENT = 'ca-pub-2962932702636730'
+import { useEffect, useRef } from 'react'
 
 const ArticleAd = ({ adSlot }) => {
-  useEffect(() => {
-    try {
-      const script = document.createElement('script')
-      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`
-      script.async = true
-      script.crossOrigin = 'anonymous'
-      document.head.appendChild(script)
-    } catch (err) {
-      console.error('Error appending AdSense script:', err)
-    }
-  }, [adSlot])
-
+  const adRef = useRef(null)
   useEffect(() => {
     try {
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
@@ -23,11 +10,29 @@ const ArticleAd = ({ adSlot }) => {
     }
   }, [])
 
+  useEffect(() => {
+    try {
+      if (adRef.current && !adRef.current.getAttribute('data-ad-loaded')) {
+        ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        adRef.current.setAttribute('data-ad-loaded', 'true')
+      }
+    } catch (e) {
+      console.error('Error loading ads:', e)
+    }
+  }, [])
+
   return (
     <ins
+      ref={adRef}
       className="adsbygoogle"
-      style={{ display: 'inline-block', width: '728px', height: '90px' }}
-      data-ad-client={{ AD_CLIENT }}
+      style={{
+        display: 'inline-block',
+        overflow: 'hidden',
+        width: '100%',
+        height: 'auto',
+        minHeight: '90px',
+      }}
+      data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}
       data-ad-slot={adSlot}
       data-ad-format="auto"
       data-full-width-responsive="true"
