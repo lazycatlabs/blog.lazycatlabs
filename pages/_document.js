@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
-import Script from 'next/script'
 
 class MyDocument extends Document {
   render() {
@@ -27,10 +26,9 @@ class MyDocument extends Document {
           <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <Script
+          <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}`}
-            strategy="lazyOnload"
             crossOrigin="anonymous"
           />
         </Head>
