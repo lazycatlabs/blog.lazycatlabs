@@ -27,12 +27,6 @@ class MyDocument extends Document {
           <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2962932702636730`}
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
-          />
         </Head>
         <body className="antialiased">
           <Main />
