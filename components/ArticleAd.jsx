@@ -12,7 +12,7 @@ const ArticleAd = ({ adSlot }) => {
   return (
     <ins
       className="adsbygoogle"
-      style={{ display: 'inline-block', width: '728px', height: '90px' }}
+      style={{ display: 'inline-block', width: 'max-w', height: '90px' }}
       data-ad-client="ca-pub-2962932702636730"
       data-ad-slot={adSlot}
       data-ad-format="auto"
