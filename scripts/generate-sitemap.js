@@ -14,6 +14,8 @@ import siteMetadata from '../data/siteMetadata.js'
     '!pages/api',
   ])
 
+  const basePath = siteMetadata.basePath || ''
+
   const sitemap = `
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -33,7 +35,7 @@ import siteMetadata from '../data/siteMetadata.js'
                 }
                 return `
                         <url>
-                            <loc>${siteMetadata.siteUrl}${route}</loc>
+                            <loc>${siteMetadata.siteUrl}${basePath}${route}</loc>
                         </url>
                     `
               })
