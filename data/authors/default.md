@@ -1,6 +1,6 @@
 ---
 name: Mudassir
-avatar: /static/images/avatar.png
+avatar: /blog/static/images/avatar.png
 occupation: Code Geek 🧑🏻‍💻
 company: LazycatLabs
 email: hey.mudassir@gmail.com
