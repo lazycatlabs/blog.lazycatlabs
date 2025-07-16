@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 import Script from 'next/script'
 
-const CommonSEO = ({ title, description, ogType, ogImage, twImage, canonicalUrl }) => {
+const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
   const router = useRouter()
 
   const ignoredPaths = [
-    'https://blog.lazycatlabs.com/',
-    'https://blog.lazycatlabs.com/posts',
-    'https://blog.lazycatlabs.com/tags',
+    'https://lazycatlabs.com/blog/',
+    'https://lazycatlabs.com/blog/posts',
+    'https://lazycatlabs.com/blog/tags',
   ]
   let ogImageUrl = null
   if (ignoredPaths.includes(`${siteMetadata.siteUrl}${router.asPath}`)) {

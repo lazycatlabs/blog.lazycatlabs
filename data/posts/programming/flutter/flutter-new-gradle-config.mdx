@@ -41,7 +41,7 @@ That would happen if our current project did not use [flutterfire_cli](https://f
 ## Add Firebase Options
 
 As we can see, the error message is `No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()` even though we already added the `google-services.json` in our project. To fix that, we can create a class `DefaultFirebaseOptions` to handle FirebaseOptions based on the `Platform`.
-But we need to manage FirebaseOptions to support multiple environments like in my [previous article](https://blog.lazycatlabs.com/posts/programming/flutter/flutter-store-data-environment).
+But we need to manage FirebaseOptions to support multiple environments like in my [previous article](https://lazycatlabs.com/blog/posts/programming/flutter/flutter-store-data-environment).
 
 There is the sample for the `DefaultFirebaseOptions` class
 

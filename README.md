@@ -1,4 +1,4 @@
-# Lazycat Labs Blog [https://blog.lazycatlabs.com/](https://blog.lazycatlabs.com/)
+# Lazycat Labs Blog [https://lazycatlabs.com/blog/](https://lazycatlabs.com/blog/)
 
 Forked from the excellent [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog)
 
