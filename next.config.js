@@ -55,6 +55,7 @@ const securityHeaders = [
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  basePath: '/blog',
   images: {
     domains: ['github.com'],
     unoptimized: true,

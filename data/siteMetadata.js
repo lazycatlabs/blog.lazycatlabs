@@ -5,7 +5,7 @@ const siteMetadata = {
   description: 'A blog about programming and technology in a lazy way',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://blog.lazycatlabs.com',
+  siteUrl: 'https://lazycatlabs.com/blog',
   siteRepo: 'https://github.com/Lzyct/blog.lazycatlabs',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
