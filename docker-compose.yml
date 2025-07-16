@@ -5,4 +5,4 @@ services:
     platform: linux/amd64
     #image: blog:latest # enable it only for build not in the vm
     ports:
-      - "6970:3000"
+      - "6970:3030"
