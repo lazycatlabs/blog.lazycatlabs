@@ -7,8 +7,8 @@ const siteMetadata = {
   theme: 'system', // system, dark or light
   siteUrl: 'https://lazycatlabs.com/blog',
   siteRepo: 'https://github.com/Lzyct/blog.lazycatlabs',
-  siteLogo: '/blog/static/images/logo.png',
-  image: '/blog/static/images/avatar.png',
+  siteLogo: '/static/images/logo.png',
+  image: '/static/images/avatar.png',
   email: 'hey.mudassir@gmail.com',
   github: 'https://github.com/lazycatlabs',
   instagram: 'https://www.instagram.com/lazycatlabs/',
