@@ -6,3 +6,6 @@ services:
     #image: blog:latest # enable it only for build not in the vm
     ports:
       - "6970:3030"
+    environment:
+      - NODE_ENV=production
+      - BASE_PATH=/blog
