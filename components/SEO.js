@@ -14,7 +14,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
   let ogImageUrl = null
   if (ignoredPaths.includes(`${siteMetadata.siteUrl}${router.asPath}`)) {
     ogImageUrl = new URL(
-      '/api/og',
+      '/blog/api/og',
       process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/blog'
     )
   }
@@ -50,7 +50,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
 }
 
 export const PageSEO = ({ title, description }) => {
-  const ogImageUrl = `${siteMetadata.siteUrl}/api/og`
+  const ogImageUrl = `${siteMetadata.siteUrl}/blog/api/og`
   return (
     <CommonSEO
       title={title}
@@ -83,7 +83,7 @@ export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, can
   const publishedAt = new Date(date).toISOString()
   const modifiedAt = new Date(lastmod || date).toISOString()
 
-  const ogImageUrl = `${siteMetadata.siteUrl}/api/og?title=${encodeURIComponent(
+  const ogImageUrl = `${siteMetadata.siteUrl}/blog/api/og?title=${encodeURIComponent(
     title
   )}&description=${encodeURIComponent(summary)}&date=${publishedAt}`
 

@@ -47,7 +47,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
 
   // Build OG Image URL
   const ogImageUrl = new URL(
-    '/api/og',
+    '/blog/api/og',
     process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/blog'
   )
   ogImageUrl.searchParams.append('title', title)
