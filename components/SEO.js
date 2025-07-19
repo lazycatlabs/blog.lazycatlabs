@@ -30,11 +30,18 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:description" content={description} />
       <meta property="og:title" content={title} />
-      {ogImageUrl !== null && (
+      {ogImageUrl !== null ? (
         <>
           <meta property="og:image" content={ogImageUrl.toString()} />
           <meta name="twitter:image" content={ogImageUrl.toString()} />
         </>
+      ) : (
+        ogImage && (
+          <>
+            <meta property="og:image" content={ogImage} />
+            <meta name="twitter:image" content={ogImage} />
+          </>
+        )
       )}
       <meta property="og:image:alt" content="Lazycatlabs" />
       <meta property="og:image:type" content="image/png" key={ogImage} />
