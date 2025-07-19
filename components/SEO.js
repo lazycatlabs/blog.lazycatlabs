@@ -15,7 +15,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
   if (ignoredPaths.includes(`${siteMetadata.siteUrl}${router.asPath}`)) {
     ogImageUrl = new URL(
       '/api/og',
-      process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/blog'
     )
   }
 

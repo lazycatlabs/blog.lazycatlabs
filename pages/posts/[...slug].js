@@ -48,7 +48,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
   // Build OG Image URL
   const ogImageUrl = new URL(
     '/api/og',
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/blog'
   )
   ogImageUrl.searchParams.append('title', title)
   if (summary !== undefined) ogImageUrl.searchParams.append('description', summary)
@@ -56,7 +56,7 @@ export default function Blog({ post, authorDetails, prev, next }) {
   ogImageUrl.searchParams.append('date', date)
   ogImageUrl.searchParams.append(
     'site',
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.lazycatlabs.com'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/blog'
   )
 
   return (
