@@ -8,6 +8,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
 
   const ignoredPaths = [
     'https://lazycatlabs.com/blog/',
+    'https://lazycatlabs.com/',
     'https://lazycatlabs.com/blog/posts',
     'https://lazycatlabs.com/blog/tags',
   ]
@@ -24,7 +25,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
       <title>{title}</title>
       <meta name="robots" content="follow, index" />
       <meta name="description" content={description} />
-      <meta property="og:url" content={`${siteMetadata.siteUrl}/blog${router.asPath}`} />
+      <meta property="og:url" content={`${siteMetadata.siteUrl}blog${router.asPath}`} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:description" content={description} />
