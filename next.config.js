@@ -55,6 +55,7 @@ const securityHeaders = [
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   basePath: '/blog',
+  trailingSlash: true, // Now URLs will have trailing slashes
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   images: {
     domains: ['github.com'],
