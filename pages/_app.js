@@ -11,8 +11,6 @@ import { ClientReload } from '@/components/ClientReload'
 import Banner from '@/components/Banner'
 import { Onest } from 'next/font/google'
 
-import 'highlight.js/styles/panda-syntax-dark.css'
-
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 const onest = Onest({
