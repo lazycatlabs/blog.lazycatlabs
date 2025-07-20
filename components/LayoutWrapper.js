@@ -1,5 +1,7 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
+import LogoLight from '@/data/logo_light.svg'
+import LogoDark from '@/data/logo_dark.svg'
 import CustomLink from '@/components/Link'
 import SectionContainer from './SectionContainer'
 import Footer from './Footer'
@@ -12,14 +14,12 @@ const LayoutWrapper = ({ children }) => {
   const [isMounted, setMounted] = useState(false)
   const { theme } = useTheme()
 
+  // When mounted on client, now we can show the UI
   useEffect(() => {
-    if (theme) {
-      document.body.classList = theme
-    }
+    document.body.classList = theme
     setMounted(true)
   }, [theme])
 
-  /// Need to fix this issue because this code make OG not working
   if (!isMounted) {
     return null
   }
@@ -28,7 +28,9 @@ const LayoutWrapper = ({ children }) => {
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-6">
-          <CustomLink href="/" aria-label={siteMetadata.headerTitle}></CustomLink>
+          <CustomLink href="/" aria-label={siteMetadata.headerTitle}>
+            {isMounted && theme === 'black' ? <LogoLight /> : <LogoDark />}
+          </CustomLink>
           <div className="flex items-center text-base leading-5">
             <div className="hidden sm:block">
               {headerNavLinks.map((link) => (
