@@ -4,6 +4,7 @@ import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
+import { BlogSEO } from '@/components/SEO'
 
 const DEFAULT_LAYOUT = 'PostLayout'
 
@@ -43,41 +44,21 @@ export async function getStaticProps({ params }) {
 
 export default function Blog({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
-  const { title, summary, date, authors, slug } = frontMatter
+  const { title, summary, date, lastmod, slug } = frontMatter
 
-  // Build OG Image URL
-  const ogImageUrl = new URL(
-    '/blog/api/og',
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/'
-  )
-  ogImageUrl.searchParams.append('title', title)
-  if (summary !== undefined) ogImageUrl.searchParams.append('description', summary)
-  if (authors?.[0] !== undefined) ogImageUrl.searchParams.append('author', authors?.[0]) // Adjust based on authors array
-  ogImageUrl.searchParams.append('date', date)
-  ogImageUrl.searchParams.append(
-    'site',
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/blog'
-  )
+  // Construct the full URL for the current post
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/'}blog/posts/${slug}`
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={summary} />
-
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={summary} />
-        <meta property="og:image" content={ogImageUrl.toString()} />
-        <meta property="og:url" content={`https://lazycatlabs.com/blog/posts/${slug}`} />
-        <meta property="og:type" content="article" />
-
-        {/* Twitter Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={summary} />
-        <meta name="twitter:image" content={ogImageUrl.toString()} />
-      </Head>
+      <BlogSEO
+        title={title}
+        summary={summary}
+        date={date}
+        lastmod={lastmod}
+        url={url}
+        authorDetails={authorDetails}
+      />
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
