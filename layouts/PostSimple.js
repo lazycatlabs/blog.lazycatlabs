@@ -6,7 +6,6 @@ import siteMetadata from '@/data/siteMetadata'
 import formatDate from '@/lib/utils/formatDate'
 import Comments from '@/components/comments'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import ArticleAd from '@/components/ArticleAd'
 import Support from '@/components/Support'
 
 export default function PostLayout({ frontMatter, next, prev, children }) {
@@ -40,7 +39,7 @@ export default function PostLayout({ frontMatter, next, prev, children }) {
             <div className="divide-y divide-surface0 xl:col-span-3 xl:row-span-2 xl:pb-0 ">
               <div className="prose max-w-none pb-8 pt-10">{children}</div>
             </div>
-            <ArticleAd adSlot="7919241591" />
+            {/*<ArticleAd adSlot="7919241591" />*/}
             <Support />
             <Comments frontMatter={frontMatter} />
             <footer>

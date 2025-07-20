@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import Pagination from '@/components/Pagination'
 import Search from '@/components/Search'
 import Card from '@/components/Card'
-import DisplayAd from '@/components/DisplayAd'
 
 export default function GirdLayout({ posts, title, initialDisplayPosts = [], pagination }) {
   const [searchValue, setSearchValue] = useState('')
@@ -26,7 +25,7 @@ export default function GirdLayout({ posts, title, initialDisplayPosts = [], pag
         <h1 className=" py-4 text-6xl font-black  sm:leading-10">{title}</h1>
         <Search onChange={setSearchValue} />
       </div>
-      <DisplayAd adSlot="8925201504" />
+      {/*<DisplayAd adSlot="8925201504" />*/}
       {!filteredBlogPosts.length ? (
         <div className="content-center py-12 text-center">
           <span className="text-2xl font-medium text-red">" {searchValue} "</span>

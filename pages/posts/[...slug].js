@@ -48,6 +48,11 @@ export default function Blog({ post, authorDetails, prev, next }) {
   // Construct the full URL for the current post
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com/'}blog/posts/${slug}`
 
+  // Debug logging (remove in production)
+  console.log('Blog page URL:', url)
+  console.log('Title:', title)
+  console.log('Summary:', summary)
+
   return (
     <>
       <BlogSEO
