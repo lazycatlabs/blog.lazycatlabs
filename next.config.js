@@ -71,6 +71,14 @@ module.exports = withBundleAnalyzer({
         source: '/(.*)',
         headers: securityHeaders,
       },
+      {
+        // matching all API routes
+        source: '/api/:path*',
+        headers: [
+          // other headers omitted for brevity...
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+        ],
+      },
     ]
   },
   webpack: (config, { dev, isServer }) => {
@@ -78,7 +86,9 @@ module.exports = withBundleAnalyzer({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
+
     config.cache = false
+
     if (!dev && !isServer) {
       // Replace React with Preact only in client production build
       Object.assign(config.resolve.alias, {
