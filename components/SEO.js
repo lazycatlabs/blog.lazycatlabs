@@ -143,18 +143,18 @@ export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, can
         twImage={ogImageUrl}
         canonicalUrl={canonicalUrl}
       />
-      {/* eslint-disable-next-line @next/next/no-script-component-in-head */}
+      { }
       <Head>
         {date && <meta property="article:published_time" content={publishedAt} />}
         {lastmod && <meta property="article:modified_time" content={modifiedAt} />}
-        <Script
-          id="structured-data-blog"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData, null, 2),
-          }}
-        />
       </Head>
+      <Script
+        id="structured-data-blog"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData, null, 2),
+        }}
+      />
     </>
   )
 }
