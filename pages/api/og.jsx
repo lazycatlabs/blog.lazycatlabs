@@ -5,7 +5,7 @@ export const config = {
   runtime: 'edge',
 }
 
-export default async function handler(req, _) {
+export default async function handler(req) {
   try {
     const { searchParams } = new URL(req.nextUrl)
     const title = searchParams.get('title') || 'Welcome to Lazycatlabs 👋🏻'
