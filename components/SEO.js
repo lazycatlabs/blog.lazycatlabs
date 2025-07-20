@@ -152,6 +152,7 @@ export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, can
         <Script
           id="structured-data-blog"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData, null, 2),
           }}
