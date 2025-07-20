@@ -1,5 +1,4 @@
 import fs from 'fs'
-import Head from 'next/head'
 import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
@@ -51,29 +50,13 @@ export default function Blog({ post, authorDetails, prev, next }) {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={summary} />
-
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={summary} />
-        <meta property="og:url" content={`https://blog.lazycatlabs.com/posts/${slug}`} />
-        <meta property="og:type" content="article" />
-
-        {/* Twitter Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={summary} />
-      </Head>
       <BlogSEO
         title={title}
-        description={summary}
+        summary={summary}
         url={url}
-        images={frontMatter.images || []}
         date={date}
         lastmod={lastmod}
-        authors={authorDetails}
+        authorDetails={authorDetails}
       />
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer

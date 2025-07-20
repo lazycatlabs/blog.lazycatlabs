@@ -3,8 +3,11 @@ import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 import Script from 'next/script'
 
-const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
+const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl, url }) => {
   const router = useRouter()
+
+  // Use the provided URL or fallback to constructing from router
+  const pageUrl = url || `${siteMetadata.siteUrl}blog${router.asPath}`
 
   const ignoredPaths = [
     'https://lazycatlabs.com/blog/',
@@ -12,8 +15,9 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
     'https://lazycatlabs.com/blog/posts',
     'https://lazycatlabs.com/blog/tags',
   ]
+
   let ogImageUrl = null
-  if (ignoredPaths.includes(`${siteMetadata.siteUrl}${router.asPath}`)) {
+  if (ignoredPaths.includes(pageUrl)) {
     ogImageUrl = new URL(
       '/blog/api/og',
       process.env.NEXT_PUBLIC_SITE_URL || 'https://lazycatlabs.com'
@@ -25,7 +29,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
       <title>{title}</title>
       <meta name="robots" content="follow, index" />
       <meta name="description" content={description} />
-      <meta property="og:url" content={`${siteMetadata.siteUrl}blog${router.asPath}`} />
+      <meta property="og:url" content={pageUrl} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:description" content={description} />
@@ -49,10 +53,7 @@ const CommonSEO = ({ title, description, ogType, ogImage, canonicalUrl }) => {
       <meta name="twitter:site" content={siteMetadata.twitter} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <link
-        rel="canonical"
-        href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath}`}
-      />
+      <link rel="canonical" href={canonicalUrl ? canonicalUrl : pageUrl} />
     </Head>
   )
 }
@@ -142,6 +143,7 @@ export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, can
         ogImage={ogImageUrl}
         twImage={ogImageUrl}
         canonicalUrl={canonicalUrl}
+        url={url} // Pass the URL explicitly
       />
       {/* eslint-disable-next-line @next/next/no-script-component-in-head */}
       <Head>
