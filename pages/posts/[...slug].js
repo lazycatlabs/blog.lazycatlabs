@@ -53,11 +53,12 @@ export default function Blog({ post, authorDetails, prev, next }) {
     <>
       <BlogSEO
         title={title}
-        summary={summary}
+        description={summary}
+        url={url}
+        images={frontMatter.images || []}
         date={date}
         lastmod={lastmod}
-        url={url}
-        authorDetails={authorDetails}
+        authors={authorDetails}
       />
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer
