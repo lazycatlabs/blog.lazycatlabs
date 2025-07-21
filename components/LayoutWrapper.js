@@ -12,26 +12,31 @@ import { useTheme } from 'next-themes'
 
 const LayoutWrapper = ({ children }) => {
   const [isMounted, setMounted] = useState(false)
-  const { theme } = useTheme()
-
-  // console.log(children)
+  const { theme, resolvedTheme } = useTheme()
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
-    document.body.classList = theme
     setMounted(true)
-  }, [theme])
+  }, [])
 
-  if (!isMounted) {
-    return null
-  }
+  useEffect(() => {
+    if (isMounted && theme) {
+      document.body.classList = theme
+    }
+  }, [theme, isMounted])
 
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-6">
           <CustomLink href="/" aria-label={siteMetadata.headerTitle}>
-            {isMounted && theme === 'black' ? <LogoLight /> : <LogoDark />}
+            {!isMounted ? (
+              <LogoDark />
+            ) : (resolvedTheme || theme) === 'black' ? (
+              <LogoLight />
+            ) : (
+              <LogoDark />
+            )}
           </CustomLink>
           <div className="flex items-center text-base leading-5">
             <div className="hidden sm:block">

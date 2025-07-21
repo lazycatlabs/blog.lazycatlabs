@@ -3,7 +3,6 @@ import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllTags } from '@/lib/tags'
-import kebabCase from '@/lib/utils/kebabCase'
 
 export async function getStaticProps() {
   const tags = await getAllTags('posts')
@@ -25,7 +24,7 @@ export default function Tags({ tags }) {
               <div key={t} className="mb-2 mr-5 mt-2">
                 <Tag text={t} />
                 <CustomLink
-                  href={`/tags/${kebabCase(t)}`}
+                  href={`/tags/${t}`}
                   className=" text-sm font-semibold uppercase text-gray-600"
                 >
                   {` [${tags[t]}]`}

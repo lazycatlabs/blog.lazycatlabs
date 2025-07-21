@@ -1,4 +1,3 @@
-// components/BlogPostItem.js
 import CustomLink from '@/components/Link'
 import Tag from '@/components/Tag'
 import formatDate from '@/lib/utils/formatDate'

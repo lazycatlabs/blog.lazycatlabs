@@ -4,7 +4,6 @@ import GridLayout from '@/layouts/GridLayout'
 import generateRss from '@/lib/generate-rss'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import { getAllTags } from '@/lib/tags'
-import kebabCase from '@/lib/utils/kebabCase'
 import fs from 'fs'
 import path from 'path'
 
@@ -26,7 +25,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const allPosts = await getAllFilesFrontMatter('posts')
   const filteredPosts = allPosts.filter(
-    (post) => post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(params.tag)
+    (post) => post.draft !== true && post.tags.map((t) => t).includes(params.tag)
   )
 
   // rss
@@ -42,7 +41,7 @@ export async function getStaticProps({ params }) {
 
 export default function Tag({ posts, tag }) {
   // Capitalize first letter and convert space to dash
-  const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
+  const title = tag.split('-').join(' ').toUpperCase()
   return (
     <>
       <TagSEO
