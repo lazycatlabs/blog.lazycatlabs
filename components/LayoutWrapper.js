@@ -14,7 +14,7 @@ const LayoutWrapper = ({ children }) => {
   const [isMounted, setMounted] = useState(false)
   const { theme } = useTheme()
 
-  console.log(children)
+  // console.log(children)
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
@@ -22,9 +22,9 @@ const LayoutWrapper = ({ children }) => {
     setMounted(true)
   }, [theme])
 
-  // if (!isMounted) {
-  //   return null
-  // }
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <SectionContainer>
