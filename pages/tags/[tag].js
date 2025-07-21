@@ -42,10 +42,14 @@ export async function getStaticProps({ params }) {
 export default function Tag({ posts, tag }) {
   // Capitalize first letter and convert space to dash
   const title = tag.split('-').join(' ').toUpperCase()
+  const titleFormatted = tag
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ')
   return (
     <>
       <TagSEO
-        title={`${tag} - ${siteMetadata.author}`}
+        title={`${titleFormatted} | ${siteMetadata.author}`}
         description={`${tag} tags - ${siteMetadata.author}`}
       />
       <GridLayout posts={posts} title={title} />
