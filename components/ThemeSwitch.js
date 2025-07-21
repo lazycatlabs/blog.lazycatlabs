@@ -12,9 +12,9 @@ const ThemeSwitch = () => {
     setMounted(true)
   }, [theme])
 
-  if (!isMounted) {
-    return null
-  }
+  // if (!isMounted) {
+  //   return null
+  // }
 
   return (
     <motion.button
