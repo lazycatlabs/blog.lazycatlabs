@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import Logo from '@/data/logo_dark.svg'
+import Logo from '@/data/logo_og.svg'
 
 export const config = {
   runtime: 'edge',
@@ -43,7 +43,14 @@ export default async function handler(req) {
             backgroundSize: '100px 100px',
           }}
         >
-          <div tw={`flex justify-end mb-auto`}>{<Logo />}</div>
+          <div tw={`flex justify-end mb-auto`}>
+            {
+              <p tw={`text-2xl`} style={{ color: textColor }}>
+                {author}{' '}
+                {date && `| ${new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}`}
+              </p>
+            }
+          </div>
           <div tw={`flex flex-col justify-end`}>
             <h1 tw={`text-7xl p-0`} style={{ color: textColor }}>
               {title}
@@ -57,10 +64,7 @@ export default async function handler(req) {
               <p tw={`text-xl`} style={{ color: urlColor }}>
                 {site}
               </p>
-              <p tw={`text-2xl`} style={{ color: textColor }}>
-                {author}{' '}
-                {date && `| ${new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}`}
-              </p>
+              <Logo />
             </div>
           </div>
         </div>
