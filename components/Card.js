@@ -17,7 +17,7 @@ export default function Card({ slug, date, title, summary, tags }) {
         </div>
       </div>
       <CustomLink href={`/posts/${slug}`} className="card-body">
-        <h3 className="text-3xl font-extrabold md:line-clamp-2">
+        <h3 className="text-3xl font-bold md:line-clamp-2">
           {title}
           {title.length <= 50 ? <br /> : null}
         </h3>

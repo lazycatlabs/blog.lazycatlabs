@@ -5,7 +5,7 @@ import { getAllFilesFrontMatter } from '@/lib/mdx'
 import { useEffect, useState } from 'react'
 import Search from '@/components/Search'
 import Card from '@/components/Card'
-import DisplayAd from '@/components/DisplayAd'
+// import DisplayAd from '@/components/DisplayAd'
 
 //import NewsletterForm from '@/components/NewsletterForm'
 
@@ -39,7 +39,7 @@ export default function Home({ posts }) {
         <h1 className=" py-4  text-6xl font-black  sm:leading-10">Latest</h1>
         <Search onChange={setSearchValue} />
       </div>
-      <DisplayAd adSlot="8925201504" />
+      {/*<DisplayAd adSlot="8925201504" />*/}
       {!filteredBlogPosts.length ? (
         <div className="content-center py-12 text-center">
           <span className="text-l font-medium text-red">" {searchValue} "</span>
